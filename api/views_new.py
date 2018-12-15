@@ -1,0 +1,57 @@
+from rest_framework import generics
+from django_filters import rest_framework as filters
+
+from app1 import models
+from . import serializers
+import datetime
+
+
+class ListTodoRest(generics.ListCreateAPIView):
+    queryset = models.Restaurant.objects.all()
+    serializer_class = serializers.TodoSerializerRest
+
+
+class DetailTodoRest(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Restaurant.objects.all()
+    serializer_class = serializers.TodoSerializerRest
+
+class ListTodoTour(generics.ListAPIView):
+    queryset = models.Tour.objects.all()
+    serializer_class = serializers.TodoSerializerTour
+    # import pdb;
+    # pdb.set_trace()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('title','tags',)
+
+class ListTodoPictures(generics.ListCreateAPIView):
+    queryset = models.Pictures.objects.all()
+    serializer_class = serializers.TodoSerializerPictures
+
+class DetailTodoRestPictures(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Pictures.objects.all()
+    serializer_class = serializers.TodoSerializerPictures
+
+def getTourPics(request, tour_id):
+   # Delegate to the view جنریک and get an HttpResponse.
+    response = ListTodoPictures.get_object(
+    request,
+    queryset=models.Pictures.objects.filter(id=tour_id),
+    object_id=tour_id,
+    )
+
+        # Record the last accessed date. We do this *after* the call
+        # to object_detail(), not before it, so that this won't be called
+        # unless the Author actually exists. (If the author doesn't exist,
+        # object_detail() will raise Http404, and we won't reach this point.)
+    now = datetime.datetime.now()
+    models.Pictures.objects.filter(id=tour_id).update(last_accessed=now)
+    return response
+
+class ListTodoVilla(generics.ListCreateAPIView):
+    queryset = models.Villa.objects.all()
+    serializer_class = serializers.TodoSerializerVilla
+
+
+class DetailTodoRestVilla(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Villa.objects.all()
+    serializer_class = serializers.TodoSerializerVilla

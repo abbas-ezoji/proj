@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import jdatetime
 #from django_jalali.db import models as jmodels
 
 
@@ -66,24 +67,28 @@ class Villa(models.Model):
     comment = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     galaryPictures = models.ManyToManyField(Pictures)
+    Longitude = models.FloatField(null=True, blank=True)
+    Latitude = models.FloatField(null=True, blank=True)
+    pwrioID = models.CharField(max_length=600,null=True, blank=True)
+    serchArea = models.CharField(max_length=600,null=True, blank=True)
 
     def __str__(self):
         return self.title
 
-STATUS_OF_VILLA = (
-        ('RENTED', 'اجاره داده شده'),
-        ('RESERVED', 'رزرو شده'),
-        ('FREE', 'خالی'),
-        ('MAINTENANCE', 'در دست تعمیر'),
-    )
+STATUS_CHOICES = (
+    (1, ("اجاره شده")),
+    (2, ("رزرو شده")),
+    (3, ("دردست تعمیر")),
+    (4, ("آزاد")),
+    (5, ("اجاره داده نمی شود"))
+)
 class villaStatus(models.Model):
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
     fromDate = models.DateTimeField(null=True, blank=True)
     toDate = models.DateTimeField(null=True, blank=True)
-    STATUS_OF_VILLA = models.CharField(
-        max_length=100,
-        choices=STATUS_OF_VILLA,
-        default='FREE',
-    )
+    STATUS_OF_VILLA = models.IntegerField(default=1,choices= STATUS_CHOICES)
+
+    def __str__(self):
+        return self.villa.title + ' - از: ' + str(jdatetime.date.fromgregorian(date=self.fromDate)) + ' تا: ' + str(jdatetime.date.fromgregorian(date=self.toDate)) +' : '+ str( self.STATUS_OF_VILLA)

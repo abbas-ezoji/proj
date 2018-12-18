@@ -25,24 +25,53 @@ function getVillaUserRegistered(villaID){
                     mapDivID = 'map'.concat(villaID)
                     map = document.createElement('div');
                     map.setAttribute('id',mapDivID)
-                    map.style.height = '300px'
+                    map.setAttribute('class','mapouter')
 
                     container.appendChild(map);
 
-                    var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                         osmAttrib = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                         osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
+                    mapDiv = document.createElement('div');
+                    map.setAttribute('class','mapouter')
+                    map.appendChild(mapDiv)
 
-                    var map = L.map(mapDivID).setView([35.766970,51.394111], 15).addLayer(osm);
-                    console.log(mapDivID)
-                     L.marker([35.766970,51.394111])
-                         .addTo(mapDivID)
-                         .bindPopup('ویلا شماره 1.<br />کلاردشت.')
-                         .openPopup();
+                    mapiFrame = document.createElement('iframe');
+                    mapiFrame.setAttribute('width','300')
+                    mapiFrame.setAttribute('height','300')
+                    mapiFrame.setAttribute('frameborder','0')
+                    mapiFrame.setAttribute('scrolling','no')
+                    mapiFrame.setAttribute('marginheight','0')
+                    mapiFrame.setAttribute('marginwidth','0')
+                    mapiFrame.setAttribute('id','gmap_canvas'.concat(villaID))
+                    mapiFrame.setAttribute('src','https://maps.google.com/maps?q='.concat(data.serchArea).concat('&t=&z=19&ie=UTF8&iwloc=&output=embed'))
+                    mapDiv.appendChild(mapiFrame)
+
+//                    scriptMap = document.createElement('script')
+//                    scriptMap.setAttribute('src',"//www.powr.io/powr.js?external-type=html")
+//                    divMap = document.createElement('div')
+//                    divMap.setAttribute('class','powr-map')
+//                    if (data.pwrioID == null)
+//                        divMap.innerHTML = 'نقشه ای وجود ندارد'
+//                    else
+//                        divMap.setAttribute('id',data.pwrioID)
+//
+//                    map.appendChild(scriptMap)
+//                    map.appendChild(divMap)
+
+
+
+                    // var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    //      osmAttrib = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    //      osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
+                    //
+                    // var map = L.map(mapDivID).setView([35.766970,51.394111], 15).addLayer(osm);
+                    // console.log('Latitude:'+data.Latitude)
+                    //  L.marker([data.Longitude,data.Latitude])
+                    //      .addTo(mapDivID)
+                    //      .bindPopup('ویلا شماره 1.<br />کلاردشت.')
+                    //      .openPopup();
         ///////////////////////////////////////////////////////////////////////////////
                     result = data.registeredUsers;
                     var villaPic = data.photo
-                    bgDiv.setAttribute("style",'background-image: url("viallDivDeatils'.concat(villaPic).concat('");') );
+                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') );
 
                     const p = document.createElement('p');
                     p.textContent =  `${data.comment}...`;

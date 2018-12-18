@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'rest_auth', # new!
     #'model_report',
     #'report_builder',
-    'geoApp',
 ]
 
 MIDDLEWARE = [

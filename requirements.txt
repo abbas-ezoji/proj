@@ -1,12 +1,9 @@
-beautifulsoup4==4.6.3
 bs4==0.0.1
 certifi==2018.8.24
 chardet==3.0.4
 Django==2.1.1
 django-filter==2.0.0
 django-jalali-date==0.2.9
-django-model-report==0.2.1
-django-report-builder==6.2.2
 django-rest-auth==0.9.3
 djangorestframework==3.8.2
 et-xmlfile==1.0.1

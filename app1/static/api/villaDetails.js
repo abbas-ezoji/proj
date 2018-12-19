@@ -21,18 +21,15 @@ function getVillaUserRegistered(villaID){
                     container.setAttribute('class', 'container');
                     container.setAttribute("id", "divDetails".concat(villaID));
                     villaCard.appendChild(container);
-        ///////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////start of map//////////////////////////////////////////
                     mapDivID = 'map'.concat(villaID)
                     map = document.createElement('div');
                     map.setAttribute('id',mapDivID)
                     map.setAttribute('class','mapouter')
-
                     container.appendChild(map);
-
                     mapDiv = document.createElement('div');
                     map.setAttribute('class','mapouter')
                     map.appendChild(mapDiv)
-
                     mapiFrame = document.createElement('iframe');
                     mapiFrame.setAttribute('width','300')
                     mapiFrame.setAttribute('height','300')
@@ -43,32 +40,7 @@ function getVillaUserRegistered(villaID){
                     mapiFrame.setAttribute('id','gmap_canvas'.concat(villaID))
                     mapiFrame.setAttribute('src','https://maps.google.com/maps?q='.concat(data.serchArea).concat('&t=&z=19&ie=UTF8&iwloc=&output=embed'))
                     mapDiv.appendChild(mapiFrame)
-
-//                    scriptMap = document.createElement('script')
-//                    scriptMap.setAttribute('src',"//www.powr.io/powr.js?external-type=html")
-//                    divMap = document.createElement('div')
-//                    divMap.setAttribute('class','powr-map')
-//                    if (data.pwrioID == null)
-//                        divMap.innerHTML = 'نقشه ای وجود ندارد'
-//                    else
-//                        divMap.setAttribute('id',data.pwrioID)
-//
-//                    map.appendChild(scriptMap)
-//                    map.appendChild(divMap)
-
-
-
-                    // var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    //      osmAttrib = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    //      osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
-                    //
-                    // var map = L.map(mapDivID).setView([35.766970,51.394111], 15).addLayer(osm);
-                    // console.log('Latitude:'+data.Latitude)
-                    //  L.marker([data.Longitude,data.Latitude])
-                    //      .addTo(mapDivID)
-                    //      .bindPopup('ویلا شماره 1.<br />کلاردشت.')
-                    //      .openPopup();
-        ///////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////end of map//////////////////////////////////////////
                     result = data.registeredUsers;
                     var villaPic = data.photo
                     bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') );
@@ -102,8 +74,7 @@ function getVillaUserRegistered(villaID){
                     ckBoxTR1 = document.createElement('input')
                     ckBoxTR1.setAttribute('type','button')
                     ckBoxTR1.setAttribute('name','ckBoxTR1')
-                    ckBoxTR1.setAttribute('class','checkBoxButton')
-                    ckBoxTR1.setAttribute('style','background-color:red;')
+                    ckBoxTR1.setAttribute('class','buttonCheckRed')
                     th1 = document.createElement('td')
                     th2 = document.createElement('td')
                     th3 = document.createElement('td')
@@ -122,7 +93,7 @@ function getVillaUserRegistered(villaID){
                     ckBoxTR1 = document.createElement('input')
                     ckBoxTR1.setAttribute('type','button')
                     ckBoxTR1.setAttribute('name','ckBoxTR2')
-                    ckBoxTR1.setAttribute('class','checkBoxButton')
+                    ckBoxTR1.setAttribute('class','buttonCheckGreen')
                     th1 = document.createElement('td')
                     th2 = document.createElement('td')
                     th3 = document.createElement('td')
@@ -249,5 +220,9 @@ async function getPicByID(picID)
          let picData = await response.json()
          return picData;
         }
-getVilla();
+function undoFilter(){
+    location.reload();
+}
+
+        getVilla();
 

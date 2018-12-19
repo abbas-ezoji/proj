@@ -79,6 +79,48 @@ function getVillaUserRegistered(villaID){
 
                     container.appendChild(p);
 
+                    table = document.createElement('table')
+                    container.appendChild(table)
+
+                    trHeader = document.createElement('tr')
+                    table.appendChild(trHeader)
+                    th1 = document.createElement('th')
+                    th2 = document.createElement('th')
+                    th3 = document.createElement('th')
+                    th1.textContent = 'روزهای هفته'
+                    th2.textContent = 'قیمت'
+                    th3.textContent = 'توضیحات'
+                    trHeader.appendChild(th1)
+                    trHeader.appendChild(th2)
+                    trHeader.appendChild(th3)
+
+                    tr = document.createElement('tr')
+                    //tr.setAttribute('onclick',alert())
+                    table.appendChild(tr)
+                    th1 = document.createElement('th')
+                    th2 = document.createElement('th')
+                    th3 = document.createElement('th')
+                    th1.textContent = 'شنبه'
+                    th2.textContent = '120000'
+                    th3.textContent = 'ندارد'
+                    tr.appendChild(th1)
+                    tr.appendChild(th2)
+                    tr.appendChild(th3)
+
+                    tr = document.createElement('tr')
+                    //tr.setAttribute('onclick',alert())
+                    table.appendChild(tr)
+                    th1 = document.createElement('th')
+                    th2 = document.createElement('th')
+                    th3 = document.createElement('th')
+                    th1.textContent = 'یکشنبه'
+                    th2.textContent = '120000'
+                    th3.textContent = 'ندارد'
+                    tr.appendChild(th1)
+                    tr.appendChild(th2)
+                    tr.appendChild(th3)
+
+
                     data.galaryPictures.forEach(PicID =>{
                          getPicByID(PicID)
                          .then(picData => {
@@ -95,46 +137,6 @@ function getVillaUserRegistered(villaID){
                             p1.textContent =  picData.address;
                             p1.setAttribute('class','coments')
 
-                            table = document.createElement('table')
-                            picContainer.appendChild(table)
-
-                            trHeader = document.createElement('tr')
-                            table.appendChild(trHeader)
-                            th1 = document.createElement('th')
-                            th2 = document.createElement('th')
-                            th3 = document.createElement('th')
-                            th1.textContent = 'روزهای هفته'
-                            th2.textContent = 'قیمت'
-                            th3.textContent = 'توضیحات'
-                            trHeader.appendChild(th1)
-                            trHeader.appendChild(th2)
-                            trHeader.appendChild(th3)
-
-                            tr = document.createElement('tr')
-                            //tr.setAttribute('onclick',alert())
-                            table.appendChild(tr)
-                            th1 = document.createElement('th')
-                            th2 = document.createElement('th')
-                            th3 = document.createElement('th')
-                            th1.textContent = 'شنبه'
-                            th2.textContent = '120000'
-                            th3.textContent = 'ندارد'
-                            tr.appendChild(th1)
-                            tr.appendChild(th2)
-                            tr.appendChild(th3)
-
-                            tr = document.createElement('tr')
-                            //tr.setAttribute('onclick',alert())
-                            table.appendChild(tr)
-                            th1 = document.createElement('th')
-                            th2 = document.createElement('th')
-                            th3 = document.createElement('th')
-                            th1.textContent = 'یکشنبه'
-                            th2.textContent = '120000'
-                            th3.textContent = 'ندارد'
-                            tr.appendChild(th1)
-                            tr.appendChild(th2)
-                            tr.appendChild(th3)
 
                             container.appendChild(picContainer);
                             picContainer.appendChild(img);

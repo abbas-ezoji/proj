@@ -87,38 +87,54 @@ function getVillaUserRegistered(villaID){
                     th1 = document.createElement('th')
                     th2 = document.createElement('th')
                     th3 = document.createElement('th')
+                    th4 = document.createElement('th')
                     th1.textContent = 'روزهای هفته'
                     th2.textContent = 'قیمت'
                     th3.textContent = 'توضیحات'
+                    th4.textContent = 'رزرو'
                     trHeader.appendChild(th1)
                     trHeader.appendChild(th2)
                     trHeader.appendChild(th3)
+                    trHeader.appendChild(th4)
 
                     tr = document.createElement('tr')
-                    //tr.setAttribute('onclick',alert())
                     table.appendChild(tr)
-                    th1 = document.createElement('th')
-                    th2 = document.createElement('th')
-                    th3 = document.createElement('th')
+                    ckBoxTR1 = document.createElement('input')
+                    ckBoxTR1.setAttribute('type','button')
+                    ckBoxTR1.setAttribute('name','ckBoxTR1')
+                    ckBoxTR1.setAttribute('class','checkBoxButton')
+                    ckBoxTR1.setAttribute('style','background-color:red;')
+                    th1 = document.createElement('td')
+                    th2 = document.createElement('td')
+                    th3 = document.createElement('td')
+                    th4 = document.createElement('td')
                     th1.textContent = 'شنبه'
                     th2.textContent = '120000'
                     th3.textContent = 'ندارد'
+                    th4.appendChild(ckBoxTR1)
                     tr.appendChild(th1)
                     tr.appendChild(th2)
                     tr.appendChild(th3)
+                    tr.appendChild(th4)
 
                     tr = document.createElement('tr')
-                    //tr.setAttribute('onclick',alert())
                     table.appendChild(tr)
-                    th1 = document.createElement('th')
-                    th2 = document.createElement('th')
-                    th3 = document.createElement('th')
+                    ckBoxTR1 = document.createElement('input')
+                    ckBoxTR1.setAttribute('type','button')
+                    ckBoxTR1.setAttribute('name','ckBoxTR2')
+                    ckBoxTR1.setAttribute('class','checkBoxButton')
+                    th1 = document.createElement('td')
+                    th2 = document.createElement('td')
+                    th3 = document.createElement('td')
+                    th4 = document.createElement('td')
                     th1.textContent = 'یکشنبه'
                     th2.textContent = '120000'
                     th3.textContent = 'ندارد'
+                    th4.appendChild(ckBoxTR1)
                     tr.appendChild(th1)
                     tr.appendChild(th2)
                     tr.appendChild(th3)
+                    tr.appendChild(th4)
 
 
                     data.galaryPictures.forEach(PicID =>{

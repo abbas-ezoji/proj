@@ -69,7 +69,6 @@ class Villa(models.Model):
     galaryPictures = models.ManyToManyField(Pictures,null=True, blank=True)
     Longitude = models.FloatField(null=True, blank=True)
     Latitude = models.FloatField(null=True, blank=True)
-    #pwrioID = models.CharField(max_length=600,null=True, blank=True)
     serchArea = models.CharField(max_length=600,null=True, blank=True)
 
     def __str__(self):

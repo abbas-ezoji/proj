@@ -75,37 +75,37 @@ function getVillaUserRegistered(villaID){
                     ckBoxTR1.setAttribute('type','button')
                     ckBoxTR1.setAttribute('name','ckBoxTR1')
                     ckBoxTR1.setAttribute('class','buttonCheckRed')
-                    th1 = document.createElement('td')
-                    th2 = document.createElement('td')
-                    th3 = document.createElement('td')
-                    th4 = document.createElement('td')
-                    th1.textContent = 'شنبه'
-                    th2.textContent = '120000'
-                    th3.textContent = 'ندارد'
-                    th4.appendChild(ckBoxTR1)
-                    tr.appendChild(th1)
-                    tr.appendChild(th2)
-                    tr.appendChild(th3)
-                    tr.appendChild(th4)
+                    td1 = document.createElement('td')
+                    td2 = document.createElement('td')
+                    td3 = document.createElement('td')
+                    td4 = document.createElement('td')
+                    td1.textContent = 'شنبه'
+                    td2.textContent = '120000'
+                    td3.textContent = 'ندارد'
+                    td4.appendChild(ckBoxTR1)
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tr.appendChild(td4)
 
                     tr = document.createElement('tr')
                     table.appendChild(tr)
                     ckBoxTR1 = document.createElement('input')
                     ckBoxTR1.setAttribute('type','button')
-                    ckBoxTR1.setAttribute('name','ckBoxTR2')
-                    ckBoxTR1.setAttribute('class','buttonCheckGreen')
-                    th1 = document.createElement('td')
-                    th2 = document.createElement('td')
-                    th3 = document.createElement('td')
-                    th4 = document.createElement('td')
-                    th1.textContent = 'یکشنبه'
-                    th2.textContent = '120000'
-                    th3.textContent = 'ندارد'
-                    th4.appendChild(ckBoxTR1)
-                    tr.appendChild(th1)
-                    tr.appendChild(th2)
-                    tr.appendChild(th3)
-                    tr.appendChild(th4)
+                    ckBoxTR1.setAttribute('name','ckBoxTR1')
+                    ckBoxTR1.setAttribute('class','buttonCheckRed')
+                    td1 = document.createElement('td')
+                    td2 = document.createElement('td')
+                    td3 = document.createElement('td')
+                    td4 = document.createElement('td')
+                    td1.textContent = 'یکشنبه'
+                    td2.textContent = '120000'
+                    td3.textContent = 'ندارد'
+                    td4.appendChild(ckBoxTR1)
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tr.appendChild(td4)
 
 
                     data.galaryPictures.forEach(PicID =>{
@@ -164,36 +164,40 @@ function getVilla(){
     container.setAttribute('class', 'container-card');
     getVillaData(0)
     .then(data => data.forEach(villa => {
-                 const card = document.createElement('div');
-                 card.setAttribute('class', 'card');
-                 card.setAttribute('id', villa.id);
+                const card = document.createElement('div');
+                card.setAttribute('class', 'card');
+                card.setAttribute('id', villa.id);
 
-                 btn = document.createElement("input");
-                 btn.setAttribute("type", "button");
-                 btn.setAttribute("id", "showBtn".concat(villa.id));
-                 btn.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
-                 btn.setAttribute("value", "نمایش جزئیات تور");
-                 btn.setAttribute('class','buttonGreen')
+                btn = document.createElement("input");
+                btn.setAttribute("type", "button");
+                btn.setAttribute("id", "showBtn".concat(villa.id));
+                btn.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
+                btn.setAttribute("value", "نمایش جزئیات تور");
+                btn.setAttribute('class','buttonGreen')
 
-                 const h1 = document.createElement('h1');
-                 h1.textContent = villa.title;
-                 h1.setAttribute('class','tourTitle')
-                 h1.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
+                const h1 = document.createElement('h1');
+                h1.textContent = villa.title;
+                h1.setAttribute('class','tourTitle')
+                h1.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
 
-                 img = document.createElement('IMG');
-                 img.setAttribute("src", villa.photo);
-                 img.setAttribute('class','pic-s col-xs-12 col-sm-4 col-lg-4')
-                 img.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
+                img = document.createElement('IMG');
+                img.setAttribute("src", villa.photo);
+                img.setAttribute('class','pic-s col-xs-12 col-sm-4 col-lg-4')
+                img.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
 
-                 const p = document.createElement('p');
-                 p.textContent =  villa.comment;
-                 p.setAttribute('class','coments')
+                ul = document.createElement('ul')
+                ul.setAttribute('class','jbFeatureList')
 
-                 container.appendChild(card);
-                 card.appendChild(btn);
-                 card.appendChild(h1);
-                 card.appendChild(img);
-                 card.appendChild(p);
+                const p = document.createElement('p');
+                p.textContent =  villa.comment;
+                p.setAttribute('class','coments')
+
+                container.appendChild(card);
+                card.appendChild(btn);
+                card.appendChild(h1);
+                card.appendChild(img);
+                card.appendChild(ul)
+                card.appendChild(p);
 
         }));
     return

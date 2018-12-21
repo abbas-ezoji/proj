@@ -178,7 +178,6 @@ function getVilla(){
                 const h1 = document.createElement('h1');
                 h1.textContent = villa.title;
                 h1.setAttribute('class','tourTitle')
-                h1.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
 
                 img = document.createElement('IMG');
                 img.setAttribute("src", villa.photo);
@@ -193,7 +192,7 @@ function getVilla(){
                 p.setAttribute('class','coments')
 
                 container.appendChild(card);
-                card.appendChild(btn);
+                h1.appendChild(btn);
                 card.appendChild(h1);
                 card.appendChild(img);
                 card.appendChild(ul)

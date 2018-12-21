@@ -66,7 +66,7 @@ class Villa(models.Model):
     photo = models.ImageField(upload_to="app1/photos/", null=True, blank=True)
     comment = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    galaryPictures = models.ManyToManyField(Pictures)
+    galaryPictures = models.ManyToManyField(Pictures,null=True, blank=True)
     Longitude = models.FloatField(null=True, blank=True)
     Latitude = models.FloatField(null=True, blank=True)
     #pwrioID = models.CharField(max_length=600,null=True, blank=True)

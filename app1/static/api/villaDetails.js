@@ -119,7 +119,6 @@ function getVillaUserRegistered(villaID){
                             img.setAttribute("width", "350");
                             img.setAttribute("height", "350");
 
-
                             p1 = document.createElement('p');
                             p1.textContent =  picData.address;
                             p1.setAttribute('class','coments')
@@ -153,7 +152,7 @@ function getVillaUserRegistered(villaID){
         } else {
             x.style.display = "none";
             showBtn.setAttribute("value", "نمایش جزئیات تور");
-            bgDiv.setAttribute("style","background-image: url('http://127.0.0.1:8000/media/app1/photos/Mazichal1.jpeg')");
+            bgDiv.setAttribute("style","background-image: ");
         }
     }
 
@@ -174,9 +173,7 @@ function getVilla(){
                  btn.setAttribute("id", "showBtn".concat(villa.id));
                  btn.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
                  btn.setAttribute("value", "نمایش جزئیات تور");
-                 btn.setAttribute('class','loginHeader')
-
-
+                 btn.setAttribute('class','buttonGreen')
 
                  const h1 = document.createElement('h1');
                  h1.textContent = villa.title;
@@ -184,8 +181,8 @@ function getVilla(){
 
                  img = document.createElement('IMG');
                  img.setAttribute("src", villa.photo);
-                 img.setAttribute("width", "350");
-                 img.setAttribute("height", "350");
+                 img.setAttribute('class','pic-s col-xs-12 col-sm-4 col-lg-4')
+                 img.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
 
                  const p = document.createElement('p');
                  p.textContent =  villa.comment;

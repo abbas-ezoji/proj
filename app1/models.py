@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import jdatetime
+from django.core.validators import MaxValueValidator, MinValueValidator
 #from django_jalali.db import models as jmodels
 
 
@@ -79,13 +80,34 @@ STATUS_CHOICES = (
     (4, ("آزاد")),
     (5, ("اجاره داده نمی شود"))
 )
+
 class villaStatus(models.Model):
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
+    j_fromDateYear = models.IntegerField('از سال: ',default=1397,validators=[MaxValueValidator(1400), MinValueValidator(1397)])
+    j_fromDateMonth = models.IntegerField('از ماه: ',default=1,validators=[MaxValueValidator(12), MinValueValidator(1)])
+    j_fromDateDay = models.IntegerField('از روز: ',default=1,validators=[MaxValueValidator(31), MinValueValidator(1)])
+    j_toDateYear = models.IntegerField('تا سال: ',default=1397,validators=[MaxValueValidator(1400), MinValueValidator(1397)])
+    j_toDateMonth = models.IntegerField('تا ماه: ',default=10,validators=[MaxValueValidator(12), MinValueValidator(1)])
+    j_toDateDay = models.IntegerField('تا روز: ',default=1,validators=[MaxValueValidator(31), MinValueValidator(1)])
+    STATUS_OF_VILLA = models.IntegerField(default=1,choices= STATUS_CHOICES)
     fromDate = models.DateTimeField(null=True, blank=True)
     toDate = models.DateTimeField(null=True, blank=True)
-    STATUS_OF_VILLA = models.IntegerField(default=1,choices= STATUS_CHOICES)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            super().save(*args, **kwargs)
+        self.fromDate = jdatetime.date(self.j_fromDateYear,self.j_fromDateMonth, self.j_fromDateDay).togregorian()
+        self.toDate = jdatetime.date(self.j_toDateYear,self.j_toDateMonth, self.j_toDateDay).togregorian()
+        super(villaStatus, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.villa.title + ' - از: ' + str(jdatetime.date.fromgregorian(date=self.fromDate)) + ' تا: ' + str(jdatetime.date.fromgregorian(date=self.toDate)) +' : '+ str( self.STATUS_OF_VILLA)
+
+# @receiver(signals.post_save, sender=villaStatus)
+# def on_create_or_updated_obj(sender, instance, **kwargs):
+#     if kwargs['created']:
+#         sender.toDate = jdatetime.date(1396,2,30).togregorian()
+#     else:
+#         sender.toDate = jdatetime.date(1396, 2, 30).togregorian()

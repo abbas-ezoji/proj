@@ -1,36 +1,36 @@
 function getVillaUserRegistered(villaID){
-    allContainersDiv = document.getElementsByClassName('container');
+    allContainersDiv = document.getElementsByClassName('container')
     if (divDetails != null)
-        allContainersDiv.parentNode.removeChild(allContainersDiv);
+        allContainersDiv.parentNode.removeChild(allContainersDiv)
 
-    const bgDiv = document.getElementById("bgDiv");
-    var divDetails = document.getElementById("divDetails".concat(villaID));
+    const bgDiv = document.getElementById("bgDiv")
+    var divDetails = document.getElementById("divDetails".concat(villaID))
 
         // while (divDetails.firstChild) {
         //     divDetails.removeChild(divDetails.firstChild);
         // }
 
     if (divDetails == null){
-        const showBtn = document.getElementById("showBtn".concat(villaID));
-        const villaCard = document.getElementById(villaID);
+        const showBtn = document.getElementById("showBtn".concat(villaID))
+        const villaCard = document.getElementById(villaID)
 
         var result
         getVillaData(villaID)
         .then(data =>
-                 {  const container = document.createElement('div');
-                    container.setAttribute('class', 'container');
-                    container.setAttribute("id", "divDetails".concat(villaID));
-                    villaCard.appendChild(container);
+                 {  const container = document.createElement('div')
+                    container.setAttribute('class', 'container')
+                    container.setAttribute("id", "divDetails".concat(villaID))
+                    villaCard.appendChild(container)
         /////////////////////////////////////start of map//////////////////////////////////////////
                     mapDivID = 'map'.concat(villaID)
-                    map = document.createElement('div');
+                    map = document.createElement('div')
                     map.setAttribute('id',mapDivID)
                     map.setAttribute('class','mapouter')
-                    container.appendChild(map);
-                    mapDiv = document.createElement('div');
+                    container.appendChild(map)
+                    mapDiv = document.createElement('div')
                     map.setAttribute('class','mapouter')
                     map.appendChild(mapDiv)
-                    mapiFrame = document.createElement('iframe');
+                    mapiFrame = document.createElement('iframe')
                     mapiFrame.setAttribute('width','300')
                     mapiFrame.setAttribute('height','300')
                     mapiFrame.setAttribute('frameborder','0')
@@ -41,15 +41,15 @@ function getVillaUserRegistered(villaID){
                     mapiFrame.setAttribute('src','https://maps.google.com/maps?q='.concat(data.serchArea).concat('&t=&z=19&ie=UTF8&iwloc=&output=embed'))
                     mapDiv.appendChild(mapiFrame)
         /////////////////////////////////////end of map//////////////////////////////////////////
-                    result = data.registeredUsers;
+                    result = data.registeredUsers
                     var villaPic = data.photo
-                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') );
+                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') )
 
-                    const p = document.createElement('p');
-                    p.textContent =  `${data.comment}...`;
-                    p.setAttribute('class','coments');
+                    const p = document.createElement('p')
+                    p.textContent =  `${data.comment}...`
+                    p.setAttribute('class','coments')
 
-                    container.appendChild(p);
+                    container.appendChild(p)
 
                     table = document.createElement('table')
                     container.appendChild(table)
@@ -111,22 +111,22 @@ function getVillaUserRegistered(villaID){
                     data.galaryPictures.forEach(PicID =>{
                          getPicByID(PicID)
                          .then(picData => {
-                            picContainer = document.createElement('div');
-                            picContainer.setAttribute('class', 'container-card');
-                            //picContainer.setAttribute("id", "divDetails".concat(tourID));
-                            img = document.createElement('IMG');
-                            img.setAttribute("src", picData.photo);
-                            img.setAttribute("width", "350");
-                            img.setAttribute("height", "350");
+                            picContainer = document.createElement('div')
+                            picContainer.setAttribute('class', 'container-card')
+                            //picContainer.setAttribute("id", "divDetails".concat(tourID))
+                            img = document.createElement('IMG')
+                            img.setAttribute("src", picData.photo)
+                            img.setAttribute("width", "350")
+                            img.setAttribute("height", "350")
 
-                            p1 = document.createElement('p');
-                            p1.textContent =  picData.address;
+                            p1 = document.createElement('p')
+                            p1.textContent =  picData.address
                             p1.setAttribute('class','coments')
 
 
-                            container.appendChild(picContainer);
-                            picContainer.appendChild(img);
-                            picContainer.appendChild(p1);
+                            container.appendChild(picContainer)
+                            picContainer.appendChild(img)
+                            picContainer.appendChild(p1)
 
 
                            }
@@ -135,24 +135,24 @@ function getVillaUserRegistered(villaID){
                     );
                  }
               );
-        showBtn.setAttribute("value", "عدم نمایش جزئیات تور");
+        showBtn.setAttribute("value", "عدم نمایش جزئیات تور")
     }
     else {
-        const showBtn = document.getElementById("showBtn".concat(villaID));
-        const x = document.getElementById("divDetails".concat(villaID));
+        const showBtn = document.getElementById("showBtn".concat(villaID))
+        const x = document.getElementById("divDetails".concat(villaID))
         if (x.style.display === "none") {
-            x.style.display = "block";
-            showBtn.setAttribute("value", "عدم نمایش جزئیات تور");
+            x.style.display = "block"
+            showBtn.setAttribute("value", "عدم نمایش جزئیات تور")
              getVillaData(villaID)
              .then(data =>{
                     villaPic = data.photo
-                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') );
+                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') )
 
-                    });
+                    })
         } else {
-            x.style.display = "none";
-            showBtn.setAttribute("value", "نمایش جزئیات تور");
-            bgDiv.setAttribute("style","background-image: ");
+            x.style.display = "none"
+            showBtn.setAttribute("value", "نمایش جزئیات تور")
+            bgDiv.setAttribute("style","background-image: ")
         }
     }
 
@@ -160,45 +160,45 @@ function getVillaUserRegistered(villaID){
 }
 
 function getVilla(){
-    const container = document.getElementById('root');
-    container.setAttribute('class', 'container-card');
+    const container = document.getElementById('root')
+    container.setAttribute('class', 'container-card')
     getVillaData(0)
     .then(data => data.forEach(villa => {
-                const card = document.createElement('div');
-                card.setAttribute('class', 'card');
-                card.setAttribute('id', villa.id);
+                const card = document.createElement('div')
+                card.setAttribute('class', 'card')
+                card.setAttribute('id', villa.id)
 
-                btn = document.createElement("input");
-                btn.setAttribute("type", "button");
-                btn.setAttribute("id", "showBtn".concat(villa.id));
-                btn.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
-                btn.setAttribute("value", "نمایش جزئیات تور");
+                btn = document.createElement("input")
+                btn.setAttribute("type", "button")
+                btn.setAttribute("id", "showBtn".concat(villa.id))
+                btn.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"))
+                btn.setAttribute("value", "نمایش جزئیات تور")
                 btn.setAttribute('class','buttonGreen')
 
-                const h1 = document.createElement('h1');
-                h1.textContent = villa.title;
+                const h1 = document.createElement('h1')
+                h1.textContent = villa.title
                 h1.setAttribute('class','tourTitle')
 
-                img = document.createElement('IMG');
-                img.setAttribute("src", villa.photo);
+                img = document.createElement('IMG')
+                img.setAttribute("src", villa.photo)
                 img.setAttribute('class','pic-s col-xs-12 col-sm-4 col-lg-4')
-                img.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"));
+                img.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"))
 
                 ul = document.createElement('ul')
                 ul.setAttribute('class','jbFeatureList')
 
-                const p = document.createElement('p');
-                p.textContent =  villa.comment;
+                const p = document.createElement('p')
+                p.textContent =  villa.comment
                 p.setAttribute('class','coments')
 
-                container.appendChild(card);
-                h1.appendChild(btn);
-                card.appendChild(h1);
-                card.appendChild(img);
+                container.appendChild(card)
+                h1.appendChild(btn)
+                card.appendChild(h1)
+                card.appendChild(img)
                 card.appendChild(ul)
-                card.appendChild(p);
+                card.appendChild(p)
 
-        }));
+        }))
     return
   }
 
@@ -210,19 +210,19 @@ async function getVillaData(villaID)
           else{
             url = "http://127.0.0.1:8000/api/villa/".concat(villaID).concat("/?format=json")
           }
-          let response = await fetch(url);
+          let response = await fetch(url)
           let data = await response.json()
-        return data;
+        return data
         }
 async function getPicByID(picID)
         {
          url = "http://127.0.0.1:8000/api/pictures/".concat(picID).concat("/?format=json")
-         let response = await fetch(url);
+         let response = await fetch(url)
          let picData = await response.json()
-         return picData;
+         return picData
         }
 function undoFilter(){
-    location.reload();
+    location.reload()
 }
 
         getVilla();

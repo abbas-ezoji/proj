@@ -6,10 +6,6 @@ function getVillaUserRegistered(villaID){
     const bgDiv = document.getElementById("bgDiv")
     var divDetails = document.getElementById("divDetails".concat(villaID))
 
-        // while (divDetails.firstChild) {
-        //     divDetails.removeChild(divDetails.firstChild);
-        // }
-
     if (divDetails == null){
         const showBtn = document.getElementById("showBtn".concat(villaID))
         const villaCard = document.getElementById(villaID)
@@ -130,11 +126,11 @@ function getVillaUserRegistered(villaID){
 
 
                            }
-                          );
-                       }
-                    );
+                          )
+                    }
+                    )
                  }
-              );
+              )
         showBtn.setAttribute("value", "عدم نمایش جزئیات تور")
     }
     else {

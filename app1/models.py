@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 import jdatetime
+from datetime import timedelta
 from django.core.validators import MaxValueValidator, MinValueValidator
+
 #from django_jalali.db import models as jmodels
 
 
@@ -81,6 +83,12 @@ STATUS_CHOICES = (
     (5, ("اجاره داده نمی شود"))
 )
 
+class villaDateStatus(models.Model):
+    villaId = models.IntegerField(null=True, blank=True)
+    statusId = models.IntegerField(null=True, blank=True)
+    date = models.DateTimeField()
+    # jdate = models.CharField(max_length=20)
+
 class villaStatus(models.Model):
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
@@ -100,14 +108,15 @@ class villaStatus(models.Model):
             super().save(*args, **kwargs)
         self.fromDate = jdatetime.date(self.j_fromDateYear,self.j_fromDateMonth, self.j_fromDateDay).togregorian()
         self.toDate = jdatetime.date(self.j_toDateYear,self.j_toDateMonth, self.j_toDateDay).togregorian()
+
+        single_date = self.fromDate
+        for n in range(int((self.toDate - self.fromDate).days)):
+            single_date = single_date + timedelta(n)
+            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create(villaId = self.villa.id,date = single_date,statusId = self.id)
+            # pass
+
         super(villaStatus, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.villa.title + ' - از: ' + str(jdatetime.date.fromgregorian(date=self.fromDate)) + ' تا: ' + str(jdatetime.date.fromgregorian(date=self.toDate)) +' : '+ str( self.STATUS_OF_VILLA)
 
-# @receiver(signals.post_save, sender=villaStatus)
-# def on_create_or_updated_obj(sender, instance, **kwargs):
-#     if kwargs['created']:
-#         sender.toDate = jdatetime.date(1396,2,30).togregorian()
-#     else:
-#         sender.toDate = jdatetime.date(1396, 2, 30).togregorian()

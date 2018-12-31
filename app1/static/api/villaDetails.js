@@ -119,7 +119,6 @@ function getVillaUserRegistered(villaID){
                             p1.textContent =  picData.address
                             p1.setAttribute('class','coments')
 
-
                             container.appendChild(picContainer)
                             picContainer.appendChild(img)
                             picContainer.appendChild(p1)

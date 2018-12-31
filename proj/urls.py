@@ -26,7 +26,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^',include('app1.urls')),
     url(r'^api/', include('api.urls')),
-    url(r'^geo/',include('geoApp.urls')),
     ]
 
 urlpatterns += staticfiles_urlpatterns()

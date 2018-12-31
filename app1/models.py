@@ -49,7 +49,7 @@ class Tour(models.Model):
     ReturnDate = models.DateTimeField()
     pub_date = models.DateTimeField(auto_now_add=True)
     registeredUsers = models.ManyToManyField(User)
-    galaryPictures = models.ManyToManyField(Pictures)
+    galaryPictures = models.ManyToManyField(Pictures,null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -84,10 +84,12 @@ STATUS_CHOICES = (
 )
 
 class villaDateStatus(models.Model):
-    villaId = models.IntegerField(null=True, blank=True)
-    statusId = models.IntegerField(null=True, blank=True)
+    villaId = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
+    statusId = models.IntegerField(default=1,choices= STATUS_CHOICES)
     date = models.DateTimeField()
-    # jdate = models.CharField(max_length=20)
+    jdateYear = models.IntegerField(null=True, blank=True)
+    jdateMonth = models.IntegerField(null=True, blank=True)
+    jdateDay = models.IntegerField(null=True, blank=True)
 
 class villaStatus(models.Model):
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
@@ -112,7 +114,7 @@ class villaStatus(models.Model):
         single_date = self.fromDate
         for n in range(int((self.toDate - self.fromDate).days)):
             single_date = single_date + timedelta(n)
-            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create(villaId = self.villa.id,date = single_date,statusId = self.id)
+            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create(villaId = self.villa.id,date = single_date,statusId = self.STATUS_OF_VILLA)
             # pass
 
         super(villaStatus, self).save(*args, **kwargs)

@@ -86,7 +86,7 @@ STATUS_CHOICES = (
 class villaDateStatus(models.Model):
     villaId = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
     statusId = models.IntegerField(default=1,choices= STATUS_CHOICES)
-    date = models.DateTimeField()
+    date = models.DateField()
     jdateYear = models.IntegerField(null=True, blank=True)
     jdateMonth = models.IntegerField(null=True, blank=True)
     jdateDay = models.IntegerField(null=True, blank=True)
@@ -120,7 +120,7 @@ class villaStatus(models.Model):
             jdate_month = jdate.month
             jdate_day = jdate.day
             jdate_weekday = jdate.weekday()
-            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create( villaId = self.villa.id
+            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create( villaId = self.villa
                                                                                 ,date = single_date
                                                                                 ,statusId = self.STATUS_OF_VILLA
                                                                                 ,jdateYear = jdate_year

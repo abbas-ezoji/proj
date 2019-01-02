@@ -60,7 +60,14 @@ class ListTodoVillaCat(generics.ListCreateAPIView):
     queryset = models.villaCategory.objects.all()
     serializer_class = serializers.TodoSerializerVillaCategories
 
-
 class DetailTodoRestVillaCat(generics.RetrieveAPIView):
     queryset = models.villaCategory.objects.all()
     serializer_class = serializers.TodoSerializerVillaCategories
+
+class ListTodoVillaDateStatus(generics.ListCreateAPIView):
+    queryset = models.villaDateStatus.objects.all()
+    serializer_class = serializers.TodoSerializerVillaDateStatus
+
+class DetailTodoRestVillaDateStatus(generics.RetrieveAPIView):
+    queryset = models.villaDateStatus.objects.all()
+    serializer_class = serializers.TodoSerializerVillaDateStatus

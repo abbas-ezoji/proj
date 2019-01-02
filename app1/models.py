@@ -90,6 +90,7 @@ class villaDateStatus(models.Model):
     jdateYear = models.IntegerField(null=True, blank=True)
     jdateMonth = models.IntegerField(null=True, blank=True)
     jdateDay = models.IntegerField(null=True, blank=True)
+    jdateWeekDay = models.IntegerField(null=True, blank=True)
 
 class villaStatus(models.Model):
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
@@ -114,7 +115,18 @@ class villaStatus(models.Model):
         single_date = self.fromDate
         for n in range(int((self.toDate - self.fromDate).days)):
             single_date = single_date + timedelta(n)
-            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create(villaId = self.villa.id,date = single_date,statusId = self.STATUS_OF_VILLA)
+            jdate = jdatetime.date.fromgregorian(date=single_date)
+            jdate_year = jdate.year
+            jdate_month = jdate.month
+            jdate_day = jdate.day
+            jdate_weekday = jdate.weekday()
+            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create( villaId = self.villa.id
+                                                                                ,date = single_date
+                                                                                ,statusId = self.STATUS_OF_VILLA
+                                                                                ,jdateYear = jdate_year
+                                                                                ,jdateMonth = jdate_month
+                                                                                ,jdateDay = jdate_day
+                                                                                ,jdateWeekDay = jdate_weekday, )
             # pass
 
         super(villaStatus, self).save(*args, **kwargs)

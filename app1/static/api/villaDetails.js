@@ -179,6 +179,16 @@ function getVilla(){
                 img.setAttribute('class','pic-s col-xs-12 col-sm-4 col-lg-4')
                 img.setAttribute("onclick", "getVillaUserRegistered(".concat(villa.id).concat(");"))
 
+                price = document.createElement('p')
+                price.setAttribute('class','price')
+                spanPrice = document.createElement('span')
+                spanPrice.textContent = '120'
+                smallPrice = document.createElement('small')
+                smallPrice.textContent = '/شبی'
+                price.appendChild(spanPrice)
+                price.appendChild(smallPrice)
+
+
                 ul = document.createElement('ul')
                 ul.setAttribute('class','jbFeatureList')
 
@@ -188,10 +198,12 @@ function getVilla(){
 
                 container.appendChild(card)
                 h1.appendChild(btn)
+                card.appendChild(price)
                 card.appendChild(h1)
                 card.appendChild(img)
                 card.appendChild(ul)
                 card.appendChild(p)
+
 
         }))
     return

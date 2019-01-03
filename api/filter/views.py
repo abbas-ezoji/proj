@@ -20,3 +20,17 @@ class ListTodoVilla(generics.ListAPIView):
     filter_class = villaFilter
     # import pdb
     # pdb.set_trace()
+
+class villaSatusDateFilter(filters.FilterSet):
+    date__lt = filters.DateFilter(field_name='date',lookup_expr='lt',distinct=True)
+    date__gt = filters.DateFilter(field_name='date',lookup_expr='gt',distinct=True)
+    villaCategory = filters.NumberFilter(field_name='villaId',distinct=True)
+    class Meta:
+        model =  models.villaDateStatus
+        fields = ('villaId','date__lt','date__gt',)
+
+class ListTodoVillaSatusDate(generics.ListAPIView):
+    queryset = models.villaDateStatus.objects.all()
+    serializer_class = serializers.TodoSerializerVillaDateStatus
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = villaSatusDateFilter

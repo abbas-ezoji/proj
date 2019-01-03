@@ -90,7 +90,10 @@ class villaDateStatus(models.Model):
     jdateYear = models.IntegerField(null=True, blank=True)
     jdateMonth = models.IntegerField(null=True, blank=True)
     jdateDay = models.IntegerField(null=True, blank=True)
-    jdateWeekDay = models.IntegerField(null=True, blank=True)
+    jdateWeekDay = models.CharField(max_length=20,null=True, blank=True)
+
+    class Meta:
+        ordering = ('villaId','date',)
 
 class villaStatus(models.Model):
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
@@ -119,14 +122,26 @@ class villaStatus(models.Model):
             jdate_year = jdate.year
             jdate_month = jdate.month
             jdate_day = jdate.day
-            jdate_weekday = jdate.weekday()
-            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create( villaId = self.villa
-                                                                                ,date = single_date
-                                                                                ,statusId = self.STATUS_OF_VILLA
-                                                                                ,jdateYear = jdate_year
-                                                                                ,jdateMonth = jdate_month
-                                                                                ,jdateDay = jdate_day
-                                                                                ,jdateWeekDay = jdate_weekday, )
+            if jdate.weekday() == 4:
+                jdate_weekday = 'چهارشنبه'
+            elif jdate.weekday() == 5:
+                jdate_weekday = 'پنجشنبه'
+            elif jdate.weekday() == 6:
+                jdate_weekday = 'جمعه'
+            elif jdate.weekday() == 7:
+                jdate_weekday = 'شنبه'
+            elif jdate.weekday() == 1:
+                jdate_weekday = 'یکشنبه'
+            elif jdate.weekday() == 2:
+                jdate_weekday = 'دوشنبه'
+            elif jdate.weekday() == 3:
+                jdate_weekday = 'سه شنبه'
+            OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create( villaId = self.villa,date = single_date)
+            villaDateStatus.objects.filter(villaId = self.villa,date = single_date).update(statusId = self.STATUS_OF_VILLA
+                                                                                            ,jdateYear = jdate_year
+                                                                                            ,jdateMonth = jdate_month
+                                                                                            ,jdateDay = jdate_day
+                                                                                            ,jdateWeekDay = jdate_weekday,)
             # pass
 
         super(villaStatus, self).save(*args, **kwargs)

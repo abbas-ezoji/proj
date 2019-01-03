@@ -45,65 +45,7 @@ function getVillaDetails(villaID){
                     const p = document.createElement('p')
                     p.textContent =  `${data.comment}...`
                     p.setAttribute('class','coments')
-
                     container.appendChild(p)
-
-                    table = document.createElement('table')
-                    container.appendChild(table)
-
-                    trHeader = document.createElement('tr')
-                    table.appendChild(trHeader)
-                    th1 = document.createElement('th')
-                    th2 = document.createElement('th')
-                    th3 = document.createElement('th')
-                    th4 = document.createElement('th')
-                    th1.textContent = 'روزهای هفته'
-                    th2.textContent = 'قیمت'
-                    th3.textContent = 'توضیحات'
-                    th4.textContent = 'رزرو'
-                    trHeader.appendChild(th1)
-                    trHeader.appendChild(th2)
-                    trHeader.appendChild(th3)
-                    trHeader.appendChild(th4)
-
-                    tr = document.createElement('tr')
-                    table.appendChild(tr)
-                    ckBoxTR1 = document.createElement('input')
-                    ckBoxTR1.setAttribute('type','button')
-                    ckBoxTR1.setAttribute('name','ckBoxTR1')
-                    ckBoxTR1.setAttribute('class','buttonCheckRed')
-                    td1 = document.createElement('td')
-                    td2 = document.createElement('td')
-                    td3 = document.createElement('td')
-                    td4 = document.createElement('td')
-                    td1.textContent = 'شنبه'
-                    td2.textContent = '120000'
-                    td3.textContent = 'ندارد'
-                    td4.appendChild(ckBoxTR1)
-                    tr.appendChild(td1)
-                    tr.appendChild(td2)
-                    tr.appendChild(td3)
-                    tr.appendChild(td4)
-
-                    tr = document.createElement('tr')
-                    table.appendChild(tr)
-                    ckBoxTR1 = document.createElement('input')
-                    ckBoxTR1.setAttribute('type','button')
-                    ckBoxTR1.setAttribute('name','ckBoxTR1')
-                    ckBoxTR1.setAttribute('class','buttonCheckRed')
-                    td1 = document.createElement('td')
-                    td2 = document.createElement('td')
-                    td3 = document.createElement('td')
-                    td4 = document.createElement('td')
-                    td1.textContent = 'یکشنبه'
-                    td2.textContent = '120000'
-                    td3.textContent = 'ندارد'
-                    td4.appendChild(ckBoxTR1)
-                    tr.appendChild(td1)
-                    tr.appendChild(td2)
-                    tr.appendChild(td3)
-                    tr.appendChild(td4)
-
 
                     data.galaryPictures.forEach(PicID =>{
                          getPicByID(PicID)
@@ -123,12 +65,57 @@ function getVillaDetails(villaID){
                             container.appendChild(picContainer)
                             picContainer.appendChild(img)
                             picContainer.appendChild(p1)
-
-
                            }
                           )
-                    }
-                    )
+                    })
+
+                    table = document.createElement('table')
+                    container.appendChild(table)
+                    trHeader = document.createElement('tr')
+                    table.appendChild(trHeader)
+                    th0 = document.createElement('th')
+                    th1 = document.createElement('th')
+                    th2 = document.createElement('th')
+                    th3 = document.createElement('th')
+                    th4 = document.createElement('th')
+                    th0.textContent = 'تاریخ'
+                    th1.textContent = 'روزهای هفته'
+                    th2.textContent = 'قیمت'
+                    th3.textContent = 'توضیحات'
+                    th4.textContent = 'وضعیت'
+                    trHeader.appendChild(th0)
+                    trHeader.appendChild(th1)
+                    trHeader.appendChild(th2)
+                    trHeader.appendChild(th3)
+                    trHeader.appendChild(th4)
+
+                    getVillaDateStatus(villaID,'2018-03-20','2018-03-30')
+                    .then(data => data.forEach(villadatestatus => {
+                            tr = document.createElement('tr')
+                            table.appendChild(tr)
+                            ckBoxTR1 = document.createElement('input')
+                            ckBoxTR1.setAttribute('type','button')
+                            ckBoxTR1.setAttribute('name','ckBoxTR1')
+                            if(villadatestatus.statusId == 4)
+                                ckBoxTR1.setAttribute('class','buttonCheckGreen')
+                            else
+                                ckBoxTR1.setAttribute('class','buttonCheckRed')
+                            td0 = document.createElement('td')
+                            td1 = document.createElement('td')
+                            td2 = document.createElement('td')
+                            td3 = document.createElement('td')
+                            td4 = document.createElement('td')
+                            td0.textContent = villadatestatus.jdateYear.toString().concat('/').concat(villadatestatus.jdateMonth.toString().concat('/').concat(villadatestatus.jdateDay.toString()))
+                            td1.textContent = villadatestatus.jdateWeekDay
+                            td2.textContent = '120000'
+                            td3.textContent = 'ندارد'
+                            td4.appendChild(ckBoxTR1)
+                            tr.appendChild(td0)
+                            tr.appendChild(td1)
+                            tr.appendChild(td2)
+                            tr.appendChild(td3)
+                            tr.appendChild(td4)
+                    }))
                  }
               )
         showBtn.setAttribute("value", "عدم نمایش جزئیات تور")
@@ -153,36 +140,6 @@ function getVillaDetails(villaID){
     }
 
     return;
-}
-
-function removeElement(elementId) {
-    console.log("elementId:"+elementId)
-    var element = document.getElementById(elementId)
-    if(element)
-        element.parentNode.removeChild(element)
-}
-function getCheckedCatRadio(){
-    var radio = document.forms[0]
-    var radioCount = radio.length
-    var villaCatRadiogroup0 = document.getElementById('villaCatRadiogroup0')
-    console.log("radioCount:"+radioCount)
-    if(villaCatRadiogroup0.checked)
-        return 'villaCatRadiogroup0'
-    else
-        for(i=1; i<=radioCount;i++){
-            //console.log("radio[i].id:"+radio[i].id)
-           if(document.getElementById('villaCatRadiogroup'+i).checked) {
-                console.log("radioCheckedId:"+'villaCatRadiogroup'+i)
-                return 'villaCatRadiogroup'+i
-            }
-        }
-
-}
-function clearCards(){
-    var container = document.getElementById("root")
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
 }
 
 function doFilter(){
@@ -260,6 +217,36 @@ function doFilter(){
             }
     request.send();
 }
+function removeElement(elementId) {
+    console.log("elementId:"+elementId)
+    var element = document.getElementById(elementId)
+    if(element)
+        element.parentNode.removeChild(element)
+}
+function getCheckedCatRadio(){
+    var radio = document.forms[0]
+    var radioCount = radio.length
+    var villaCatRadiogroup0 = document.getElementById('villaCatRadiogroup0')
+    console.log("radioCount:"+radioCount)
+    if(villaCatRadiogroup0.checked)
+        return 'villaCatRadiogroup0'
+    else
+        for(i=1; i<=radioCount;i++){
+            //console.log("radio[i].id:"+radio[i].id)
+           if(document.getElementById('villaCatRadiogroup'+i).checked) {
+                console.log("radioCheckedId:"+'villaCatRadiogroup'+i)
+                return 'villaCatRadiogroup'+i
+            }
+        }
+
+}
+function clearCards(){
+    var container = document.getElementById("root")
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+
 async function getVillaData(villaID)
         {
           if (villaID==0){
@@ -279,6 +266,50 @@ async function getPicByID(picID)
          let picData = await response.json()
          return picData
         }
+function undoFilter(){
+    location.reload()
+}
+async function getVillaDateStatus(villaId,date_gt,date_lt)
+        {//http://127.0.0.1:8000/api/filter/villadatestatus/?format=json&date__gt=2018-03-20&date__lt=2018-03-30&villaId=2
+         url = "http://127.0.0.1:8000/api/filter/villadatestatus/?format=json&villaId=".concat(villaId)
+               .concat("&date__gt=").concat(date_gt).concat("&date__lt=").concat(date_lt)
+         console.log(url)
+         let response = await fetch(url)
+         let data = await response.json()
+         return data
+        }
+function undoFilter(){
+    location.reload()
+}
+
+async function getVillafiltered(){
+        var url
+        var data
+        var radioCheckedId = getCheckedCatRadio().slice(-1)
+        if (radioCheckedId == 0)
+            url = 'http://127.0.0.1:8000/api/villa/?format=json'
+        else
+            url = "http://127.0.0.1:8000/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
+                    .concat("&date__gt=2018-03-20&date__lt=2018-03-21")
+        if (window.XMLHttpRequest) {
+            // code for modern browsers
+               request = new XMLHttpRequest();
+             }
+        else {
+                // code for old IE browsers
+                request = new ActiveXObject("Microsoft.XMLHTTP");
+             }
+        request.open('GET', url, true);
+        request.onload =
+                function(){
+                   data = JSON.parse(this.response);
+                   if (request.status >= 200 && request.status < 400)
+                        return data
+                }
+        request.send()
+    return data
+}
+
 function undoFilter(){
     location.reload()
 }

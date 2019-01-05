@@ -89,7 +89,24 @@ function getVillaDetails(villaID){
                     trHeader.appendChild(th3)
                     trHeader.appendChild(th4)
 
-                    getVillaDateStatus(villaID,'2018-03-20','2018-03-30')
+                    var fromdate
+                    var todate
+                    var today = new Date();
+                    var fromdateDefault =  today.toISOString().slice(0,10)
+                    var todateDefault = today.addMonths(1).toISOString().slice(0,10)
+
+                    if(document.getElementById('fromdate').value)
+                        fromdate = document.getElementById('fromdate').value
+                   else
+                       fromdate = fromdateDefault
+                    if(document.getElementById('todate').vlaue )
+                        todate = document.getElementById('todate').vlaue
+                   else
+                       todate = todateDefault
+//                    console.log(today)
+//                    console.log(fromdateDefault)
+//                    console.log(todateDefault)
+                    getVillaDateStatus(villaID,fromdate,todate)
                     .then(data => data.forEach(villadatestatus => {
                             tr = document.createElement('tr')
                             table.appendChild(tr)
@@ -145,7 +162,6 @@ function getVillaDetails(villaID){
 function doFilter(){
 //    clearCards()
     var radioCheckedId = getCheckedCatRadio().slice(-1)
-    console.log(radioCheckedId)
     const container = document.getElementById('root')
     if(container){
         container.setAttribute('class','container-card')
@@ -170,7 +186,6 @@ function doFilter(){
                var data = JSON.parse(this.response);
                 if (request.status >= 200 && request.status < 400) {
                      data.forEach(Villa => {
-                        console.log('Villa')
                         const card = document.createElement('div');
                         card.setAttribute('class', 'card');
                         card.setAttribute('id', Villa.id);
@@ -218,7 +233,6 @@ function doFilter(){
     request.send();
 }
 function removeElement(elementId) {
-    console.log("elementId:"+elementId)
     var element = document.getElementById(elementId)
     if(element)
         element.parentNode.removeChild(element)
@@ -227,14 +241,13 @@ function getCheckedCatRadio(){
     var radio = document.forms[0]
     var radioCount = radio.length
     var villaCatRadiogroup0 = document.getElementById('villaCatRadiogroup0')
-    console.log("radioCount:"+radioCount)
     if(villaCatRadiogroup0.checked)
         return 'villaCatRadiogroup0'
     else
         for(i=1; i<=radioCount;i++){
             //console.log("radio[i].id:"+radio[i].id)
            if(document.getElementById('villaCatRadiogroup'+i).checked) {
-                console.log("radioCheckedId:"+'villaCatRadiogroup'+i)
+//                console.log("radioCheckedId:"+'villaCatRadiogroup'+i)
                 return 'villaCatRadiogroup'+i
             }
         }
@@ -313,6 +326,30 @@ async function getVillafiltered(){
 function undoFilter(){
     location.reload()
 }
+
+Date.isLeapYear = function (year) {
+    return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
+};
+
+Date.getDaysInMonth = function (year, month) {
+    return [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+};
+
+Date.prototype.isLeapYear = function () {
+    return Date.isLeapYear(this.getFullYear());
+};
+
+Date.prototype.getDaysInMonth = function () {
+    return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
+};
+
+Date.prototype.addMonths = function (value) {
+    var n = this.getDate();
+    this.setDate(1);
+    this.setMonth(this.getMonth() + value);
+    this.setDate(Math.min(n, this.getDaysInMonth()));
+    return this;
+};
 
 doFilter()
 

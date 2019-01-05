@@ -15,9 +15,9 @@
       <title>Villa Details</title>
       <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet">
       <link rel="stylesheet" href="{% static 'style.css' %}" >
-
+        <!--calendar-->
+    <link rel="stylesheet" href="{% static 'jspc-royal_blue.css' %}">
     <link rel="stylesheet" href="{% static 'main.css' %}">
-	<link rel="stylesheet" href="{% static 'jspc-royal_blue.css' %}">
 	<script type="text/javascript" src="{% static 'js-persian-cal.min.js' %}"></script>
 
        <!-- map -->
@@ -64,32 +64,29 @@
                   <div class="row" style="font: 18px 'b nazanin', sans-serif; font-weight: bold; color:#000066;">
                       <div class="col s6">
                           <div style="height: 100px;">
-                                <input type="text" id="pcal1" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
+                                <input type="text" id="pcal2" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
                                 <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" for="extra">تا تاریخ:</label><br>
-                                <input style="visibility: hidden;" type="text" id="extra1" class="pdate wide">
+                                <input style="visibility:hidden" type="text" id="todate" class="pdate wide">
                           </div>
                       </div>
                       <div class="col s6">
                           <div style="height: 100px;">
-                                <input type="text" id="pcal2" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
-                                <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" for="extra">از تاریخ:</label><br>
-                                <input style="visibility: hidden;" type="text" id="extra2" class="pdate wide">
+                                <input type="text" id="pcal1" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
+                                <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" for="extra"> از تاریخ:</label><br>
+                                <input style="visibility:hidden" type="text" id="fromdate" class="pdate wide">
+
                           </div>
                       </div>
                   </div>
                   <script type="text/javascript">
-                        var objCal1 = new AMIB.persianCalendar( 'pcal1', {
-                                extraInputID: 'extra1',
-                                //extraInputFormat: 'YYYY/MM/DD - yyyy/mm/dd - JD'
-                                extraInputFormat: 'YYYY/MM/DD'
-                            }
-                        );
-                        var objCal2 = new AMIB.persianCalendar( 'pcal2', {
-                                extraInputID: 'extra2',
-                                //extraInputFormat: 'YYYY/MM/DD - yyyy/mm/dd - JD'
-                                extraInputFormat: 'YYYY/MM/DD'
-                            }
-                        );
+                    var objCal1 = new AMIB.persianCalendar( 'pcal1',
+                          { extraInputID: "fromdate"
+                          , extraInputFormat: "YYYY-MM-DD"
+                          }
+                     );
+                     var objCal2 = new AMIB.persianCalendar( 'pcal2',
+                          { extraInputID: "todate", extraInputFormat: "YYYY-MM-DD" }
+                     );
                   </script>
                   <script src="{% static 'api/filter/villaFilters.js' %}"></script>
                   <div>

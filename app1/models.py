@@ -117,24 +117,24 @@ class villaStatus(models.Model):
 
         single_date = self.fromDate
         for n in range(int((self.toDate - self.fromDate).days)):
-            single_date = single_date + timedelta(n)
             jdate = jdatetime.date.fromgregorian(date=single_date)
             jdate_year = jdate.year
             jdate_month = jdate.month
             jdate_day = jdate.day
-            if jdate.weekday() == 4:
+            jdate_weekday_int = jdate.weekday()
+            if jdate_weekday_int == 4:
                 jdate_weekday = 'چهارشنبه'
-            elif jdate.weekday() == 5:
+            elif jdate_weekday_int == 5:
                 jdate_weekday = 'پنجشنبه'
-            elif jdate.weekday() == 6:
+            elif jdate_weekday_int == 6:
                 jdate_weekday = 'جمعه'
-            elif jdate.weekday() == 7:
+            elif jdate_weekday_int == 0:
                 jdate_weekday = 'شنبه'
-            elif jdate.weekday() == 1:
+            elif jdate_weekday_int == 1:
                 jdate_weekday = 'یکشنبه'
-            elif jdate.weekday() == 2:
+            elif jdate_weekday_int == 2:
                 jdate_weekday = 'دوشنبه'
-            elif jdate.weekday() == 3:
+            elif jdate_weekday_int == 3:
                 jdate_weekday = 'سه شنبه'
             OBJvillaDateStatus, created = villaDateStatus.objects.get_or_create( villaId = self.villa,date = single_date)
             villaDateStatus.objects.filter(villaId = self.villa,date = single_date).update(statusId = self.STATUS_OF_VILLA
@@ -142,6 +142,7 @@ class villaStatus(models.Model):
                                                                                             ,jdateMonth = jdate_month
                                                                                             ,jdateDay = jdate_day
                                                                                             ,jdateWeekDay = jdate_weekday,)
+            single_date = self.fromDate + timedelta(n)
             # pass
 
         super(villaStatus, self).save(*args, **kwargs)

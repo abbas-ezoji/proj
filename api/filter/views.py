@@ -22,8 +22,8 @@ class ListTodoVilla(generics.ListAPIView):
     # pdb.set_trace()
 
 class villaSatusDateFilter(filters.FilterSet):
-    date__lt = filters.DateFilter(field_name='date',lookup_expr='lt',distinct=True)
-    date__gt = filters.DateFilter(field_name='date',lookup_expr='gt',distinct=True)
+    date__lt = filters.DateFilter(field_name='date',lookup_expr='lte',distinct=True)
+    date__gt = filters.DateFilter(field_name='date',lookup_expr='gte',distinct=True)
     villaId = filters.NumberFilter(field_name='villaId',distinct=True)
     class Meta:
         model =  models.villaDateStatus

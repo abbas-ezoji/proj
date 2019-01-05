@@ -21,15 +21,14 @@ function getVillaDetails(villaID){
                     mapDivID = 'map'.concat(villaID)
                     map = document.createElement('div')
                     map.setAttribute('id',mapDivID)
-                    map.setAttribute('class','mapouter')
-                    map.setAttribute('class','mapouter')
+                    map.setAttribute('class','container-card')
                     container.appendChild(map)
                     mapDiv = document.createElement('div')
-                    mapDiv.setAttribute('class','container-card')
+                    mapDiv.setAttribute('class','col s6')
                     map.appendChild(mapDiv)
                     mapiFrame = document.createElement('iframe')
-                    mapiFrame.setAttribute('width','300')
-                    mapiFrame.setAttribute('height','300')
+                    mapiFrame.setAttribute('width','350')
+                    mapiFrame.setAttribute('height','350')
                     mapiFrame.setAttribute('frameborder','0')
                     mapiFrame.setAttribute('scrolling','no')
                     mapiFrame.setAttribute('marginheight','0')
@@ -160,18 +159,35 @@ function getVillaDetails(villaID){
 }
 
 function doFilter(){
-//    clearCards()
+    clearCards()
     var radioCheckedId = getCheckedCatRadio().slice(-1)
     const container = document.getElementById('root')
     if(container){
         container.setAttribute('class','container-card')
     }
     var url
-    if (radioCheckedId == 0)
-        url = 'http://127.0.0.1:8000/api/villa/?format=json'
+    var fromdate
+    var todate
+    var today = new Date();
+    var fromdateDefault =  today.toISOString().slice(0,10)
+    var todateDefault = today.addMonths(12).toISOString().slice(0,10)
+
+    if(document.getElementById('fromdate').value)
+         fromdate = document.getElementById('fromdate').value
     else
-        url = "http://127.0.0.1:8000/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
-                .concat("&date__gt=2018-03-20&date__lt=2018-03-21")
+        fromdate = fromdateDefault
+     if(document.getElementById('todate').vlaue )
+         todate = document.getElementById('todate').vlaue
+    else
+                       todate = todateDefault
+    if (radioCheckedId == 0){
+        url = "http://127.0.0.1:8000/api/villa/?format=json"
+                .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
+    }
+    else
+        url = "http://127.0.0.1:8000/api/villa/?format=json&villaCategory=".concat(radioCheckedId)
+                .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
+    console.log(url)
     if (window.XMLHttpRequest) {
         // code for modern browsers
            request = new XMLHttpRequest();
@@ -195,7 +211,7 @@ function doFilter(){
                         btn.setAttribute("id", "showBtn".concat(Villa.id));
                         btn.setAttribute("onclick", "getVillaDetails(".concat(Villa.id).concat(");"))
                         btn.setAttribute("value", "نمایش جزئیات تور");
-                        btn.setAttribute('class','loginHeader')
+                        btn.setAttribute('class','btn w-100 btn-reverse btn-success')
 
                         const h1 = document.createElement('h1');
                         h1.textContent = Villa.title;

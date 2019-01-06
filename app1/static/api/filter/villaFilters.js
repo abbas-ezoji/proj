@@ -39,7 +39,7 @@ function getVillaDetails(villaID){
         /////////////////////////////////////end of map//////////////////////////////////////////
                     result = data.registeredUsers
                     var villaPic = data.photo
-                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') )
+//                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') )
 
                     const p = document.createElement('p')
                     p.textContent =  `${data.comment}...`
@@ -159,11 +159,11 @@ function getVillaDetails(villaID){
             x.style.display = "block"
             showBtn.setAttribute("value", "عدم نمایش جزئیات تور")
              getVillaData(villaID)
-             .then(data =>{
-                    villaPic = data.photo
-                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') )
-
-                    })
+//             .then(data =>{
+//                    villaPic = data.photo
+//                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') )
+//
+//                    })
         } else {
             x.style.display = "none"
             showBtn.setAttribute("value", "نمایش جزئیات تور")
@@ -218,9 +218,14 @@ function doFilter(){
                var data = JSON.parse(this.response);
                 if (request.status >= 200 && request.status < 400) {
                      data.forEach(Villa => {
+                        cardFrame =  document.createElement('div');
+                        cardFrame.setAttribute('class', 'column medium-1 small-6 end');
+                        container.appendChild(cardFrame);
+
                         const card = document.createElement('div');
-                        card.setAttribute('class', 'card');
+                        card.setAttribute('class', 'card card-bordered card-offer');
                         card.setAttribute('id', Villa.id);
+                        cardFrame.appendChild(card);
 
                         btn = document.createElement("input");
                         btn.setAttribute("type", "button");
@@ -252,7 +257,6 @@ function doFilter(){
                         p.textContent =  Villa.comment;
                         p.setAttribute('class','coments')
 
-                        container.appendChild(card);
                         card.appendChild(btn);
                         card.appendChild(price)
                         card.appendChild(h1);

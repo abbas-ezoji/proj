@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import jdatetime
 from datetime import timedelta
 from django.core.validators import MaxValueValidator, MinValueValidator
+from djmoney.models.fields import MoneyField
 
 #from django_jalali.db import models as jmodels
 
@@ -91,6 +92,7 @@ class villaDateStatus(models.Model):
     jdateMonth = models.IntegerField(null=True, blank=True)
     jdateDay = models.IntegerField(null=True, blank=True)
     jdateWeekDay = models.CharField(max_length=20,null=True, blank=True)
+    price = MoneyField(max_digits=14, decimal_places=0,default_currency = 'IRR' )
 
     class Meta:
         ordering = ('villaId','date',)
@@ -106,6 +108,7 @@ class villaStatus(models.Model):
     j_toDateMonth = models.IntegerField('تا ماه: ',default=10,validators=[MaxValueValidator(12), MinValueValidator(1)])
     j_toDateDay = models.IntegerField('تا روز: ',default=1,validators=[MaxValueValidator(31), MinValueValidator(1)])
     STATUS_OF_VILLA = models.IntegerField(default=1,choices= STATUS_CHOICES)
+    price = MoneyField(max_digits=14, decimal_places=0,default_currency = 'IRR' )
     fromDate = models.DateTimeField(null=True, blank=True)
     toDate = models.DateTimeField(null=True, blank=True)
 
@@ -116,7 +119,7 @@ class villaStatus(models.Model):
         self.toDate = jdatetime.date(self.j_toDateYear,self.j_toDateMonth, self.j_toDateDay).togregorian()
 
         single_date = self.fromDate
-        for n in range(int((self.toDate - self.fromDate).days)):
+        for n in range(int((self.toDate - self.fromDate).days + 2)):
             jdate = jdatetime.date.fromgregorian(date=single_date)
             jdate_year = jdate.year
             jdate_month = jdate.month
@@ -141,7 +144,8 @@ class villaStatus(models.Model):
                                                                                             ,jdateYear = jdate_year
                                                                                             ,jdateMonth = jdate_month
                                                                                             ,jdateDay = jdate_day
-                                                                                            ,jdateWeekDay = jdate_weekday,)
+                                                                                            ,jdateWeekDay = jdate_weekday
+                                                                                            ,price = self.price,)
             single_date = self.fromDate + timedelta(n)
             # pass
 

@@ -90,6 +90,7 @@ function getVillaDetails(villaID){
 
                     var fromdate
                     var todate
+                    var statusTitle
                     var today = new Date();
                     var fromdateDefault =  today.toISOString().slice(0,10)
                     var todateDefault = today.addMonths(1).toISOString().slice(0,10)
@@ -114,8 +115,23 @@ function getVillaDetails(villaID){
                             ckBoxTR1.setAttribute('name','ckBoxTR1')
                             if(villadatestatus.statusId == 4)
                                 ckBoxTR1.setAttribute('class','buttonCheckGreen')
-                            else
+                            else if(villadatestatus.statusId == 1 || villadatestatus.statusId == 5)
                                 ckBoxTR1.setAttribute('class','buttonCheckRed')
+                            else if(villadatestatus.statusId == 2 || villadatestatus.statusId == 3)
+                                ckBoxTR1.setAttribute('class','buttonCheckYellow')
+                            else
+                                ckBoxTR1.setAttribute('class','buttonCheckBlack')
+                            if(villadatestatus.statusId == 1)
+                                statusTitle = 'اجاره شده'
+                            else if(villadatestatus.statusId == 2)
+                                statusTitle = 'رزرو شده'
+                            else if(villadatestatus.statusId == 3)
+                                statusTitle = 'دردست تعمیر'
+                            else if(villadatestatus.statusId == 4)
+                                statusTitle = 'آزاد'
+                            else if(villadatestatus.statusId == 5)
+                                statusTitle = 'جاره داده نمی شود'
+                            console.log(statusTitle)
                             td0 = document.createElement('td')
                             td1 = document.createElement('td')
                             td2 = document.createElement('td')
@@ -123,8 +139,8 @@ function getVillaDetails(villaID){
                             td4 = document.createElement('td')
                             td0.textContent = villadatestatus.jdateYear.toString().concat('/').concat(villadatestatus.jdateMonth.toString().concat('/').concat(villadatestatus.jdateDay.toString()))
                             td1.textContent = villadatestatus.jdateWeekDay
-                            td2.textContent = '120000'
-                            td3.textContent = 'ندارد'
+                            td2.textContent = villadatestatus.price
+                            td3.textContent = statusTitle
                             td4.appendChild(ckBoxTR1)
                             tr.appendChild(td0)
                             tr.appendChild(td1)

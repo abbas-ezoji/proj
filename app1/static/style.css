@@ -265,6 +265,32 @@ p {
     font: 16px 'b nazanin', sans-serif;
 }
 
+.buttonCheckYellow {
+    background-color: yellow; /* Green */
+    margin: auto;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 16px 'b nazanin', sans-serif;
+}
+
+.buttonCheckBlack {
+    background-color: black; /* Green */
+    margin: auto;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 16px 'b nazanin', sans-serif;
+}
+
 table {
   border-collapse: separate;
 }

@@ -193,15 +193,15 @@ function doFilter(){
     else
         fromdate = fromdateDefault
      if(document.getElementById('todate').vlaue )
-         todate = document.getElementById('todate').vlaue
+        todate = document.getElementById('todate').vlaue
     else
-                       todate = todateDefault
+        todate = todateDefault
     if (radioCheckedId == 0){
-        url = "http://127.0.0.1:8000/api/villa/?format=json"
+        url = "http://127.0.0.1:8000/api/filter/villa/?format=json"
                 .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
     }
     else
-        url = "http://127.0.0.1:8000/api/villa/?format=json&villaCategory=".concat(radioCheckedId)
+        url = "http://127.0.0.1:8000/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
                 .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
     console.log(url)
     if (window.XMLHttpRequest) {

@@ -247,9 +247,9 @@ function doFilter(){
                         price = document.createElement('p')
                         price.setAttribute('class','price')
                         spanPrice = document.createElement('span')
-                        spanPrice.textContent = '120'
+                        spanPrice.textContent = Villa.avgPrice
                         smallPrice = document.createElement('small')
-                        smallPrice.textContent = '/شبی'
+                        smallPrice.textContent = '/میانگین شبی'
                         price.appendChild(spanPrice)
                         price.appendChild(smallPrice)
 

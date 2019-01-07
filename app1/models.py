@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 import jdatetime
-from datetime import timedelta
+from datetime import timedelta,date
 from django.core.validators import MaxValueValidator, MinValueValidator
 from djmoney.models.fields import MoneyField
 from django.db.models import Avg,Max,Min
+from argparse import Namespace
 #from django_jalali.db import models as jmodels
 
 
@@ -157,9 +158,10 @@ class villaStatus(models.Model):
             single_date = self.fromDate + timedelta(n)
             count = count + 1
             allPrice = allPrice + self.price
-
-        newPrice = villaDateStatus.objects.filter(villaId = self.villa).annotate(avgPrice=Avg('price'),maxPrice=Max('price'),minPrice=Min('price'))
-        Villa.objects.filter(villastatus__id=self.id).update(avgPrice = newPrice[0].avgPrice,minPrice = newPrice[0].minPrice,maxPrice = newPrice[0].maxPrice)
+        today = date.today()
+        priceDic = villaDateStatus.objects.filter(villaId = self.villa,date__gte=today).aggregate(Avg('price'),Min('price'),Max('price'))
+        price = Namespace(**priceDic)        
+        Villa.objects.filter(villastatus__id=self.id).update(avgPrice =round(price.price__avg,0),minPrice = price.price__min,maxPrice = price.price__max)
 
         super(villaStatus, self).save(*args, **kwargs)
 

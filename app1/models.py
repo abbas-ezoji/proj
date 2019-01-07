@@ -4,7 +4,7 @@ import jdatetime
 from datetime import timedelta
 from django.core.validators import MaxValueValidator, MinValueValidator
 from djmoney.models.fields import MoneyField
-
+from django.db.models import Avg,Max,Min
 #from django_jalali.db import models as jmodels
 
 
@@ -72,6 +72,9 @@ class Villa(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     galaryPictures = models.ManyToManyField(Pictures,null=True, blank=True)
     serchArea = models.CharField(max_length=600,null=True, blank=True)
+    minPrice = models.FloatField(null=True, blank=True,default = 0)
+    maxPrice = models.FloatField(null=True, blank=True,default = 0)
+    avgPrice = models.FloatField(null=True, blank=True,default = 0)
 
     def __str__(self):
         return self.title
@@ -122,6 +125,8 @@ class villaStatus(models.Model):
         self.toDate = jdatetime.date(self.j_toDateYear,self.j_toDateMonth, self.j_toDateDay).togregorian()
 
         single_date = self.fromDate
+        count = 1
+        allPrice = 0
         for n in range(int((self.toDate - self.fromDate).days + 2)):
             jdate = jdatetime.date.fromgregorian(date=single_date)
             jdate_year = jdate.year
@@ -150,7 +155,11 @@ class villaStatus(models.Model):
                                                                                             ,jdateWeekDay = jdate_weekday
                                                                                             ,price = self.price,)
             single_date = self.fromDate + timedelta(n)
-            # pass
+            count = count + 1
+            allPrice = allPrice + self.price
+
+        newPrice = villaDateStatus.objects.filter(villaId = self.villa).annotate(avgPrice=Avg('price'),maxPrice=Max('price'),minPrice=Min('price'))
+        Villa.objects.filter(villastatus__id=self.id).update(avgPrice = newPrice[0].avgPrice,minPrice = newPrice[0].minPrice,maxPrice = newPrice[0].maxPrice)
 
         super(villaStatus, self).save(*args, **kwargs)
 

@@ -31,12 +31,11 @@
   <div>
       <div class="row" >
           <div class="col s1"></div>
-          <div class="col s10" style="background-color: #99ff99;">
+          <div class="col s10" style="background-color: #9BE1D0;">
               <form action="villa.html">
                   </br>
                   {% if villaCat_list %}
                   <div id="villaCat" class="row"  style="font: 18px 'b nazanin', sans-serif; font-weight: bold; color:#000066;">
-                      دسته بندی:
                       <p class="col s{{villaCat_list.count}}">
                           <label style="font: 18px 'b nazanin', sans-serif; font-weight: bold; color:black;">
                               <input id="villaCatRadiogroup0" class="with-gap" name="group1" type="radio" checked>
@@ -55,6 +54,13 @@
                           </label>
                       </p>
                       {% endfor %}
+                      <p class="col s{{villaCat_list.count}}">
+                          <label style="font: 18px 'b nazanin', sans-serif; font-weight: bold; color:black;">
+                              <span>
+                                  دسته بندی:
+                              </span>
+                          </label>
+                      </p>
                   </div>
                   {% endif %}
                   </br>

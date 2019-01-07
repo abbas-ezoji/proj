@@ -76,6 +76,9 @@ class Villa(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ('pub_date',)
+
 STATUS_CHOICES = (
     (1, ("اجاره شده")),
     (2, ("رزرو شده")),

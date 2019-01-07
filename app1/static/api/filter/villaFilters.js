@@ -241,8 +241,8 @@ function doFilter(){
                         img = document.createElement('IMG');
                         img.setAttribute("src", Villa.photo);
                         img.setAttribute("onclick", "getVillaDetails(".concat(Villa.id).concat(");"))
-                        img.setAttribute("width", "350");
-                        img.setAttribute("height", "350");
+                        img.setAttribute("width", "300");
+                        img.setAttribute("height", "300");
 
                         price = document.createElement('p')
                         price.setAttribute('class','price')

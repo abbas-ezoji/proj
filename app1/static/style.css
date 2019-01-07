@@ -188,7 +188,9 @@ p {
   overflow: hidden;
   transition: all .2s linear;
   font: 16px 'b nazanin', sans-serif;
-
+  border-width: 1px;
+  border-style: solid;
+  border-color: Fuchsia;
 }
 
 .checkBoxButton {
@@ -214,7 +216,6 @@ p {
     text-decoration: none;
     display: inline-block;
     font: 16px 'b nazanin', sans-serif;
-
 }
 .buttonRed {
     background-color: red; /* Green */

@@ -11,9 +11,9 @@ from argparse import Namespace
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=200)
-    address = models.TextField()
+    address = models.TextField(null=True, blank=True)
     photo = models.ImageField(upload_to="app1/photos/", null=True, blank=True)
-    menu = models.TextField()
+    menu = models.TextField(null=True, blank=True)
     tags = models.CharField(max_length=200)
     pub_date = models.DateTimeField(auto_now_add=True)
 
@@ -22,9 +22,9 @@ class Restaurant(models.Model):
 
 class Hotel(models.Model):
     name = models.CharField(max_length=200)
-    address = models.TextField()
+    address = models.TextField(null=True, blank=True)
     photo = models.ImageField(upload_to="app1/photos/", null=True, blank=True)
-    services = models.TextField()
+    services = models.TextField(null=True, blank=True)
     tags = models.CharField(max_length=200)
     pub_date = models.DateTimeField(auto_now_add=True)
 
@@ -34,7 +34,7 @@ class Hotel(models.Model):
 
 class Pictures(models.Model):
     title = models.CharField(max_length=200)
-    address = models.TextField()
+    address = models.TextField(null=True, blank=True)
     photo = models.ImageField(upload_to="app1/photos/", null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
 
@@ -43,9 +43,9 @@ class Pictures(models.Model):
 
 class Tour(models.Model):
     title = models.CharField(max_length=200)
-    DistAddress = models.TextField()
+    DistAddress = models.TextField(null=True, blank=True)
     photo = models.ImageField(upload_to="app1/photos/", null=True, blank=True)
-    Comment = models.TextField()
+    Comment = models.TextField(null=True, blank=True)
     tags = models.CharField(max_length=200)
     DepartureDate = models.DateTimeField()
     ReturnDate = models.DateTimeField()
@@ -67,9 +67,9 @@ class villaCategory(models.Model):
 class Villa(models.Model):
     title = models.CharField(max_length=200)
     villaCategory = models.ForeignKey(villaCategory,on_delete=models.CASCADE,null=True, blank=True)
-    address = models.TextField()
+    address = models.TextField(null=True, blank=True)
     photo = models.ImageField(upload_to="app1/photos/", null=True, blank=True)
-    comment = models.TextField()
+    comment = models.TextField(null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
     galaryPictures = models.ManyToManyField(Pictures,null=True, blank=True)
     serchArea = models.CharField(max_length=600,null=True, blank=True)
@@ -81,19 +81,19 @@ class Villa(models.Model):
         return self.title
 
     class Meta:
-        ordering = ('pub_date',)
+        ordering = ('-pub_date',)
 
 STATUS_CHOICES = (
+    (0, ("آزاد")),
     (1, ("اجاره شده")),
     (2, ("رزرو شده")),
     (3, ("دردست تعمیر")),
-    (4, ("آزاد")),
-    (5, ("اجاره داده نمی شود"))
+    (4, ("اجاره داده نمی شود"))
 )
 
 class villaDateStatus(models.Model):
     villaId = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
-    statusId = models.IntegerField(default=1,choices= STATUS_CHOICES)
+    statusId = models.IntegerField(default=0,choices= STATUS_CHOICES)
     date = models.DateField()
     jdateYear = models.IntegerField(null=True, blank=True)
     jdateMonth = models.IntegerField(null=True, blank=True)
@@ -114,7 +114,7 @@ class villaStatus(models.Model):
     j_toDateYear = models.IntegerField('تا سال: ',default=1397,validators=[MaxValueValidator(1400), MinValueValidator(1397)])
     j_toDateMonth = models.IntegerField('تا ماه: ',default=10,validators=[MaxValueValidator(12), MinValueValidator(1)])
     j_toDateDay = models.IntegerField('تا روز: ',default=1,validators=[MaxValueValidator(31), MinValueValidator(1)])
-    STATUS_OF_VILLA = models.IntegerField(default=1,choices= STATUS_CHOICES)
+    STATUS_OF_VILLA = models.IntegerField(default=0,choices= STATUS_CHOICES)
     price = MoneyField(max_digits=14, decimal_places=0,default_currency = 'IRR' )
     fromDate = models.DateTimeField(null=True, blank=True)
     toDate = models.DateTimeField(null=True, blank=True)
@@ -160,8 +160,12 @@ class villaStatus(models.Model):
             allPrice = allPrice + self.price
         today = date.today()
         priceDic = villaDateStatus.objects.filter(villaId = self.villa,date__gte=today).aggregate(Avg('price'),Min('price'),Max('price'))
-        price = Namespace(**priceDic)        
-        Villa.objects.filter(villastatus__id=self.id).update(avgPrice =round(price.price__avg,0),minPrice = price.price__min,maxPrice = price.price__max)
+        price = Namespace(**priceDic)
+        avg = price.price__avg - (price.price__avg % 10000 )
+        msg = str(price.price__avg)+'/'+str(price.price__avg % 10000 )+'/'+str(avg)+'\n'
+        # with open('E:/logs.txt','a') as log:
+        #     log.write(msg)
+        Villa.objects.filter(villastatus__id=self.id).update(avgPrice =avg,minPrice = price.price__min,maxPrice = price.price__max)
 
         super(villaStatus, self).save(*args, **kwargs)
 

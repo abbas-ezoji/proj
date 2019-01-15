@@ -14,19 +14,4 @@ class Migration(migrations.Migration):
             name='villa',
             options={'ordering': ('pub_date',)},
         ),
-        migrations.AddField(
-            model_name='villa',
-            name='avgPrice',
-            field=models.FloatField(blank=True, default=0, null=True),
-        ),
-        migrations.AddField(
-            model_name='villa',
-            name='maxPrice',
-            field=models.FloatField(blank=True, default=0, null=True),
-        ),
-        migrations.AddField(
-            model_name='villa',
-            name='minPrice',
-            field=models.FloatField(blank=True, default=0, null=True),
-        ),
     ]

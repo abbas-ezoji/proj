@@ -127,9 +127,9 @@ function getVillaDetails(villaID){
                                 statusTitle = 'رزرو شده'
                             else if(villadatestatus.statusId == 3)
                                 statusTitle = 'دردست تعمیر'
-                            else if(villadatestatus.statusId == 4)
+                            else if(villadatestatus.statusId == 0)
                                 statusTitle = 'آزاد'
-                            else if(villadatestatus.statusId == 5)
+                            else if(villadatestatus.statusId == 4)
                                 statusTitle = 'جاره داده نمی شود'
                             console.log(statusTitle)
                             td0 = document.createElement('td')

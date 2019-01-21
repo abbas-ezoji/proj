@@ -197,11 +197,11 @@ function doFilter(){
     else
         todate = todateDefault
     if (radioCheckedId == 0){
-        url = "http://127.0.0.1:8000/api/filter/villa/?format=json"
+        url = "/api/filter/villa/?format=json"
                 .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
     }
     else
-        url = "http://127.0.0.1:8000/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
+        url = "/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
                 .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
     console.log(url)
     if (window.XMLHttpRequest) {
@@ -299,10 +299,10 @@ function clearCards(){
 async function getVillaData(villaID)
         {
           if (villaID==0){
-            url = 'http://127.0.0.1:8000/api/villa/?format=json'
+            url = '/api/villa/?format=json'
           }
           else{
-            url = "http://127.0.0.1:8000/api/villa/".concat(villaID).concat("/?format=json")
+            url = "/api/villa/".concat(villaID).concat("/?format=json")
           }
           let response = await fetch(url)
           let data = await response.json()
@@ -310,7 +310,7 @@ async function getVillaData(villaID)
         }
 async function getPicByID(picID)
         {
-         url = "http://127.0.0.1:8000/api/pictures/".concat(picID).concat("/?format=json")
+         url = "/api/pictures/".concat(picID).concat("/?format=json")
          let response = await fetch(url)
          let picData = await response.json()
          return picData
@@ -319,8 +319,8 @@ function undoFilter(){
     location.reload()
 }
 async function getVillaDateStatus(villaId,date_gt,date_lt)
-        {//http://127.0.0.1:8000/api/filter/villadatestatus/?format=json&date__gt=2018-03-20&date__lt=2018-03-30&villaId=2
-         url = "http://127.0.0.1:8000/api/filter/villadatestatus/?format=json&villaId=".concat(villaId)
+        {///api/filter/villadatestatus/?format=json&date__gt=2018-03-20&date__lt=2018-03-30&villaId=2
+         url = "/api/filter/villadatestatus/?format=json&villaId=".concat(villaId)
                .concat("&date__gt=").concat(date_gt).concat("&date__lt=").concat(date_lt)
          console.log(url)
          let response = await fetch(url)
@@ -336,9 +336,9 @@ async function getVillafiltered(){
         var data
         var radioCheckedId = getCheckedCatRadio().slice(-1)
         if (radioCheckedId == 0)
-            url = 'http://127.0.0.1:8000/api/villa/?format=json'
+            url = '/api/villa/?format=json'
         else
-            url = "http://127.0.0.1:8000/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
+            url = "/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
                     .concat("&date__gt=2018-03-20&date__lt=2018-03-21")
         if (window.XMLHttpRequest) {
             // code for modern browsers

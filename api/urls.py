@@ -16,4 +16,6 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('villa/', views.ListTodoVilla.as_view()),
     path('villa/<int:pk>/', views.DetailTodoRestVilla.as_view()),
+    path('villavotes/', views.ListTodoVillaVotes.as_view()),
+    path('villavotes/<int:pk>/', views.DetailTodoRestVillaVotes.as_view()),
 ]

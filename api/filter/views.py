@@ -42,5 +42,15 @@ class ListTodoVillaSatusDate(generics.ListAPIView):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = villaSatusDateFilter
 
+class villaVotesFilter(filters.FilterSet):
+    villa = filters.NumberFilter(field_name='villa',distinct=True)
+    owner = filters.NumberFilter(field_name='owner', distinct=True)
+    class Meta:
+        model =  models.villaVote
+        fields = ('villa','owner',)
 
-
+class ListTodoVillaVotes(generics.ListAPIView):
+    queryset = models.villaVote.objects.all()
+    serializer_class = serializers.TodoSerializerVillVotes
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = villaVotesFilter

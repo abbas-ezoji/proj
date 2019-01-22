@@ -34,6 +34,16 @@ function getVillaDetails(villaID){
                     chart.container("chartContainer".concat(villaID));
                     console.log(chart);
                     chart.draw();
+         /////////////////////////////////////display comments//////////////////////////////////////////
+                    getVillaVotesByVillaID(villaID)
+                    .then(dataVotes => dataVotes.forEach(vote => {
+                        commentDiv = document.createElement('div')
+                        commentP = document.createElement('p')
+                        container.appendChild(commentDiv)
+                        console.log('getVillaVotesByVillaID'.concat(vote.comment))
+                        commentDiv.appendChild(commentP)
+                        commentP.textContent = vote.comment
+                    }))
         /////////////////////////////////////start of map//////////////////////////////////////////
                     mapDivID = 'map'.concat(villaID)
                     map = document.createElement('div')
@@ -335,6 +345,16 @@ async function getPicByID(picID)
 function undoFilter(){
     location.reload()
 }
+
+async function getVillaVotesByVillaID(villaId)
+        {
+         url = "/api/filter/villavotes/?villa=".concat(villaId)
+         console.log(url)
+         let response = await fetch(url)
+         let dataVotes = await response.json()
+         return dataVotes
+        }
+
 async function getVillaDateStatus(villaId,date_gt,date_lt)
         {///api/filter/villadatestatus/?format=json&date__gt=2018-03-20&date__lt=2018-03-30&villaId=2
          url = "/api/filter/villadatestatus/?format=json&villaId=".concat(villaId)

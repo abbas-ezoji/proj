@@ -71,3 +71,12 @@ class ListTodoVillaDateStatus(generics.ListCreateAPIView):
 class DetailTodoRestVillaDateStatus(generics.RetrieveAPIView):
     queryset = models.villaDateStatus.objects.all()
     serializer_class = serializers.TodoSerializerVillaDateStatus
+
+class ListTodoVillaVotes(generics.ListCreateAPIView):
+    queryset = models.villaVote.objects.all()
+    serializer_class = serializers.TodoSerializerVillVotes
+
+
+class DetailTodoRestVillaVotes(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.villaVote.objects.all()
+    serializer_class = serializers.TodoSerializerVillVotes

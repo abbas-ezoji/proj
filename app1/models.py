@@ -83,6 +83,17 @@ class Villa(models.Model):
     class Meta:
         ordering = ('-pub_date',)
 
+class villaVote(models.Model):
+    owner = models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
+    villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
+    comment = models.TextField('توضیحات',null=True, blank=True)
+    rate = models.IntegerField('نمره',default=0,validators=[MaxValueValidator(5), MinValueValidator(-5)],null=True, blank=True)
+    category = models.IntegerField('دسته',default=0,validators=[MaxValueValidator(1), MinValueValidator(-1)],null=True, blank=True)
+    pub_date = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+
+    def __str__(self):
+        return  ' ویلا: ' + self.villa.title + ' تاریخ: ' + str(jdatetime.date.fromgregorian(date=self.pub_date)) + ' توسط: ' + self.owner.first_name + ' ' + self.owner.last_name
+
 STATUS_CHOICES = (
     (0, ("آزاد")),
     (1, ("اجاره شده")),
@@ -106,16 +117,16 @@ class villaDateStatus(models.Model):
 
 class villaStatus(models.Model):
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
-    comment = models.TextField(null=True, blank=True)
+    comment = models.TextField('توضیحات',null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
-    j_fromDateYear = models.IntegerField('از سال: ',default=1397,validators=[MaxValueValidator(1400), MinValueValidator(1397)])
-    j_fromDateMonth = models.IntegerField('از ماه: ',default=1,validators=[MaxValueValidator(12), MinValueValidator(1)])
-    j_fromDateDay = models.IntegerField('از روز: ',default=1,validators=[MaxValueValidator(31), MinValueValidator(1)])
-    j_toDateYear = models.IntegerField('تا سال: ',default=1397,validators=[MaxValueValidator(1400), MinValueValidator(1397)])
-    j_toDateMonth = models.IntegerField('تا ماه: ',default=10,validators=[MaxValueValidator(12), MinValueValidator(1)])
-    j_toDateDay = models.IntegerField('تا روز: ',default=1,validators=[MaxValueValidator(31), MinValueValidator(1)])
-    STATUS_OF_VILLA = models.IntegerField(default=0,choices= STATUS_CHOICES)
-    price = MoneyField(max_digits=14, decimal_places=0,default_currency = 'IRR' )
+    j_fromDateYear = models.IntegerField('از سال ',default=1397,validators=[MaxValueValidator(1400), MinValueValidator(1397)])
+    j_fromDateMonth = models.IntegerField('از ماه ',default=1,validators=[MaxValueValidator(12), MinValueValidator(1)])
+    j_fromDateDay = models.IntegerField('از روز ',default=1,validators=[MaxValueValidator(31), MinValueValidator(1)])
+    j_toDateYear = models.IntegerField('تا سال ',default=1397,validators=[MaxValueValidator(1400), MinValueValidator(1397)])
+    j_toDateMonth = models.IntegerField('تا ماه ',default=10,validators=[MaxValueValidator(12), MinValueValidator(1)])
+    j_toDateDay = models.IntegerField('تا روز ',default=1,validators=[MaxValueValidator(31), MinValueValidator(1)])
+    STATUS_OF_VILLA = models.IntegerField('وضعیت',default=0,choices= STATUS_CHOICES)
+    price = MoneyField('قیمت',max_digits=14, decimal_places=0,default_currency = 'IRR' )
     fromDate = models.DateTimeField(null=True, blank=True)
     toDate = models.DateTimeField(null=True, blank=True)
 

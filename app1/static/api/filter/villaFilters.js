@@ -21,25 +21,19 @@ function getVillaDetails(villaID){
                     chartContainer = document.createElement('div')
                     chartContainer.setAttribute('id','chartContainer'.concat(villaID))
                     chartContainer.setAttribute('style','width: 500px; height: 400px;')
-                    anychart.onDocumentReady(function () {
-		            // create an instance of a pie chart
+                    container.appendChild(chartContainer)
                     var chart = anychart.pie();
                     // set the data
                     chart.data([
-                      ["Chocolate", 5],
-                      ["Rhubarb compote", 2],
-                      ["Crêpe Suzette", 2],
-                      ["American blueberry", 2],
-                      ["Buttermilk", 1]
+                      ["نقطه قوت", 5],
+                      ["نقطه ضعف", 2],
                     ]);
                     // set chart title
                     chart.title("Top 5 pancake fillings");
                     // set the container element
-                    chart.container("chartContainer");
-                    // initiate chart display
+                    chart.container("chartContainer".concat(villaID));
+                    console.log(chart);
                     chart.draw();
-                    });
-                    container.appendChild(chartContainer)
         /////////////////////////////////////start of map//////////////////////////////////////////
                     mapDivID = 'map'.concat(villaID)
                     map = document.createElement('div')

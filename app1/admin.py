@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ( Restaurant,Tour,Hotel,Pictures,Villa,villaCategory,villaStatus,)
+from .models import ( Restaurant,Tour,Hotel,Pictures,Villa,villaCategory,villaStatus,villaVote)
 from .form import TourForm
 
 admin.site.register(Restaurant)
@@ -9,6 +9,7 @@ admin.site.register(Pictures)
 admin.site.register(Villa)
 admin.site.register(villaCategory)
 admin.site.register(villaStatus)
+admin.site.register(villaVote)
 
 class TourAdmin(admin.ModelAdmin):
     form = TourForm

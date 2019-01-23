@@ -36,12 +36,12 @@ function getVillaDetails(villaID){
                     chart.draw();
          /////////////////////////////////////display comments//////////////////////////////////////////
                     commentContainer = document.createElement('div')
-                    commentContainer.setAttribute('class','container')
+                    commentContainer.setAttribute('class','container-card')
+                    commentContainer.textContent = 'نظرات'
                     container.appendChild(commentContainer)
                     getVillaVotesByVillaID(villaID)
                     .then(dataVotes => dataVotes.forEach(vote => {
                         commentRow = document.createElement('div')
-                        commentRow.setAttribute('class','col-sm-8')
                         commentContainer.appendChild(commentRow)
                         commentPanel = document.createElement('div')
                         commentPanel.setAttribute('class','panel panel-white post panel-shadow')
@@ -65,11 +65,12 @@ function getVillaDetails(villaID){
                         commentPullRightMeta.appendChild(commentTitleH5)
                         commentTitleA = document.createElement('a')
                         commentTitleA.setAttribute('href','#')
+                        console.log('owner: '+vote.owner)
+                        commentTitleA.textContent = vote.ownerTitle
                         commentTitleH5.appendChild(commentTitleA)
                         commentTitleb = document.createElement('b')
-                        commentTitleb.textContent = vote.owner.first_name + ' ' + vote.owner.last_name
+                        commentTitleb.textContent = ': کامنت ایجاد کرده'
                         commentTitleA.appendChild(commentTitleb)
-                        commentTitleA.textContent = ': کامنت ایجاد کرده'
                         commentTitleH6 = document.createElement('div')
                         commentTitleH6.setAttribute('class','text-muted time')
                         commentPullRightMeta.appendChild(commentTitleH6)
@@ -78,7 +79,7 @@ function getVillaDetails(villaID){
                         commentPostDescription.setAttribute('class','post-description')
                         commentPanel.appendChild(commentPostDescription)
                         commentPost = document.createElement('p')
-                        commentPost.textContent = `${vote.comment}...`
+                        commentPost.textContent = vote.comment
                         commentPostDescription.appendChild(commentPost)
                         commentStats = document.createElement('div')
                         commentStats.setAttribute('class','stats')
@@ -107,11 +108,10 @@ function getVillaDetails(villaID){
                     map.setAttribute('class','container-card')
                     container.appendChild(map)
                     mapDiv = document.createElement('div')
-                    mapDiv.setAttribute('class','col s6')
                     map.appendChild(mapDiv)
                     mapiFrame = document.createElement('iframe')
-                    mapiFrame.setAttribute('width','350')
-                    mapiFrame.setAttribute('height','350')
+                    mapiFrame.setAttribute('width','300')
+                    mapiFrame.setAttribute('height','300')
                     mapiFrame.setAttribute('frameborder','0')
                     mapiFrame.setAttribute('scrolling','no')
                     mapiFrame.setAttribute('marginheight','0')

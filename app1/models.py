@@ -90,9 +90,15 @@ class villaVote(models.Model):
     rate = models.IntegerField('نمره',default=0,validators=[MaxValueValidator(5), MinValueValidator(-5)],null=True, blank=True)
     category = models.IntegerField('دسته',default=0,validators=[MaxValueValidator(1), MinValueValidator(-1)],null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+    ownerTitle = models.CharField(max_length=100,null=True, blank=True)
 
     def __str__(self):
         return  ' ویلا: ' + self.villa.title + ' تاریخ: ' + str(jdatetime.date.fromgregorian(date=self.pub_date)) + ' توسط: ' + self.owner.first_name + ' ' + self.owner.last_name
+    def save(self, *args, **kwargs):
+        if not self.id:
+            super().save(*args, **kwargs)
+        self.ownerTitle = self.owner.first_name + ' ' + self.owner.last_name
+        super(villaVote, self).save(*args, **kwargs)
 
 STATUS_CHOICES = (
     (0, ("آزاد")),

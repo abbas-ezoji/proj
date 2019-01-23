@@ -35,14 +35,70 @@ function getVillaDetails(villaID){
                     console.log(chart);
                     chart.draw();
          /////////////////////////////////////display comments//////////////////////////////////////////
+                    commentContainer = document.createElement('div')
+                    commentContainer.setAttribute('class','container')
+                    container.appendChild(commentContainer)
                     getVillaVotesByVillaID(villaID)
                     .then(dataVotes => dataVotes.forEach(vote => {
-                        commentDiv = document.createElement('div')
-                        commentP = document.createElement('p')
-                        container.appendChild(commentDiv)
-                        console.log('getVillaVotesByVillaID'.concat(vote.comment))
-                        commentDiv.appendChild(commentP)
-                        commentP.textContent = vote.comment
+                        commentRow = document.createElement('div')
+                        commentRow.setAttribute('class','col-sm-8')
+                        commentContainer.appendChild(commentRow)
+                        commentPanel = document.createElement('div')
+                        commentPanel.setAttribute('class','panel panel-white post panel-shadow')
+                        commentRow.appendChild(commentPanel)
+                        commentPostheading = document.createElement('div')
+                        commentPostheading.setAttribute('class','post-heading')
+                        commentPanel.appendChild(commentPostheading)
+                        commentPullRightImage = document.createElement('div')
+                        commentPullRightImage.setAttribute('class','pull-right image')
+                        commentPostheading.appendChild(commentPullRightImage)
+                        commentImg = document.createElement('img')
+                        commentImg.setAttribute('class','img-circle avatar')
+                        commentImg.setAttribute('alt','user profile image')
+                        commentImg.setAttribute('src','http://bootdey.com/img/Content/user_1.jpg') //http://bootdey.com/img/Content/user_2.jpg
+                        commentPullRightImage.appendChild(commentImg)
+                        commentPullRightMeta = document.createElement('div')
+                        commentPullRightMeta.setAttribute('class','pull-right meta')
+                        commentPostheading.appendChild(commentPullRightMeta)
+                        commentTitleH5 = document.createElement('div')
+                        commentTitleH5.setAttribute('class','title h5')
+                        commentPullRightMeta.appendChild(commentTitleH5)
+                        commentTitleA = document.createElement('a')
+                        commentTitleA.setAttribute('href','#')
+                        commentTitleH5.appendChild(commentTitleA)
+                        commentTitleb = document.createElement('b')
+                        commentTitleb.textContent = vote.owner.first_name + ' ' + vote.owner.last_name
+                        commentTitleA.appendChild(commentTitleb)
+                        commentTitleA.textContent = ': کامنت ایجاد کرده'
+                        commentTitleH6 = document.createElement('div')
+                        commentTitleH6.setAttribute('class','text-muted time')
+                        commentPullRightMeta.appendChild(commentTitleH6)
+                        commentTitleH6.textContent = 'یک دقیقه پیش'
+                        commentPostDescription = document.createElement('div')
+                        commentPostDescription.setAttribute('class','post-description')
+                        commentPanel.appendChild(commentPostDescription)
+                        commentPost = document.createElement('p')
+                        commentPost.textContent = `${vote.comment}...`
+                        commentPostDescription.appendChild(commentPost)
+                        commentStats = document.createElement('div')
+                        commentStats.setAttribute('class','stats')
+                        commentPostDescription.appendChild(commentStats)
+                        commentBtnLike = document.createElement('a')
+                        commentBtnLike.setAttribute('class','btn btn-default stat-item')
+//                        commentBtnLike.setAttribute('href','')
+                        commentStats.appendChild(commentBtnLike)
+                        commentIcnLike = document.createElement('i')
+                        commentIcnLike.setAttribute('class','fa fa-thumbs-up icon')
+                        commentIcnLike.textContent = '4'
+                        commentBtnLike.appendChild(commentIcnLike)
+                        commentBtnDisLike = document.createElement('a')
+                        commentBtnDisLike.setAttribute('class','btn btn-default stat-item')
+//                        commentBtnDisLike.setAttribute('href','')
+                        commentStats.appendChild(commentBtnDisLike)
+                        commentIcnDisLike = document.createElement('i')
+                        commentIcnDisLike.setAttribute('class','fa fa-thumbs-down icon')
+                        commentIcnDisLike.textContent = '0'
+                        commentBtnDisLike.appendChild(commentIcnDisLike)
                     }))
         /////////////////////////////////////start of map//////////////////////////////////////////
                     mapDivID = 'map'.concat(villaID)
@@ -67,11 +123,6 @@ function getVillaDetails(villaID){
                     result = data.registeredUsers
                     var villaPic = data.photo
 //                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') )
-
-                    const p = document.createElement('p')
-                    p.textContent =  `${data.comment}...`
-                    p.setAttribute('class','coments')
-                    container.appendChild(p)
 
                     data.galaryPictures.forEach(PicID =>{
                          getPicByID(PicID)
@@ -348,8 +399,8 @@ function undoFilter(){
 
 async function getVillaVotesByVillaID(villaId)
         {
-         url = "/api/filter/villavotes/?villa=".concat(villaId)
-         console.log(url)
+         url = "/api/filter/villavotes/?format=json&villa=".concat(villaId)
+         console.log(''.concat(url))
          let response = await fetch(url)
          let dataVotes = await response.json()
          return dataVotes

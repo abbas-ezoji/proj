@@ -3,17 +3,15 @@ function getVillaDetails(villaID){
     if (divDetails != null)
         allContainersDiv.parentNode.removeChild(allContainersDiv)
 
-    const bgDiv = document.getElementById("bgDiv")
     var divDetails = document.getElementById("divDetails".concat(villaID))
 
     if (divDetails == null){
         const showBtn = document.getElementById("showBtn".concat(villaID))
         const villaCard = document.getElementById(villaID)
 
-        var result
-        getVillaData(villaID)
-        .then(data =>
-                 {  const container = document.createElement('div')
+        var url = getVillaData(villaID)
+        $.getJSON( url, function( data ) {
+                    const container = document.createElement('div')
                     container.setAttribute('class', 'container')
                     container.setAttribute("id", "divDetails".concat(villaID))
                     villaCard.appendChild(container)
@@ -39,68 +37,69 @@ function getVillaDetails(villaID){
                     commentContainer.setAttribute('class','container-card')
                     commentContainer.textContent = 'نظرات'
                     container.appendChild(commentContainer)
-                    getVillaVotesByVillaID(villaID)
-                    .then(dataVotes => dataVotes.forEach(vote => {
-                        commentRow = document.createElement('div')
-                        commentContainer.appendChild(commentRow)
-                        commentPanel = document.createElement('div')
-                        commentPanel.setAttribute('class','panel panel-white post panel-shadow')
-                        commentRow.appendChild(commentPanel)
-                        commentPostheading = document.createElement('div')
-                        commentPostheading.setAttribute('class','post-heading')
-                        commentPanel.appendChild(commentPostheading)
-                        commentPullRightImage = document.createElement('div')
-                        commentPullRightImage.setAttribute('class','pull-right image')
-                        commentPostheading.appendChild(commentPullRightImage)
-                        commentImg = document.createElement('img')
-                        commentImg.setAttribute('class','img-circle avatar')
-                        commentImg.setAttribute('alt','user profile image')
-                        commentImg.setAttribute('src','http://bootdey.com/img/Content/user_1.jpg') //http://bootdey.com/img/Content/user_2.jpg
-                        commentPullRightImage.appendChild(commentImg)
-                        commentPullRightMeta = document.createElement('div')
-                        commentPullRightMeta.setAttribute('class','pull-right meta')
-                        commentPostheading.appendChild(commentPullRightMeta)
-                        commentTitleH5 = document.createElement('div')
-                        commentTitleH5.setAttribute('class','title h5')
-                        commentPullRightMeta.appendChild(commentTitleH5)
-                        commentTitleA = document.createElement('a')
-                        commentTitleA.setAttribute('href','#')
-                        console.log('owner: '+vote.owner)
-                        commentTitleA.textContent = vote.ownerTitle
-                        commentTitleH5.appendChild(commentTitleA)
-                        commentTitleb = document.createElement('b')
-                        commentTitleb.textContent = ': کامنت ایجاد کرده'
-                        commentTitleA.appendChild(commentTitleb)
-                        commentTitleH6 = document.createElement('div')
-                        commentTitleH6.setAttribute('class','text-muted time')
-                        commentPullRightMeta.appendChild(commentTitleH6)
-                        commentTitleH6.textContent = 'یک دقیقه پیش'
-                        commentPostDescription = document.createElement('div')
-                        commentPostDescription.setAttribute('class','post-description')
-                        commentPanel.appendChild(commentPostDescription)
-                        commentPost = document.createElement('p')
-                        commentPost.textContent = vote.comment
-                        commentPostDescription.appendChild(commentPost)
-                        commentStats = document.createElement('div')
-                        commentStats.setAttribute('class','stats')
-                        commentPostDescription.appendChild(commentStats)
-                        commentBtnLike = document.createElement('a')
-                        commentBtnLike.setAttribute('class','btn btn-default stat-item')
-//                        commentBtnLike.setAttribute('href','')
-                        commentStats.appendChild(commentBtnLike)
-                        commentIcnLike = document.createElement('i')
-                        commentIcnLike.setAttribute('class','fa fa-thumbs-up icon')
-                        commentIcnLike.textContent = '4'
-                        commentBtnLike.appendChild(commentIcnLike)
-                        commentBtnDisLike = document.createElement('a')
-                        commentBtnDisLike.setAttribute('class','btn btn-default stat-item')
-//                        commentBtnDisLike.setAttribute('href','')
-                        commentStats.appendChild(commentBtnDisLike)
-                        commentIcnDisLike = document.createElement('i')
-                        commentIcnDisLike.setAttribute('class','fa fa-thumbs-down icon')
-                        commentIcnDisLike.textContent = '0'
-                        commentBtnDisLike.appendChild(commentIcnDisLike)
-                    }))
+                    VillaVotesURL = getVillaVotesByVillaID(villaID)
+                    $.getJSON( VillaVotesURL, function( data ) {
+                        data.forEach(vote => {
+                            commentRow = document.createElement('div')
+                            commentContainer.appendChild(commentRow)
+                            commentPanel = document.createElement('div')
+                            commentPanel.setAttribute('class','panel panel-white post panel-shadow')
+                            commentRow.appendChild(commentPanel)
+                            commentPostheading = document.createElement('div')
+                            commentPostheading.setAttribute('class','post-heading')
+                            commentPanel.appendChild(commentPostheading)
+                            commentPullRightImage = document.createElement('div')
+                            commentPullRightImage.setAttribute('class','pull-right image')
+                            commentPostheading.appendChild(commentPullRightImage)
+                            commentImg = document.createElement('img')
+                            commentImg.setAttribute('class','img-circle avatar')
+                            commentImg.setAttribute('alt','user profile image')
+                            commentImg.setAttribute('src','http://bootdey.com/img/Content/user_1.jpg') //http://bootdey.com/img/Content/user_2.jpg
+                            commentPullRightImage.appendChild(commentImg)
+                            commentPullRightMeta = document.createElement('div')
+                            commentPullRightMeta.setAttribute('class','pull-right meta')
+                            commentPostheading.appendChild(commentPullRightMeta)
+                            commentTitleH5 = document.createElement('div')
+                            commentTitleH5.setAttribute('class','title h5')
+                            commentPullRightMeta.appendChild(commentTitleH5)
+                            commentTitleA = document.createElement('a')
+                            commentTitleA.setAttribute('href','#')
+                            console.log('owner: '+vote.owner)
+                            commentTitleA.textContent = vote.ownerTitle
+                            commentTitleH5.appendChild(commentTitleA)
+                            commentTitleb = document.createElement('b')
+                            commentTitleb.textContent = ': کامنت ایجاد کرده'
+                            commentTitleA.appendChild(commentTitleb)
+                            commentTitleH6 = document.createElement('div')
+                            commentTitleH6.setAttribute('class','text-muted time')
+                            commentPullRightMeta.appendChild(commentTitleH6)
+                            commentTitleH6.textContent = 'یک دقیقه پیش'
+                            commentPostDescription = document.createElement('div')
+                            commentPostDescription.setAttribute('class','post-description')
+                            commentPanel.appendChild(commentPostDescription)
+                            commentPost = document.createElement('p')
+                            commentPost.textContent = vote.comment
+                            commentPostDescription.appendChild(commentPost)
+                            commentStats = document.createElement('div')
+                            commentStats.setAttribute('class','stats')
+                            commentPostDescription.appendChild(commentStats)
+                            commentBtnLike = document.createElement('a')
+                            commentBtnLike.setAttribute('class','btn btn-default stat-item')
+    //                        commentBtnLike.setAttribute('href','')
+                            commentStats.appendChild(commentBtnLike)
+                            commentIcnLike = document.createElement('i')
+                            commentIcnLike.setAttribute('class','fa fa-thumbs-up icon')
+                            commentIcnLike.textContent = '4'
+                            commentBtnLike.appendChild(commentIcnLike)
+                            commentBtnDisLike = document.createElement('a')
+                            commentBtnDisLike.setAttribute('class','btn btn-default stat-item')
+    //                        commentBtnDisLike.setAttribute('href','')
+                            commentStats.appendChild(commentBtnDisLike)
+                            commentIcnDisLike = document.createElement('i')
+                            commentIcnDisLike.setAttribute('class','fa fa-thumbs-down icon')
+                            commentIcnDisLike.textContent = '0'
+                            commentBtnDisLike.appendChild(commentIcnDisLike)
+                    })})
         /////////////////////////////////////start of map//////////////////////////////////////////
                     mapDivID = 'map'.concat(villaID)
                     map = document.createElement('div')
@@ -120,7 +119,6 @@ function getVillaDetails(villaID){
                     mapiFrame.setAttribute('src','https://maps.google.com/maps?q='.concat(data.serchArea).concat('&t=&z=19&ie=UTF8&iwloc=&output=embed'))
                     mapDiv.appendChild(mapiFrame)
         /////////////////////////////////////end of map//////////////////////////////////////////
-                    result = data.registeredUsers
                     var villaPic = data.photo
 //                    bgDiv.setAttribute("style",'background-image: url("'.concat(villaPic).concat('");') )
 
@@ -132,8 +130,8 @@ function getVillaDetails(villaID){
                             //picContainer.setAttribute("id", "divDetails".concat(tourID))
                             img = document.createElement('IMG')
                             img.setAttribute("src", picData.photo)
-                            img.setAttribute("width", "350")
-                            img.setAttribute("height", "350")
+                            img.setAttribute("width", "300")
+                            img.setAttribute("height", "300")
 
                             p1 = document.createElement('p')
                             p1.textContent =  picData.address
@@ -158,8 +156,8 @@ function getVillaDetails(villaID){
                     th0.textContent = 'تاریخ'
                     th1.textContent = 'روزهای هفته'
                     th2.textContent = 'قیمت'
-                    th3.textContent = 'توضیحات'
-                    th4.textContent = 'وضعیت'
+                    th3.textContent = 'وضعیت'
+                    th4.textContent = 'توضیحات'
                     trHeader.appendChild(th0)
                     trHeader.appendChild(th1)
                     trHeader.appendChild(th2)
@@ -184,8 +182,9 @@ function getVillaDetails(villaID){
 //                    console.log(today)
 //                    console.log(fromdateDefault)
 //                    console.log(todateDefault)
-                    getVillaDateStatus(villaID,fromdate,todate)
-                    .then(data => data.forEach(villadatestatus => {
+                    var VillaDateStatusURL = getVillaDateStatus(villaID,fromdate,todate)
+                    $.getJSON( VillaDateStatusURL, function( data ) {
+                        data.forEach(villadatestatus => {
                             tr = document.createElement('tr')
                             table.appendChild(tr)
                             ckBoxTR1 = document.createElement('input')
@@ -218,19 +217,21 @@ function getVillaDetails(villaID){
                             td0.textContent = villadatestatus.jdateYear.toString().concat('/').concat(villadatestatus.jdateMonth.toString().concat('/').concat(villadatestatus.jdateDay.toString()))
                             td1.textContent = villadatestatus.jdateWeekDay
                             td2.textContent = villadatestatus.price
-                            td3.textContent = statusTitle
-                            td4.appendChild(ckBoxTR1)
+                            td3.appendChild(ckBoxTR1)
+                            td4.textContent = statusTitle
                             tr.appendChild(td0)
                             tr.appendChild(td1)
                             tr.appendChild(td2)
                             tr.appendChild(td3)
                             tr.appendChild(td4)
-                    }))
+                    })})
                  }
               )
         showBtn.setAttribute("value", "عدم نمایش جزئیات تور")
     }
     else {
+        $( '#divDetails' ).toggle( 'slow','swing' )
+        console.log('toggle')
         const showBtn = document.getElementById("showBtn".concat(villaID))
         const x = document.getElementById("divDetails".concat(villaID))
         if (x.style.display === "none") {
@@ -253,48 +254,21 @@ function getVillaDetails(villaID){
 }
 
 function doFilter(){
-    clearCards()
+    $("#root").empty();
     var radioCheckedId = getCheckedCatRadio().slice(-1)
-    const container = document.getElementById('root')
-    if(container){
+    var container = document.getElementById('root')
+    if(container)
+        container.setAttribute('class','container-card')
+    else{
+        container = document.createElement('root')
         container.setAttribute('class','container-card')
     }
-    var url
-    var fromdate
-    var todate
-    var today = new Date();
-    var fromdateDefault =  today.toISOString().slice(0,10)
-    var todateDefault = today.addMonths(12).toISOString().slice(0,10)
 
-    if(document.getElementById('fromdate').value)
-         fromdate = document.getElementById('fromdate').value
-    else
-        fromdate = fromdateDefault
-     if(document.getElementById('todate').vlaue )
-        todate = document.getElementById('todate').vlaue
-    else
-        todate = todateDefault
-    if (radioCheckedId == 0){
-        url = "/api/filter/villa/?format=json"
-                .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
-    }
-    else
-        url = "/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
-                .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
+    var url
+
+    url = getVillaByFilters()
     console.log(url)
-    if (window.XMLHttpRequest) {
-        // code for modern browsers
-           request = new XMLHttpRequest();
-         }
-    else {
-            // code for old IE browsers
-            request = new ActiveXObject("Microsoft.XMLHTTP");
-         }
-    request.open('GET', url, true);
-    request.onload =
-            function(){
-               var data = JSON.parse(this.response);
-                if (request.status >= 200 && request.status < 400) {
+    $.getJSON( url, function( data ) {
                      data.forEach(Villa => {
                         cardFrame =  document.createElement('div');
                         cardFrame.setAttribute('class', 'column medium-1 small-6 end');
@@ -342,14 +316,8 @@ function doFilter(){
                         card.appendChild(p);
                      })
 
-                }
-            }
-    request.send();
-}
-function removeElement(elementId) {
-    var element = document.getElementById(elementId)
-    if(element)
-        element.parentNode.removeChild(element)
+                })
+
 }
 function getCheckedCatRadio(){
     var radio = document.forms[0]
@@ -365,26 +333,17 @@ function getCheckedCatRadio(){
                 return 'villaCatRadiogroup'+i
             }
         }
-
-}
-function clearCards(){
-    var container = document.getElementById("root")
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
 }
 
-async function getVillaData(villaID)
-        {
+function getVillaData(villaID)
+        { var url
           if (villaID==0){
             url = '/api/villa/?format=json'
           }
           else{
             url = "/api/villa/".concat(villaID).concat("/?format=json")
           }
-          let response = await fetch(url)
-          let data = await response.json()
-        return data
+        return url
         }
 async function getPicByID(picID)
         {
@@ -397,59 +356,45 @@ function undoFilter(){
     location.reload()
 }
 
-async function getVillaVotesByVillaID(villaId)
-        {
+function getVillaVotesByVillaID(villaId)
+        {var url
          url = "/api/filter/villavotes/?format=json&villa=".concat(villaId)
-         console.log(''.concat(url))
-         let response = await fetch(url)
-         let dataVotes = await response.json()
-         return dataVotes
+         return url
         }
 
-async function getVillaDateStatus(villaId,date_gt,date_lt)
-        {///api/filter/villadatestatus/?format=json&date__gt=2018-03-20&date__lt=2018-03-30&villaId=2
+function getVillaDateStatus(villaId,date_gt,date_lt)
+        {var url
          url = "/api/filter/villadatestatus/?format=json&villaId=".concat(villaId)
                .concat("&date__gt=").concat(date_gt).concat("&date__lt=").concat(date_lt)
-         console.log(url)
-         let response = await fetch(url)
-         let data = await response.json()
-         return data
+         return url
         }
-function undoFilter(){
-    location.reload()
-}
 
-async function getVillafiltered(){
+function getVillaByFilters(){
         var url
-        var data
+        var fromdate
+        var todate
+        var today = new Date();
+        var fromdateDefault =  today.toISOString().slice(0,10)
+        var todateDefault = today.addMonths(12).toISOString().slice(0,10)
+
+        if(document.getElementById('fromdate').value)
+             fromdate = document.getElementById('fromdate').value
+        else
+            fromdate = fromdateDefault
+         if(document.getElementById('todate').vlaue )
+            todate = document.getElementById('todate').vlaue
+        else
+            todate = todateDefault
         var radioCheckedId = getCheckedCatRadio().slice(-1)
         if (radioCheckedId == 0)
-            url = '/api/villa/?format=json'
+            url = '/api/villa/?format=json'.concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
         else
             url = "/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
-                    .concat("&date__gt=2018-03-20&date__lt=2018-03-21")
-        if (window.XMLHttpRequest) {
-            // code for modern browsers
-               request = new XMLHttpRequest();
-             }
-        else {
-                // code for old IE browsers
-                request = new ActiveXObject("Microsoft.XMLHTTP");
-             }
-        request.open('GET', url, true);
-        request.onload =
-                function(){
-                   data = JSON.parse(this.response);
-                   if (request.status >= 200 && request.status < 400)
-                        return data
-                }
-        request.send()
-    return data
+                    .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
+//        console.log(url)
+        return url
 }
 
-function undoFilter(){
-    location.reload()
-}
 
 Date.isLeapYear = function (year) {
     return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));

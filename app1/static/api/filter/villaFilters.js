@@ -14,11 +14,12 @@ function getVillaDetails(villaID){
                     const container = document.createElement('div')
                     container.setAttribute('class', 'container')
                     container.setAttribute("id", "divDetails".concat(villaID))
+                    container.setAttribute('style','background-color: #cce6ff;')
                     villaCard.appendChild(container)
 /////////////////////////////////////Chart//////////////////////////////////////////
                     chartContainer = document.createElement('div')
                     chartContainer.setAttribute('id','chartContainer'.concat(villaID))
-                    chartContainer.setAttribute('style','width: 500px; height: 400px;')
+                    chartContainer.setAttribute('style','width: 300px; height: 300px; background-color: #ccffff;')
                     container.appendChild(chartContainer)
                     var chart = anychart.pie();
                     // set the data
@@ -35,8 +36,69 @@ function getVillaDetails(villaID){
          /////////////////////////////////////display comments//////////////////////////////////////////
                     commentContainer = document.createElement('div')
                     commentContainer.setAttribute('class','container-card')
+                    commentContainer.setAttribute('style','background-color: lightblue;')
                     commentContainer.textContent = 'نظرات'
                     container.appendChild(commentContainer)
+
+                            commentRow = document.createElement('div')
+                            commentContainer.appendChild(commentRow)
+                            commentPanel = document.createElement('div')
+                            commentPanel.setAttribute('class','panel panel-white post panel-shadow')
+                            commentRow.appendChild(commentPanel)
+                            commentPostheading = document.createElement('div')
+                            commentPostheading.setAttribute('class','post-heading')
+                            commentPanel.appendChild(commentPostheading)
+                            commentPullRightImage = document.createElement('div')
+                            commentPullRightImage.setAttribute('class','pull-right image')
+                            commentPostheading.appendChild(commentPullRightImage)
+                            commentImg = document.createElement('img')
+                            commentImg.setAttribute('class','img-circle avatar')
+                            commentImg.setAttribute('alt','user profile image')
+                            commentImg.setAttribute('src','http://bootdey.com/img/Content/user_1.jpg') //http://bootdey.com/img/Content/user_2.jpg
+                            commentPullRightImage.appendChild(commentImg)
+                            commentPullRightMeta = document.createElement('div')
+                            commentPullRightMeta.setAttribute('class','pull-right meta')
+                            commentPostheading.appendChild(commentPullRightMeta)
+                            commentTitleH5 = document.createElement('div')
+                            commentTitleH5.setAttribute('class','title h5')
+                            commentPullRightMeta.appendChild(commentTitleH5)
+                            commentTitleA = document.createElement('a')
+                            commentTitleA.setAttribute('href','#')
+                            commentTitleH5.appendChild(commentTitleA)
+                            commentTitleb = document.createElement('b')
+                            commentTitleb.textContent = ': کامنت ایجاد کنید:'
+                            commentTitleA.appendChild(commentTitleb)
+                            commentTitleH6 = document.createElement('div')
+                            commentTitleH6.setAttribute('class','text-muted time')
+                            commentPullRightMeta.appendChild(commentTitleH6)
+                            commentTitleH6.textContent = 'همین حالا'
+                            commentPostDescription = document.createElement('div')
+                            commentPostDescription.setAttribute('class','post-description')
+                            commentPanel.appendChild(commentPostDescription)
+                            commentPost = document.createElement('input')
+                            commentPost.setAttribute('placeholder','نظر شما ...')
+                            commentPostDescription.appendChild(commentPost)
+                            commentStats = document.createElement('div')
+                            commentStats.setAttribute('class','stats')
+                            commentPostDescription.appendChild(commentStats)
+                            commentBtnLike = document.createElement('a')
+                            commentBtnLike.setAttribute('class','btn btn-default stat-item')
+    //                        commentBtnLike.setAttribute('href','')
+                            commentStats.appendChild(commentBtnLike)
+                            commentIcnLike = document.createElement('i')
+                            commentIcnLike.setAttribute('class','fa fa-thumbs-up icon')
+                            commentIcnLike.textContent = '4'
+                            commentBtnLike.appendChild(commentIcnLike)
+                            commentBtnDisLike = document.createElement('a')
+                            commentBtnDisLike.setAttribute('class','btn btn-default stat-item')
+    //                        commentBtnDisLike.setAttribute('href','')
+                            commentStats.appendChild(commentBtnDisLike)
+                            commentIcnDisLike = document.createElement('i')
+                            commentIcnDisLike.setAttribute('class','fa fa-thumbs-down icon')
+                            commentIcnDisLike.textContent = '0'
+                            commentBtnDisLike.appendChild(commentIcnDisLike)
+
+
                     VillaVotesURL = getVillaVotesByVillaID(villaID)
                     $.getJSON( VillaVotesURL, function( data ) {
                         data.forEach(vote => {
@@ -100,6 +162,7 @@ function getVillaDetails(villaID){
                             commentIcnDisLike.textContent = '0'
                             commentBtnDisLike.appendChild(commentIcnDisLike)
                     })})
+
         /////////////////////////////////////start of map//////////////////////////////////////////
                     mapDivID = 'map'.concat(villaID)
                     map = document.createElement('div')
@@ -127,6 +190,7 @@ function getVillaDetails(villaID){
                          .then(picData => {
                             picContainer = document.createElement('div')
                             picContainer.setAttribute('class', 'container-card')
+                            picContainer.setAttribute('style', 'background-color: #80ffff;');
                             //picContainer.setAttribute("id", "divDetails".concat(tourID))
                             img = document.createElement('IMG')
                             img.setAttribute("src", picData.photo)
@@ -276,6 +340,7 @@ function doFilter(){
 
                         const card = document.createElement('div');
                         card.setAttribute('class', 'card card-bordered card-offer');
+                        card.setAttribute('style', 'background-color: #ccffff;');
                         card.setAttribute('id', Villa.id);
                         cardFrame.appendChild(card);
 

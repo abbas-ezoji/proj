@@ -13,67 +13,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='villavote',
-            name='ownerTitle',
-            field=models.CharField(blank=True, max_length=100, null=True),
-        ),
-        migrations.AddField(
-            model_name='villa',
-            name='avgPrice',
-            field=models.FloatField(blank=True, default=0, null=True),
-        ),
-        migrations.AddField(
-            model_name='villa',
-            name='maxPrice',
-            field=models.FloatField(blank=True, default=0, null=True),
-        ),
-        migrations.AddField(
-            model_name='villa',
-            name='minPrice',
-            field=models.FloatField(blank=True, default=0, null=True),
-        ),
-
-        migrations.AlterField(
-            model_name='villastatus',
-            name='STATUS_OF_VILLA',
-            field=models.IntegerField(choices=[(0, 'آزاد'), (1, 'اجاره شده'), (2, 'رزرو شده'), (3, 'دردست تعمیر'), (4, 'اجاره داده نمی شود')], default=0, verbose_name='وضعیت'),
-        ),
-        migrations.AlterField(
-            model_name='villastatus',
-            name='comment',
-            field=models.TextField(blank=True, null=True, verbose_name='توضیحات'),
-        ),
-        migrations.AlterField(
-            model_name='villastatus',
-            name='j_fromDateDay',
-            field=models.IntegerField(default=1, validators=[django.core.validators.MaxValueValidator(31), django.core.validators.MinValueValidator(1)], verbose_name='از روز '),
-        ),
-        migrations.AlterField(
-            model_name='villastatus',
-            name='j_fromDateMonth',
-            field=models.IntegerField(default=1, validators=[django.core.validators.MaxValueValidator(12), django.core.validators.MinValueValidator(1)], verbose_name='از ماه '),
-        ),
-        migrations.AlterField(
-            model_name='villastatus',
-            name='j_fromDateYear',
-            field=models.IntegerField(default=1397, validators=[django.core.validators.MaxValueValidator(1400), django.core.validators.MinValueValidator(1397)], verbose_name='از سال '),
-        ),
-        migrations.AlterField(
-            model_name='villastatus',
-            name='j_toDateDay',
-            field=models.IntegerField(default=1, validators=[django.core.validators.MaxValueValidator(31), django.core.validators.MinValueValidator(1)], verbose_name='تا روز '),
-        ),
-        migrations.AlterField(
-            model_name='villastatus',
-            name='j_toDateMonth',
-            field=models.IntegerField(default=10, validators=[django.core.validators.MaxValueValidator(12), django.core.validators.MinValueValidator(1)], verbose_name='تا ماه '),
-        ),
-        migrations.AlterField(
-            model_name='villastatus',
-            name='j_toDateYear',
-            field=models.IntegerField(default=1397, validators=[django.core.validators.MaxValueValidator(1400), django.core.validators.MinValueValidator(1397)], verbose_name='تا سال '),
-        ),
+        
         migrations.AlterField(
             model_name='villastatus',
             name='price',

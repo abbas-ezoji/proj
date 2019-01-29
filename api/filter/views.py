@@ -1,6 +1,6 @@
 from rest_framework import generics
 from django_filters import rest_framework as filters
-from django.db.models import Sum
+from django.db.models import Sum,Count
 from app1 import models
 from api import serializers
 import datetime
@@ -10,10 +10,12 @@ class villaFilter(filters.FilterSet):
     date__gt = filters.DateFilter(field_name='villadatestatus__date',lookup_expr='gt',distinct=True)
     status = filters.BooleanFilter(field_name='villadatestatus__statusId',method='sum_ststus')
     villaCategory = filters.NumberFilter(field_name='villaCategory',distinct=True)
-    # with open('E:/logs.txt','a') as log:
-    #     log.write(str(status__in))
+
     def sum_ststus(self,queryset, name, value):
-        return queryset.annotate(statusId__sum=Sum('villadatestatus__statusId')).filter(statusId__sum=0)
+        result = queryset.filter(villadatestatus__statusId__gt=0).annotate(statusId_sum=Count('villadatestatus__statusId')).filter(statusId_sum__lte=0)
+        # with open('C:/MyFiles/DjangoProjects/adib/logs.txt', 'a') as log:
+        #     log.write('\ncall sum_ststus: ' + str(result))
+        return result
 
     class Meta:
         model =  models.Villa
@@ -24,7 +26,7 @@ class ListTodoVilla(generics.ListAPIView):
     serializer_class = serializers.TodoSerializerVilla
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = villaFilter
-
+    # print ((serializer_class.data))
     # import pdb
     # pdb.set_trace()
 

@@ -22,7 +22,9 @@ class TodoSerializerVilla(serializers.ModelSerializer):
     # villaDateStatus = serializers.StringRelatedField(many=True)
     class Meta:
         model = Villa
+        # fields = ('id', )
         fields = '__all__'
+        # fields = ('id','title','villaCategory','address','photo','comment','pub_date','galaryPictures','serchArea','minPrice','maxPrice','avgPrice',)
 
 class TodoSerializerVillaCategories(serializers.ModelSerializer):
     class Meta:

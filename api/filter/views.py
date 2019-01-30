@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+# from django.db import connection
 
 from rest_framework import generics
 from django_filters import rest_framework as filters
@@ -37,12 +38,18 @@ class ListTodoVilla(generics.ListAPIView):
 @api_view(['GET', 'POST'])
 def villaListView(request):
     if request.method == 'GET':
-        id = str(request.GET['id'])
-        query = 'SELECT * FROM public.app1_villa WHERE ID = ' + id
+        id = request.GET['id']
+        status = request.GET['datefrom']
+        datefrom = request.GET['status']
+        dateto = request.GET['dateto']
+        query = 'SELECT * FROM public.get_villas({},{})'.format(id,status,datefrom,dateto)
+        print(query)
+        # with connection.cursor() as cursor:
+        #     villa = cursor.callproc('public.getfoo', [id])
+        #     print('getfoo')
         villa = models.Villa.objects.raw(query)
         serializer = serializers.TodoSerializerVilla(villa, many=True)
         return Response(serializer.data)
-
     elif request.method == 'POST':
         serializer = serializers.TodoSerializerVilla(data=request.data)
         if serializer.is_valid():

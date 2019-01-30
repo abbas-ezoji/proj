@@ -451,12 +451,10 @@ function getVillaByFilters(){
         else
             todate = todateDefault
         var radioCheckedId = getCheckedCatRadio().slice(-1)
-        if (radioCheckedId == 0)
-            url = '/api/villa/?format=json'.concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
-        else
-            url = "/api/filter/villa/?format=json&villaCategory=".concat(radioCheckedId)
-                    .concat("&date__gt=").concat(fromdate).concat("&date__lt=").concat(todate)
-//        console.log(url)
+        url = "/api/filter/villa/?format=json&id=0&status=0&fromdate='".concat(fromdate).concat("'&todate='").concat(todate)
+               .concat("'&villaCategory=").concat(radioCheckedId)
+
+       console.log('getVillaByFilters')
         return url
 }
 

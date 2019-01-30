@@ -39,10 +39,11 @@ class ListTodoVilla(generics.ListAPIView):
 def villaListView(request):
     if request.method == 'GET':
         id = request.GET['id']
-        status = request.GET['datefrom']
-        datefrom = request.GET['status']
-        dateto = request.GET['dateto']
-        query = 'SELECT * FROM public.get_villas({},{})'.format(id,status,datefrom,dateto)
+        status = request.GET['status']
+        fromdate = str(request.GET['fromdate'])
+        todate = str(request.GET['todate'])
+        villaCategory = request.GET['villaCategory']
+        query = 'SELECT * FROM public.get_villas({},{},{},{},{})'.format(id,status,fromdate,todate,villaCategory)
         print(query)
         # with connection.cursor() as cursor:
         #     villa = cursor.callproc('public.getfoo', [id])

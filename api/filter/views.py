@@ -1,3 +1,7 @@
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from rest_framework import generics
 from django_filters import rest_framework as filters
 from django.db.models import Sum,Count
@@ -29,6 +33,22 @@ class ListTodoVilla(generics.ListAPIView):
     # print ((serializer_class.data))
     # import pdb
     # pdb.set_trace()
+
+@api_view(['GET', 'POST'])
+def villaListView(request):
+    if request.method == 'GET':
+        id = str(request.GET['id'])
+        query = 'SELECT * FROM public.app1_villa WHERE ID = ' + id
+        villa = models.Villa.objects.raw(query)
+        serializer = serializers.TodoSerializerVilla(villa, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = serializers.TodoSerializerVilla(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class villaSatusDateFilter(filters.FilterSet):
     date__lt = filters.DateFilter(field_name='date',lookup_expr='lte',distinct=True)

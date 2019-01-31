@@ -20,6 +20,9 @@ class Restaurant(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'رستوران'
+
 class Hotel(models.Model):
     name = models.CharField(max_length=200)
     address = models.TextField(null=True, blank=True)
@@ -31,6 +34,9 @@ class Hotel(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'هتل'
+
 
 class Pictures(models.Model):
     title = models.CharField(max_length=200)
@@ -40,6 +46,9 @@ class Pictures(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'عکس'
 
 class Tour(models.Model):
     title = models.CharField(max_length=200)
@@ -56,6 +65,9 @@ class Tour(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'تور'
+
 class villaCategory(models.Model):
     title = models.CharField(max_length=200)
     tags = models.CharField(max_length=1000)
@@ -63,6 +75,9 @@ class villaCategory(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'دسته بندی ویلا'
 
 class Villa(models.Model):
     title = models.CharField(max_length=200)
@@ -81,6 +96,7 @@ class Villa(models.Model):
         return self.title
 
     class Meta:
+        verbose_name = 'ویلا'
         ordering = ('-pub_date',)
 
 class villaVote(models.Model):
@@ -99,6 +115,9 @@ class villaVote(models.Model):
             super().save(*args, **kwargs)
         self.ownerTitle = self.owner.first_name + ' ' + self.owner.last_name
         super(villaVote, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'نظرات ویلا'
 
 STATUS_CHOICES = (
     (0, ("آزاد")),
@@ -188,4 +207,7 @@ class villaStatus(models.Model):
 
     def __str__(self):
         return self.villa.title + ' - از: ' + str(jdatetime.date.fromgregorian(date=self.fromDate)) + ' تا: ' + str(jdatetime.date.fromgregorian(date=self.toDate)) +' : '+ str( self.STATUS_OF_VILLA)
+
+    class Meta:
+        verbose_name = 'وضعیت ویلا'
 

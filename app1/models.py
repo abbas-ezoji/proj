@@ -91,6 +91,7 @@ class Villa(models.Model):
     minPrice = models.FloatField(null=True, blank=True,default = 0)
     maxPrice = models.FloatField(null=True, blank=True,default = 0)
     avgPrice = models.FloatField(null=True, blank=True,default = 0)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -100,7 +101,7 @@ class Villa(models.Model):
         ordering = ('-pub_date',)
 
 class villaVote(models.Model):
-    owner = models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
     comment = models.TextField('توضیحات',null=True, blank=True)
     rate = models.IntegerField('نمره',default=0,validators=[MaxValueValidator(5), MinValueValidator(-5)],null=True, blank=True)
@@ -141,6 +142,7 @@ class villaDateStatus(models.Model):
         ordering = ('villaId','date',)
 
 class villaStatus(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     villa = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
     comment = models.TextField('توضیحات',null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)

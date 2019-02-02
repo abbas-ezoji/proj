@@ -441,17 +441,22 @@ function getVillaByFilters(){
         var today = new Date();
         var fromdateDefault =  today.toISOString().slice(0,10)
         var todateDefault = today.addMonths(12).toISOString().slice(0,10)
+        var status = 0
+        var id = 0
+
+        if(document.getElementById("statusCheckbox").checked)
+            status = 1
 
         if(document.getElementById('fromdate').value)
              fromdate = document.getElementById('fromdate').value
         else
             fromdate = fromdateDefault
-         if(document.getElementById('todate').vlaue )
+        if(document.getElementById('todate').vlaue )
             todate = document.getElementById('todate').vlaue
         else
             todate = todateDefault
         var radioCheckedId = getCheckedCatRadio().slice(-1)
-        url = "/api/filter/villa/?format=json&id=0&status=0&fromdate='".concat(fromdate).concat("'&todate='").concat(todate)
+        url = "/api/filter/villa/?format=json&id=0&status=".concat(status).concat("&fromdate='").concat(fromdate).concat("'&todate='").concat(todate)
                .concat("'&villaCategory=").concat(radioCheckedId)
 
        console.log('getVillaByFilters')

@@ -66,13 +66,3 @@ class villaVoteAdmin(admin.ModelAdmin):
         return super(villaVoteAdmin, self).render_change_form(request, context, *args, **kwargs)
 
 admin.site.register(villaVote, villaVoteAdmin)
-
-
-class TourAdmin(admin.ModelAdmin):
-    form = TourForm
-    filter_horizontal = ('questions',)
-    fieldsets = (
-        (None, {
-            'fields': (('Title', 'DistAddress'), 'Comment', 'color')
-            }),
-        )

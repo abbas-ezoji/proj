@@ -352,7 +352,7 @@ function doFilter(){
                         btn.setAttribute('class','btn w-100 btn-reverse btn-success')
 
                         const h1 = document.createElement('h1');
-                        h1.textContent = Villa.VillaTitle;
+                        h1.textContent = Villa.title;
                         h1.setAttribute('class','tourTitle')
 
                         img = document.createElement('IMG');

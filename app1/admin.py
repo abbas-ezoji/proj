@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
-from .models import ( Restaurant,Tour,Hotel,Pictures,Villa,villaCategory,villaStatus,villaVote)
+from .models import ( Restaurant,Tour,Hotel,Pictures,Villa,villaCategory,villaStatus,villaVote,costumer)
 from .form import TourForm
 
 admin.site.register(Restaurant)
@@ -66,3 +66,5 @@ class villaVoteAdmin(admin.ModelAdmin):
         return super(villaVoteAdmin, self).render_change_form(request, context, *args, **kwargs)
 
 admin.site.register(villaVote, villaVoteAdmin)
+
+admin.site.register(costumer)

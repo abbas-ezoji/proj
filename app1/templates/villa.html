@@ -33,9 +33,34 @@
 <body>
   <div>
       <div class="row" >
-          <div class="col s1"></div>
-          <div class="col s10" style="background-color: #b2dfdb;">
-              <form action="villa.html">
+          <button id="loginBtn" class="loginHeader">ورود</button>
+          <div id="myModal" class="modal">
+              <!-- Modal content -->
+              <div id = "loginForm" class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+                <div class="row" >
+                    <div class="col s2"></div>
+                    <div class="col s4">
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:نام کاربری</label><br>
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:رمز عبور  </label>
+                    </div>
+                    <div class="col s4">
+                        <input type="text" id="usernameTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;"><br>
+                        <input type="password" id="passwordTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
+                        <input data-toggle="tooltip" title="ورود" class="buttonGreen" type="button" onclick="login()" value="ورود"  >
+                        <input data-toggle="tooltip" title="ثبت نام" class="buttonYellow"  type="button" onclick="undoFilter()" value="ثبت نام"  >
+                    </div>
+                    <div class="col s2"></div>
+                </div>
+              </div>
+              <script src="{% static 'login.js' %}"></script>
+          </div>
+      </div>
+      <div class="row" >
+          <!--<div class="col s1"></div>-->
+          <div class="col s12" style="background-color: #b2dfdb;">
+              <form action="villa.html" style="padding-right: 10px;">
                   </br>
                   {% if villaCat_list %}
                   <div id="villaCat" class="row"  style="font: 18px 'b nazanin', sans-serif; font-weight: bold; color:#000066;">
@@ -77,9 +102,9 @@
                           </div>
                       </div>
                       <div class="col s6">
-                          <div style="height: 100px;">
+                          <div style="height: 100px;  padding-right: 10px;">
                                 <input type="text" id="pcal1" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
-                                <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" for="extra"> از تاریخ:</label><br>
+                                <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif; " for="extra"> از تاریخ:</label><br>
                                 <input style="visibility:hidden" type="text" id="fromdate" class="pdate wide">
 
                           </div>
@@ -106,9 +131,9 @@
                      );
                   </script>
                   <script src="{% static 'api/filter/villaFilters.js' %}"></script>
-                  <div>
+                  <div style="padding-right: 10px;">
                       <input data-toggle="tooltip" title="اعمال فیلتر" class="buttonGreen" type="button" onclick="doFilter()" value="اعمال فیلتر"  >
-                      <input data-toggle="tooltip" title="عدم اعمال فیلتر" class="buttonRed" title="" type="button" onclick="undoFilter()" value="عدم اعمال فیلتر"  >
+                      <input data-toggle="tooltip" title="عدم اعمال فیلتر" class="buttonRed"  title="" type="button" onclick="undoFilter()" value="عدم اعمال فیلتر"  >
 
                       <script>
                         $(document).ready(function(){
@@ -119,7 +144,7 @@
 
               </form>
           </div>
-          <div class="col s1"></div>
+          <!--<div class="col s1"></div>-->
       </div>
       <div>
           <div class="card-panel teal lighten-4">

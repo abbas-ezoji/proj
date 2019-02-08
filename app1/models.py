@@ -128,6 +128,11 @@ STATUS_CHOICES = (
     (4, ("اجاره داده نمی شود"))
 )
 
+ACTIVE_CHOISES = (
+    (0, ("غیرفعال")),
+    (1, ("فعال"))
+)
+
 class villaDateStatus(models.Model):
     villaId = models.ForeignKey(Villa,on_delete=models.CASCADE,null=True, blank=True)
     statusId = models.IntegerField(default=0,choices= STATUS_CHOICES)
@@ -212,4 +217,23 @@ class villaStatus(models.Model):
 
     class Meta:
         verbose_name = 'وضعیت ویلا'
+
+class costumer(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+    address = models.TextField(null = True,blank = True)
+    phonenumber = models.CharField(max_length=20,null = True,blank = True)
+    firstname = models.CharField(max_length=100,null = True,blank = True)
+    lastname = models.CharField(max_length=100, null=True, blank=True)
+    active = models.IntegerField(default=1,choices= ACTIVE_CHOISES)
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        verbose_name = 'مشتری'
+
+
+
+
 

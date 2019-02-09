@@ -37,38 +37,38 @@
           <div id="myModal" class="modal">
               <!-- Modal content -->
               <div id = "loginForm" class="modal-content">
-                <span class="close">&times;</span>
+                <span id ="loginCloseBtn" class="close">&times;</span>
                 <p>در صورتی که ثبت نام نکردید ثبت نام کنید</p>
                 <div id = "loginDiv" class="row" style="padding-right: 20%; padding-left: 20%;">
-                    <div class="col s6">
-                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:نام کاربری</label><br>
-                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:رمز عبور  </label>
-                    </div>
-                    <div class="col s6">
+                    <div class="col s8">
                         <input type="text" id="usernameTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;"><br>
                         <input type="password" id="passwordTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
                         <input data-toggle="tooltip" title="وارد شوید" class="buttonGreen" type="button" onclick="login()" value="ورود"  >
                         <input data-toggle="tooltip" title="هنوز ثبت نام نکردی؟!" class="buttonRed"  type="button" onclick="register()" value="ثبت نام"  >
                     </div>
+                    <div class="col s4">
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >نام کاربری:</label><br>
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >رمز عبور  :</label>
+                    </div>
                 </div>
 
-                <div id = "regiterDiv" class="row" style="padding-right: 20%; padding-left: 20%; display: none;">
-                    <div class="col s6">
-                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:نام کاربری</label><br>
-                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:رمز عبور  </label><br>
-                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:نام کاربری</label><br>
-                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:نام کاربری</label><br>
-                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:نام کاربری</label><br>
-                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >:نام کاربری</label><br>
-                    </div>
-                    <div class="col s6">
+                <div id = "registerDiv" class="row" style="padding-right: 20%; padding-left: 20%; display: none;">
+                    <div class="col s8">
                         <input type="text" id="firstnameTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;"><br>
                         <input type="text" id="lastnameTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;"><br>
                         <input type="text" id="address" class="pdate" style="font: 15px 'b nazanin', sans-serif;"><br>
                         <input type="text" id="phonenumber" class="pdate" style="font: 15px 'b nazanin', sans-serif;"><br>
                         <input type="text" id="usernameRegTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;"><br>
-                        <input type="text" id="passwordRegTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
+                        <input type="password" id="passwordRegTxt" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
                         <input data-toggle="tooltip" title="اگه اطلاعاتتون رو تائید می کنید کلیک کنین" class="buttonGreen" type="button" onclick="login()" value="ادامه"  >
+                    </div>
+                    <div class="col s4">
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >نام          :</label><br>
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >نام خانوادگی :</label><br>
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >آدرس          :</label><br>
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >شماره تلفن    :</label><br>
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >نام کاربری    :</label><br>
+                        <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" >رمز عبور      :</label><br>
                     </div>
                 </div>
               </div>

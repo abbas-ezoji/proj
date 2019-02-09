@@ -31,5 +31,11 @@ function login(){
 }
 
 function register(){
+<<<<<<< HEAD
 
+=======
+    $("#regiterDiv").fadeIn("slow");
+//    var regiterDiv = document.getElementById('regiterDiv');
+//    regiterDiv.style.display = "block";
+>>>>>>> 7a3b53a37cbc2d55da85337f5032cd0ef5638509
 }

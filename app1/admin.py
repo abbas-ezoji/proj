@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
-from .models import ( Restaurant,Tour,Hotel,Pictures,Villa,villaCategory,villaStatus,villaVote,costumer)
+from .models import ( Restaurant,Tour,Hotel,Pictures,Villa,villaCategory,villaStatus,villaVote,customer)
 from .form import TourForm
 
 admin.site.register(Restaurant)
@@ -67,4 +67,4 @@ class villaVoteAdmin(admin.ModelAdmin):
 
 admin.site.register(villaVote, villaVoteAdmin)
 
-admin.site.register(costumer)
+admin.site.register(customer)

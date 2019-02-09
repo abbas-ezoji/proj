@@ -218,7 +218,7 @@ class villaStatus(models.Model):
     class Meta:
         verbose_name = 'وضعیت ویلا'
 
-class costumer(models.Model):
+class customer(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     address = models.TextField(null = True,blank = True)

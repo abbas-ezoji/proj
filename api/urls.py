@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     url(r'^filter/', include('api.filter.urls')),
+    url(r'^login/', include('api.login.urls')),
     path('rest/', views.ListTodoRest.as_view()),
     path('rest/<int:pk>/', views.DetailTodoRest.as_view()),
     path('tour/', views.ListTodoTour.as_view()),

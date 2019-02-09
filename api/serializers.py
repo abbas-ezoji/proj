@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from rest_framework import generics
-from app1.models import (Restaurant,Tour,Pictures,Villa,villaCategory,villaDateStatus,villaVote)
+from app1.models import (Restaurant,Tour,Pictures,Villa,villaCategory,villaDateStatus,villaVote,customer)
 
 class TodoSerializerRest(serializers.ModelSerializer):
     class Meta:
@@ -39,4 +39,8 @@ class TodoSerializerVillaDateStatus(serializers.ModelSerializer):
 class TodoSerializerVillVotes(serializers.ModelSerializer):
     class Meta:
         model = villaVote
+        fields = '__all__'
+class serializerCostumer(serializers.ModelSerializer):
+    class Meta:
+        model = customer
         fields = '__all__'

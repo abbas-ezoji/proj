@@ -1,6 +1,8 @@
 /////////////////popup login////////////////
 var modal = document.getElementById("myModal");
 $("#loginBtn").click(function(){
+    $(this).val("  ...عملیات ورود به حساب کاربری");
+    console.log('click')
     $("#registerDiv").hide();
     $("#myModal").show();
 });
@@ -25,8 +27,12 @@ function login(){
             var url = "/api/login/?format=json&username='".concat(username).concat("'&password='").concat(password).concat("'")
             console.log(url)
             $.getJSON( url, function( data ) {
-                console.log(data.firstname)
+                data.forEach(customer => {
+                    $("#loginBtn").val("خوش آمدید ".concat(customer.firstname));
+                })
+                $("#myModal").hide();
             })
+
     }
 
 }

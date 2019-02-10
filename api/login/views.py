@@ -18,6 +18,7 @@ def login(request):
         serializer = serializers.serializerCostumer(customer, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
+        print('post')
         serializer = serializers.serializerCostumer(data=request.data)
         if serializer.is_valid():
             serializer.save()

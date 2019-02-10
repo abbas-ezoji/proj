@@ -14,7 +14,8 @@ $("#loginBtn").click(function(){
         if (confirm('آیا میخواهید از حسابتان خارج بشوید؟'))
              $("#loginBtn").val('ورود')
     }
-});
+})
+
 $("#closeLoginBtn").click(function(){
     $("#myModal").hide();
 });
@@ -65,21 +66,21 @@ function register(){
                   lastname:     $("#lastname").val,
                   address:      $("#address").val
                  }
-
     $("#registerUserDataBtn").click(function(){
         $.ajax({
-                url: "http://localhost:8080/MyWebService/api/myService/jsonpost",
-                method: "POST",
+                type: "POST",
+                url: "/api/login/",
+                csrfmiddlewaretoken: "{{ csrf_token }}",
                 data: newUser,
-                dataType: 'application/json',
-                contentType: "application/json",
-                success: function(result){
-                     alert(result);
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                    alert(data);
                 },
-                error(){
-                    console.log('Error');
+                failure: function(errMsg) {
+                    alert(errMsg);
                 }
-               })
+              })
     })
 
 }

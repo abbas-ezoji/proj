@@ -1,10 +1,19 @@
 /////////////////popup login////////////////
+const green = "rgb(0, 128, 0)"
+const red   = "rgb(255, 0, 0)"
 var modal = document.getElementById("myModal");
 $("#loginBtn").click(function(){
-    $(this).val("  ...عملیات ورود به حساب کاربری");
-    console.log('click')
-    $("#registerDiv").hide();
-    $("#myModal").show();
+    if ($(this).css('backgroundColor') == green){
+        $(this).css('backgroundColor',red)
+        $("#myModal").show();
+        $(this).val("  ...عملیات ورود به حساب کاربری");
+        $("#registerDiv").hide();
+    }
+    else{
+        $(this).css('backgroundColor',green)
+        if (confirm('آیا میخواهید از حسابتان خارج بشوید؟'))
+             $("#loginBtn").val('ورود')
+    }
 });
 $("#closeLoginBtn").click(function(){
     $("#myModal").hide();
@@ -15,6 +24,7 @@ $(window).click(function(e) {
 });
 ///////////////////////////////////////////
 function login(){
+    var loginSuccess = false
     var username = $("#usernameTxt").val();
     var password = $("#usernameTxt").val();
     if( username =='' || password ==''){
@@ -27,16 +37,49 @@ function login(){
             var url = "/api/login/?format=json&username='".concat(username).concat("'&password='").concat(password).concat("'")
             console.log(url)
             $.getJSON( url, function( data ) {
+                loginSuccess = true
                 data.forEach(customer => {
-                    $("#loginBtn").val("خوش آمدید ".concat(customer.firstname));
+                    $("#loginBtn").val("خوش آمدید ".concat(customer.firstname).concat(' ----- جهت خروج کلیک کنید ...'));
+                    $("#userID").val(customer.id)
+                    $("#username").val(customer.username)
+                    $("#password").val(customer.password)
+                    $("#phonenumber").val(customer.phonenumber)
+                    $("#firstname").val(customer.firstname)
+                    $("#lastname").val(customer.lastname)
+                    $("#address").val(customer.address)
                 })
-                $("#myModal").hide();
+                $("#registerDiv").show();
+                $("#registerUserDataBtn").click(function(){
+                    $("#myModal").hide();
+                });
             })
-
     }
-
 }
 
 function register(){
     $("#registerDiv").fadeIn("slow");
+    var newUser ={username:     $("#username").val,
+                  password:     $("#password").val,
+                  phonenumber:  $("#phonenumber").val,
+                  firstname:    $("#firstname").val,
+                  lastname:     $("#lastname").val,
+                  address:      $("#address").val
+                 }
+
+    $("#registerUserDataBtn").click(function(){
+        $.ajax({
+                url: "http://localhost:8080/MyWebService/api/myService/jsonpost",
+                method: "POST",
+                data: newUser,
+                dataType: 'application/json',
+                contentType: "application/json",
+                success: function(result){
+                     alert(result);
+                },
+                error(){
+                    console.log('Error');
+                }
+               })
+    })
+
 }

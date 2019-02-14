@@ -23,6 +23,32 @@ $(window).click(function(e) {
     if (e.target == modal)
         $("#myModal").show();
 });
+
+    $("#registerUserDataBtn").click(function(){
+        var newUser ={'username':     $("#username").val(),
+                  'password':     $("#password").val(),
+                  'phonenumber':  $("#phonenumber").val(),
+                  'firstname':    $("#firstname").val(),
+                  'lastname':     $("#lastname").val(),
+                  'address':      $("#address").val(),
+                  'active':       1,
+                  'csrfmiddlewaretoken': '{{ csrf_token }}',
+                 }
+        console.log(newUser)
+       $.ajax({
+               type: "POST",
+               url: "/api/account/register/",
+               data: newUser,
+               contentType: "application/json",
+               dataType: "JSON",
+               success: function(data){
+                   alert(data);
+               },
+               failure: function(errMsg) {
+                   alert(errMsg);
+               }
+             })
+    })
 ///////////////////////////////////////////
 function login(){
     var loginSuccess = false
@@ -35,7 +61,7 @@ function login(){
         $('#passwordTxt').css("box-shadow","0 0 3px red");
         alert("لطفاً نام کاربری و رمز را وارد کنید ...");
     }else{
-            var url = "/api/login/?format=json&username='".concat(username).concat("'&password='").concat(password).concat("'")
+            var url = "/api/account/login/?format=json&username='".concat(username).concat("'&password='").concat(password).concat("'")
             console.log(url)
             $.getJSON( url, function( data ) {
                 loginSuccess = true
@@ -59,28 +85,6 @@ function login(){
 
 function register(){
     $("#registerDiv").fadeIn("slow");
-    var newUser ={username:     $("#username").val,
-                  password:     $("#password").val,
-                  phonenumber:  $("#phonenumber").val,
-                  firstname:    $("#firstname").val,
-                  lastname:     $("#lastname").val,
-                  address:      $("#address").val
-                 }
-    $("#registerUserDataBtn").click(function(){
-        $.ajax({
-                type: "POST",
-                url: "/api/login/",
-                csrfmiddlewaretoken: "{{ csrf_token }}",
-                data: newUser,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(data){
-                    alert(data);
-                },
-                failure: function(errMsg) {
-                    alert(errMsg);
-                }
-              })
-    })
-
 }
+
+

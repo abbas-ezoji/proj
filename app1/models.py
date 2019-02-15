@@ -21,7 +21,7 @@ class Restaurant(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'رستوران'
+        verbose_name_plural = 'رستوران'
 
 class Hotel(models.Model):
     name = models.CharField(max_length=200)
@@ -35,7 +35,7 @@ class Hotel(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'هتل'
+        verbose_name_plural = 'هتل'
 
 
 class Pictures(models.Model):
@@ -43,12 +43,13 @@ class Pictures(models.Model):
     address = models.TextField(null=True, blank=True)
     photo = models.ImageField(upload_to="app1/photos/", null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'عکس'
+        verbose_name_plural = 'عکس'
 
 class Tour(models.Model):
     title = models.CharField(max_length=200)
@@ -66,7 +67,7 @@ class Tour(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'تور'
+        verbose_name_plural = 'تور'
 
 class villaCategory(models.Model):
     title = models.CharField(max_length=200)
@@ -77,7 +78,7 @@ class villaCategory(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'دسته بندی ویلا'
+        verbose_name_plural = 'دسته بندی ویلا'
 
 class Villa(models.Model):
     title = models.CharField(max_length=200)
@@ -88,6 +89,8 @@ class Villa(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     galaryPictures = models.ManyToManyField(Pictures,null=True, blank=True)
     serchArea = models.CharField(max_length=600,null=True, blank=True)
+    latitude = models.FloatField(null=True, blank=True,default = 0)
+    longitude = models.FloatField(null=True, blank=True,default = 0)
     minPrice = models.FloatField(null=True, blank=True,default = 0)
     maxPrice = models.FloatField(null=True, blank=True,default = 0)
     avgPrice = models.FloatField(null=True, blank=True,default = 0)
@@ -97,8 +100,17 @@ class Villa(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'ویلا'
+        verbose_name_plural = 'ویلا'
         ordering = ('-pub_date',)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            super().save(*args, **kwargs)
+        Area = self.serchArea.split(',')
+        if self.serchArea:
+            self.latitude = Area[0]
+            self.longitude = Area[1]
+        super(Villa, self).save(*args, **kwargs)
 
 class villaVote(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -118,7 +130,7 @@ class villaVote(models.Model):
         super(villaVote, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'نظرات ویلا'
+        verbose_name_plural = 'نظرات ویلا'
 
 STATUS_CHOICES = (
     (0, ("آزاد")),
@@ -216,7 +228,7 @@ class villaStatus(models.Model):
         return self.villa.title + ' - از: ' + str(jdatetime.date.fromgregorian(date=self.fromDate)) + ' تا: ' + str(jdatetime.date.fromgregorian(date=self.toDate)) +' : '+ str( self.STATUS_OF_VILLA)
 
     class Meta:
-        verbose_name = 'وضعیت ویلا'
+        verbose_name_plural = 'وضعیت ویلا'
 
 class customer(models.Model):
     username = models.CharField(max_length=100)
@@ -231,7 +243,7 @@ class customer(models.Model):
         return self.username
 
     class Meta:
-        verbose_name = 'مشتری'
+        verbose_name_plural = 'مشتری'
 
 
 

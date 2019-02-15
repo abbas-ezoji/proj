@@ -6,10 +6,29 @@ from .form import TourForm
 admin.site.register(Restaurant)
 admin.site.register(Tour)
 admin.site.register(Hotel)
-admin.site.register(Pictures)
+#######################################################################
+@admin.register(Pictures)
+class PicturesAdmin(admin.ModelAdmin):
+    exclude = ['owner']  # to hide owner field
+    # inlines = [Villa]
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'owner', None) is None:
+            obj.owner = request.user
+        obj.save()
+    #get_queryset function to villa list display by user
+    def get_queryset(self, request):
+        qs = super(PicturesAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(owner=request.user)
 #########################VillaAdmin####################################
+@admin.register(Villa)
 class VillaAdmin(admin.ModelAdmin):
+    list_display = ("title", "villaCategory","latitude","longitude")
+    list_filter = ("title", "villaCategory","latitude","longitude",)
     exclude = ['owner'] # to hide owner field
+    list_per_page = 20
+    date_hierarchy = 'pub_date'
     #save_model function to automatic save owner by user
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'owner', None) is None:
@@ -21,10 +40,10 @@ class VillaAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(owner=request.user)
-
-admin.site.register(Villa, VillaAdmin)
 ##########################villaCategory###################################
-admin.site.register(villaCategory)
+@admin.register(villaCategory)
+class villaCategoryAdmin(admin.ModelAdmin):
+    list_display = ("title","tags")
 ##########################villaStatusAdmin###################################
 class villaStatusAdmin(admin.ModelAdmin):
     exclude = ['owner']# to hide owner field

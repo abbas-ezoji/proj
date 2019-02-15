@@ -21,6 +21,9 @@ from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth_views
 
+admin.site.site_header = "سمت ما"
+admin.site.site_title = "قسمت مدیریت کارمند"
+admin.site.index_title = "به بخش مدیریت کارمندان خوش آمدید"
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),

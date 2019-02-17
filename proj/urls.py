@@ -19,17 +19,16 @@ from django.conf.urls import url,include
 from django.conf import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from rest_framework_jwt.views import obtain_jwt_token
+
 
 admin.site.site_header = "سمت ما"
-admin.site.site_title = "قسمت مدیریت کارمند"
-admin.site.index_title = "به بخش مدیریت کارمندان خوش آمدید"
+admin.site.site_title = "قسمت مدیریت نمایندگی"
+admin.site.index_title = "به بخش مدیریت نمایندگی خوش آمدید"
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^',include('app1.urls')),
     url(r'^api/', include('api.urls')),
-    url(r'^api-token-auth/', obtain_jwt_token),
     ]
 
 urlpatterns += staticfiles_urlpatterns()

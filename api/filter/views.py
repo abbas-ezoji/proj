@@ -1,7 +1,7 @@
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-# from django.db import connection
+from rest_framework.permissions import IsAuthenticated,AllowAny
 
 from rest_framework import generics
 from django_filters import rest_framework as filters
@@ -35,8 +35,10 @@ class ListTodoVilla(generics.ListAPIView):
     # import pdb
     # pdb.set_trace()
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
+@permission_classes([AllowAny, ])
 def villaListView(request):
+    # permission_classes = (IsAuthenticated,)
     if request.method == 'GET':
         id = request.GET['id']
         status = request.GET['status']

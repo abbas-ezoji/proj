@@ -1,21 +1,26 @@
 /////////////////popup login////////////////
 const green = "rgb(0, 128, 0)"
 const red   = "rgb(255, 0, 0)"
+////////////////////////////////////////////
+function setLogin(){
+    $("#myModal").show();
+    $(this).val("  ...عملیات ورود به حساب کاربری");
+    $("#registerDiv").hide();
+}
+function setLogout(){
+    $(this).css('backgroundColor',green)
+    if (confirm('آیا میخواهید از حسابتان خارج بشوید؟'))
+        $("#loginBtn").val('ورود')
+}
+
+///////////////////////////////////////////
 var modal = document.getElementById("myModal");
 $("#loginBtn").click(function(){
-    if ($(this).css('backgroundColor') == green){
-        $(this).css('backgroundColor',red)
-        $("#myModal").show();
-        $(this).val("  ...عملیات ورود به حساب کاربری");
-        $("#registerDiv").hide();
-    }
-    else{
-        $(this).css('backgroundColor',green)
-        if (confirm('آیا میخواهید از حسابتان خارج بشوید؟'))
-             $("#loginBtn").val('ورود')
-    }
+    if ($(this).css('backgroundColor') == green) setLogin()
+    else setLogout()
 })
-
+$("#loginSubmit").click(login())
+$("#singnupShow").click(register())
 $("#closeLoginBtn").click(function(){
     $("#myModal").hide();
 });
@@ -24,67 +29,81 @@ $(window).click(function(e) {
         $("#myModal").show();
 });
 
-    $("#registerUserDataBtn").click(function(){
-        var newUser ={'username':     $("#username").val(),
-                  'password':     $("#password").val(),
-                  'phonenumber':  $("#phonenumber").val(),
-                  'firstname':    $("#firstname").val(),
-                  'lastname':     $("#lastname").val(),
-                  'address':      $("#address").val(),
-                  'active':       1,
-                  'csrfmiddlewaretoken': '{{ csrf_token }}',
-                 }
-        console.log(newUser)
-       $.ajax({
-               type: "POST",
-               url: "/api/account/register/",
-               data: newUser,
-               contentType: "application/json",
-               dataType: "JSON",
-               success: function(data){
-                   alert(data);
-               },
-               failure: function(errMsg) {
-                   alert(errMsg);
-               }
-             })
-    })
 ///////////////////////////////////////////
 function login(){
     var loginSuccess = false
-    var username = $("#usernameTxt").val();
-    var password = $("#usernameTxt").val();
+    var username = ($("#usernameTxt").val())
+    var password = ($("#usernameTxt").val())
     if( username =='' || password ==''){
         $('#usernameTxt').css("border","2px solid red");
         $('#usernameTxt').css("box-shadow","0 0 3px red");
         $('#passwordTxt').css("border","2px solid red");
         $('#passwordTxt').css("box-shadow","0 0 3px red");
-        alert("لطفاً نام کاربری و رمز را وارد کنید ...");
+        return;
     }else{
-            var url = "/api/account/login/?format=json&username='".concat(username).concat("'&password='").concat(password).concat("'")
+            var url = '/api/users/userdetails/'
+            var credentials = JSON.stringify({"username":username,"password":password})
+            var token
+            var user
             console.log(url)
-            $.getJSON( url, function( data ) {
-                loginSuccess = true
-                data.forEach(customer => {
-                    $("#loginBtn").val("خوش آمدید ".concat(customer.firstname).concat(' ----- جهت خروج کلیک کنید ...'));
-                    $("#userID").val(customer.id)
-                    $("#username").val(customer.username)
-                    $("#password").val(customer.password)
-                    $("#phonenumber").val(customer.phonenumber)
-                    $("#firstname").val(customer.firstname)
-                    $("#lastname").val(customer.lastname)
-                    $("#address").val(customer.address)
-                })
-                $("#registerDiv").show();
-                $("#registerUserDataBtn").click(function(){
-                    $("#myModal").hide();
-                });
-            })
+            console.log(credentials)
+            $.ajax({
+               type: "POST",
+               url: url,
+               data: credentials,
+               contentType: "application/json",
+               success: function(data){
+                        loginSuccess = true
+                        $("#loginBtn").val("خوش آمدید ".concat(data.name))
+                        document.cookie = "token=".concat(data.token)
+                        alert("خوش آمدید ".concat(data.name))
+                        $("#myModal").hide();
+                        $("#loginBtn").css('backgroundColor',red)
+                   },
+               failure: function(errMsg) {
+                   alert(errMsg);
+               }
+             })
     }
 }
 
 function register(){
-    $("#registerDiv").fadeIn("slow");
+    $("#registerDiv").fadeIn("slow")
 }
+
+$("#registerUserDataBtn").click(function(){
+    var username=$("#username").val()
+    var first_name=$("#firstname").val()
+    var last_name=$("#lastname").val()
+    var email=$("#email").val()
+    var password=$("#password").val()
+    if( username =='' || password ==''){
+       $('#username').css("border","2px solid red")
+       $('#username').css("box-shadow","0 0 3px red")
+       $('#password').css("border","2px solid red")
+       $('#password').css("box-shadow","0 0 3px red")
+       return;
+    }else{
+          var newUser =JSON.stringify({"username":username,
+                                       "first_name":first_name,
+                                       "last_name":last_name,
+                                       "email":email,
+                                       "password":password
+                                       })
+          console.log(newUser)
+          $.ajax({
+                   type: "POST",
+                   url: "/api/users/create/",
+                   data: newUser,
+                   contentType: "application/json",
+                   success: function(data){
+                       alert("کاربر با موفقیت ثبت شد")
+                   },
+                   failure: function(errMsg) {
+                       alert(errMsg);
+                   }
+                 })
+     }
+})
 
 

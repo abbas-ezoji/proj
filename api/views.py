@@ -1,5 +1,6 @@
 from rest_framework import generics
-
+from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.decorators import api_view, permission_classes
 from app1 import models
 from . import serializers
 import datetime
@@ -51,7 +52,8 @@ class ListTodoVilla(generics.ListCreateAPIView):
     queryset = models.Villa.objects.all()
     serializer_class = serializers.TodoSerializerVilla
 
-
+# @api_view(['GET'])
+@permission_classes([AllowAny, ])
 class DetailTodoRestVilla(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Villa.objects.all()
     serializer_class = serializers.TodoSerializerVilla

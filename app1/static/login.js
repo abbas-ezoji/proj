@@ -9,8 +9,10 @@ function setLogin(){
 }
 function setLogout(){
     $(this).css('backgroundColor',green)
-    if (confirm('آیا میخواهید از حسابتان خارج بشوید؟'))
+    if (confirm('آیا میخواهید از حسابتان خارج بشوید؟')){
         $("#loginBtn").val('ورود')
+        $("#loginBtn").css('backgroundColor',green)
+    }
 }
 
 ///////////////////////////////////////////

@@ -33,7 +33,7 @@ function getVillaDetails(villaID){
                     chart.container("chartContainer".concat(villaID));
                     console.log(chart);
                     chart.draw();
-         /////////////////////////////////////display comments//////////////////////////////////////////
+         /////////////////////////////////////display votes//////////////////////////////////////////
                     commentContainer = document.createElement('div')
                     commentContainer.setAttribute('class','container-card')
                     commentContainer.setAttribute('style','background-color: lightblue;')
@@ -310,7 +310,7 @@ function getVillaDetails(villaID){
         } else {
             x.style.display = "none"
             showBtn.setAttribute("value", "نمایش جزئیات تور")
-            bgDiv.setAttribute("style","background-image: ")
+//            bgDiv.setAttribute("style","background-image: ")
         }
     }
 
@@ -322,10 +322,10 @@ function doFilter(){
     var radioCheckedId = getCheckedCatRadio().slice(-1)
     var container = document.getElementById('root')
     if(container)
-        container.setAttribute('class','container-card')
+        container.setAttribute('class','container')
     else{
         container = document.createElement('root')
-        container.setAttribute('class','container-card')
+        container.setAttribute('class','container')
     }
 
     var url
@@ -335,12 +335,11 @@ function doFilter(){
     $.getJSON( url, function( data ) {
                      data.forEach(Villa => {
                         cardFrame =  document.createElement('div');
-                        cardFrame.setAttribute('class', 'column medium-1 small-6 end');
+                        cardFrame.setAttribute('class', 'col-sm-4');
                         container.appendChild(cardFrame);
 
                         const card = document.createElement('div');
-                        card.setAttribute('class', 'card card-bordered card-offer');
-                        card.setAttribute('style', 'background-color: #ccffff;');
+                        card.setAttribute('class', 'widget-container widget_avatar boxed');
                         card.setAttribute('id', Villa.id);
                         cardFrame.appendChild(card);
 
@@ -425,6 +424,19 @@ function getVillaVotesByVillaID(villaId)
         {var url
          url = "/api/filter/villavotes/?format=json&villa=".concat(villaId)
          return url
+//         $.ajax({
+//                  type: "GET",
+//                  url: url,
+//                  headers: {"Authorization": "Token ".concat(token)},
+//                  contentType: "application/json",
+//                  success: function(voteData){
+//                      console.log('getvote')
+//                      return voteData
+//                  },
+//                  failure: function(errMsg) {
+//                      return null
+//                  }
+//                })
         }
 
 function getVillaDateStatus(villaId,date_gt,date_lt)

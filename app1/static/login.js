@@ -2,6 +2,12 @@
 const green = "rgb(0, 128, 0)"
 const red   = "rgb(255, 0, 0)"
 ////////////////////////////////////////////
+if(localStorage.getItem('token')!==null){
+    token = localStorage.getItem('token')
+    name = localStorage.getItem('name')
+    logged(token,name)
+}
+
 function setLogin(){
     $("#myModal").show();
     $(this).val("  ...عملیات ورود به حساب کاربری");
@@ -12,7 +18,21 @@ function setLogout(){
     if (confirm('آیا میخواهید از حسابتان خارج بشوید؟')){
         $("#loginBtn").val('ورود')
         $("#loginBtn").css('backgroundColor',green)
+        localStorage.clear();
     }
+}
+function logged(token,name){
+    loginSuccess = true
+    $("#loginBtn").val("خوش آمدید ".concat(name))
+    if(localStorage.getItem('token')===null){
+        localStorage.setItem('token', token);
+        localStorage.setItem('name', name);
+    }
+
+    alert("خوش آمدید ".concat(name))
+    console.log(localStorage.getItem("token"))
+    $("#myModal").hide();
+    $("#loginBtn").css('backgroundColor',red)
 }
 
 ///////////////////////////////////////////
@@ -54,14 +74,14 @@ function login(){
                url: url,
                data: credentials,
                contentType: "application/json",
-               success: function(data){
-                        loginSuccess = true
-                        $("#loginBtn").val("خوش آمدید ".concat(data.name))
-                        document.cookie = "token=".concat(data.token)
-                        alert("خوش آمدید ".concat(data.name))
-                        $("#myModal").hide();
-                        $("#loginBtn").css('backgroundColor',red)
-                   },
+               statusCode: {
+               401: function() {
+                    alert( 'نام کاربری یا رمز صحیح نیست' );
+                    }
+               },
+               success: function(data, textStatus, xhr){
+                        logged(data.token,data.name)
+               },
                failure: function(errMsg) {
                    alert(errMsg);
                }

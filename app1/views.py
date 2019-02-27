@@ -40,4 +40,4 @@ def villa(request):
     villaCat_list = villaCategory.objects.order_by('-id')
     villaSpacesFilter = 12
     context = {'villaCat_list':villaCat_list,'villaSpacesFilter':villaSpacesFilter}
-    return render(request, 'villa.html', context)
+    return render(request, 'villa_new.html', context)

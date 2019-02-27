@@ -1,0 +1,112 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="author" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title></title>
+{% load static %}
+<!-- main JS libs -->
+<script src="{% static 'metro-vibes-css/js/libs/modernizr.min.js' %}"></script>
+<script src="{% static 'metro-vibes-css/js/libs/jquery-1.10.0.js' %}"></script>
+<script src="{% static 'metro-vibes-css/js/libs/jquery-ui.min.js' %}"></script>
+<script src="{% static 'metro-vibes-css/js/libs/bootstrap.min.js' %}"></script>
+
+<!-- Style CSS -->
+<link href="{% static 'metro-vibes-css/css/bootstrap.css' %}" media="screen" rel="stylesheet">
+<link href="{% static 'metro-vibes-css/style.css' %}" media="screen" rel="stylesheet">
+
+<!-- scripts -->
+<script src="{% static 'metro-vibes-css/js/general.js' %}"></script>
+
+<!-- Include all needed stylesheets and scripts here -->
+    <script src="{% static 'metro-vibes-css/js/jquery.customInput.js' %}"></script>
+<!--calendar-->
+    <link rel="stylesheet" href="{% static 'jspc-royal_blue.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+	<script type="text/javascript" src="{% static 'js-persian-cal.min.js' %}"></script>
+
+
+
+
+<!--[if lt IE 9]><script src="{% static 'metro-vibes-css/js/respond.min.js' %}"></script><![endif]-->
+<!--[if gte IE 9]>
+<style type="text/css">
+    .gradient {filter: none !important;}
+</style>
+<![endif]-->
+</head>
+
+<body>
+<div class="container container-wide">
+    <!-- content -->
+    <div class="content " role="main">
+        <!-- row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Website Menu -->
+                <form action="villa_new.html" style="padding-right: 10px;">
+                <div id="topmenu">
+                    <div class="controls boxed line-top">
+                        <div class="inner clearfix">
+                           {% if villaCat_list %}
+                                <!--<div class="input_styled inlinelist pull-right col-sm-2"><label>دسته بندی:</label></div>-->
+                                <div class="input_styled inlinelist pull-right col-sm-3"><div class="rowRadio"><input type="radio" name="signup3" value="villaCatRadiogroup0" id="villaCatRadiogroup0" checked><label for="villaCatRadiogroup0">بدون دسته بندی</label></div></div>
+                            {% for villaCat in villaCat_list %}
+                                <div class="input_styled inlinelist pull-right col-sm-2"><div class="rowRadio"><input type="radio" name="signup3" value="villaCatRadiogroup{{villaCat.id}}" id="villaCatRadiogroup{{villaCat.id}}" ><label for="villaCatRadiogroup{{villaCat.id}}">{{villaCat.title}}</label></div></div>
+                            {% endfor %}
+                                <div class="clear"></div>
+                           {% endif %}
+                        </div>
+                        <div class="inner clearfix">
+                            <div class="input_styled inlinelist pull-right col-sm-3">
+                                <input type="text" id="pcal2" class="pdate" style="font: 15px 'b nazanin', sans-serif;">
+                                <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" for="extra">تا تاریخ:</label><br>
+                                <input style="visibility:hidden" type="text" id="todate" class="pdate wide">
+                            </div>
+                            <div class="input_styled inlinelist pull-right col-sm-3" >
+                                <input type="text" id="pcal1" class="pdate" style="font: 15px 'b nazanin', sans-serif;" >
+                                <label style="color: #2d3e52;font: 15px 'b nazanin', sans-serif;" for="extra">از تاریخ:</label><br>
+                                <input style="visibility:hidden" type="text" id="fromdate" class="pdate wide">
+                            </div>
+                            <div class="input_styled inlinelist pull-right col-sm-3">
+                                <div class="rowCheckbox">
+                                    <input title="خالی بودن کل بازه" name="signup" type="checkbox" id="statusCheckbox" >
+                                    <label for="statusCheckbox">خالی بودن کل بازه:</label>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                var objCal1 = new AMIB.persianCalendar( 'pcal1',
+                                      { extraInputID: "fromdate"
+                                      , extraInputFormat: "YYYY-MM-DD"
+                                      }
+                                 );
+                                 var objCal2 = new AMIB.persianCalendar( 'pcal2',
+                                      { extraInputID: "todate", extraInputFormat: "YYYY-MM-DD" }
+                                 );
+                            </script>
+                        </div>
+                        <div class="inner clearfix">
+                            <a onclick="doFilter()" href="#" class="btn btn-green"><span style="font: 15px 'b nazanin', sans-serif;">فیلتر</span></a>
+                            <a href="#" class="btn btn-red"><span style="font: 15px 'b nazanin', sans-serif;">عدم اعمال فیلتر</span></a>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------------------------->
+
+
+        <div id="root" class='container' ></div>
+        <script src="{% static 'api/filter/villa.js' %}"></script>
+        <!-------------------------------------------->
+    </div>
+</div>
+</body>
+</html>

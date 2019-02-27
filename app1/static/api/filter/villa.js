@@ -335,7 +335,7 @@ function doFilter(){
     $.getJSON( url, function( data ) {
                      data.forEach(Villa => {
                         cardFrame =  document.createElement('div');
-                        cardFrame.setAttribute('class', 'col-sm-6');
+                        cardFrame.setAttribute('class', 'col-sm-4');
                         container.appendChild(cardFrame);
 
                         card = document.createElement('div');

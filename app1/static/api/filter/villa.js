@@ -343,18 +343,63 @@ function doFilter(){
                         card.setAttribute('id', Villa.id);
                         cardFrame.appendChild(card);
 
-                        divImg = document.createElement('div');
-                        divImg.setAttribute('class', 'avatar-image');
-                        card.appendChild(divImg);
+                        //---------------------slider--------------------------------
+                        divCarousel = document.createElement('div')
+                        divCarousel.setAttribute('id','myCarousel'.concat(Villa.id))
+                        divCarousel.setAttribute('class','carousel slide')
+                        divCarousel.setAttribute('data-interval','20000')
+                        card.appendChild(divCarousel)
 
-                        img = document.createElement('IMG');
-                        img.setAttribute("src", Villa.photo);
-                        img.setAttribute("onclick", "getVillaDetails(".concat(Villa.id).concat(");"))
-                        img.setAttribute("width", "250");
-                        img.setAttribute("height", "250");
-                        img.setAttribute("alt", "");
-                        divImg.appendChild(img)
+                        divCarouselInner = document.createElement('div')
+                        divCarouselInner.setAttribute('class','carousel-inner id1')
+                        divCarousel.appendChild(divCarouselInner)
 
+                        divCarouselItem = document.createElement('div')
+                        divCarouselItem.setAttribute('class','active item')
+                        divCarouselInner.appendChild(divCarouselItem)
+
+                        divCarouselImg = document.createElement('img')
+                        divCarouselImg.setAttribute('src',Villa.photo)
+                        divCarouselImg.setAttribute('alt','')
+                        divCarouselImg.setAttribute('style','height: 200px; margin-left: -131px;')
+                        divCarouselImg.setAttribute("onclick", "getVillaDetails(".concat(Villa.id).concat(");"))
+                        divCarouselItem.appendChild(divCarouselImg)
+
+                        divCarouselInnerDesc = document.createElement('div')
+                        divCarouselInnerDesc.setAttribute('class','carousel-desc')
+                        divCarouselItem.appendChild(divCarouselInnerDesc)
+
+                        divCarouselInnerDescSpan = document.createElement('span')
+                        divCarouselInnerDesc.textContent = 'نمای راست'
+                        divCarouselInnerDesc.appendChild(divCarouselInnerDescSpan)
+                        //----------//
+                        divCarouselOL = document.createElement('ol')
+                        divCarouselOL.setAttribute('class','carousel-indicators')
+                        divCarousel.appendChild(divCarouselOL)
+
+                        divCarouselOLLi = document.createElement('li')
+                        divCarouselOLLi.setAttribute('data-target','#myCarousel'.concat(Villa.id))
+                        divCarouselOLLi.setAttribute('data-slide-to','0')
+                        divCarouselOLLi.setAttribute('class','active first')
+                        divCarouselOL.appendChild(divCarouselOLLi)
+                        //----------//
+                        divCarouselAleft = document.createElement('a')
+                        divCarouselAleft.setAttribute('class','carousel-control left')
+                        divCarouselAleft.setAttribute('href','#myCarousel'.concat(Villa.id))
+                        divCarouselAleft.setAttribute('data-slide','prev')
+                        divCarouselAleft.hidefocus = true
+                        divCarouselAleft.setAttribute('style','outline: none;')
+                        divCarousel.appendChild(divCarouselAleft)
+                        //----------//
+                        divCarouselAright = document.createElement('a')
+                        divCarouselAright.setAttribute('class','carousel-control right')
+                        divCarouselAright.setAttribute('href','#myCarousel'.concat(Villa.id))
+                        divCarouselAright.setAttribute('data-slide','next')
+                        divCarouselAright.hidefocus = true
+                        divCarouselAright.setAttribute('style','outline: none;')
+                        divCarousel.appendChild(divCarouselAright)
+
+                        //---------------------villa detail--------------------------------
                         divVilla = document.createElement('div');
                         divVilla.setAttribute("class", "inner clearfix");
                         card.appendChild(divVilla);
@@ -377,6 +422,7 @@ function doFilter(){
                         spanComment.textContent = Villa.comment;
                         divVilla.appendChild(spanComment);
 
+                        //---------------------post meta--------------------------------
                         divPostMeta = document.createElement('div');
                         divPostMeta.setAttribute('class','post-meta-links')
                         card.appendChild(divPostMeta)
@@ -553,6 +599,7 @@ Date.prototype.addMonths = function (value) {
 };
 
 doFilter()
+
 
 
 

@@ -365,10 +365,10 @@ function doFilter(){
                         spanRibbon = document.createElement('span')
                         divRibbon.appendChild(spanRibbon)
                         emRibbon = document.createElement('em')
-                        emRibbon.textContent = 'قیمت'
+                        emRibbon.textContent = 'تخفیف'
                         spanRibbon.appendChild(emRibbon)
                         strongRibbon = document.createElement('strong')
-                        strongRibbon.textContent = Villa.avgPrice
+                        strongRibbon.textContent = '10%'
                         spanRibbon.appendChild(strongRibbon)
 
                         //---------------------slider--------------------------------

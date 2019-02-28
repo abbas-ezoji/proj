@@ -343,17 +343,32 @@ function doFilter(){
                         card.setAttribute('id', Villa.id);
                         cardFrame.appendChild(card);
 
-                        //---------------------slider--------------------------------
+                        //---------------------price badge--------------------------------
+                        divPriceBadge = document.createElement('div')
+                        divPriceBadge.setAttribute('class','price_col_head')
+                        card.appendChild(divPriceBadge)
+                        spanBadge = document.createElement('span')
+                        spanBadge.setAttribute('class','badge')
+                        divPriceBadge.appendChild(spanBadge)
+                        spanPrice = document.createElement('span')
+                        spanPrice.setAttribute('class','price')
+                        spanPrice.textContent = Villa.avgPrice
+                        divPriceBadge.appendChild(spanPrice)
+                        emSpanPrice = document.createElement('em')
+                        emSpanPrice.textContent = 'تومان'
+                        spanPrice.appendChild( emSpanPrice)
+
+                        //---------------------ribbon--------------------------------
                         divRibbon = document.createElement('div')
                         divRibbon.setAttribute('class','ribbon')
                         card.appendChild(divRibbon)
                         spanRibbon = document.createElement('span')
                         divRibbon.appendChild(spanRibbon)
                         emRibbon = document.createElement('em')
-                        emRibbon.textContent = 'تخفیف'
+                        emRibbon.textContent = 'قیمت'
                         spanRibbon.appendChild(emRibbon)
                         strongRibbon = document.createElement('strong')
-                        strongRibbon.textContent = '10%'
+                        strongRibbon.textContent = Villa.avgPrice
                         spanRibbon.appendChild(strongRibbon)
 
                         //---------------------slider--------------------------------

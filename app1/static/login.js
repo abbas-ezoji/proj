@@ -38,7 +38,8 @@ function logged(token,name){
 ///////////////////////////////////////////
 var modal = document.getElementById("myModal");
 $("#loginBtn").click(function(){
-    if ($(this).css('backgroundColor') == green) setLogin()
+    console.log('token:'.concat( localStorage.getItem("token")))
+    if (localStorage.getItem("token")==null) setLogin()
     else setLogout()
 })
 $("#loginSubmit").click(login())
@@ -77,6 +78,9 @@ function login(){
                statusCode: {
                401: function() {
                     alert( 'نام کاربری یا رمز صحیح نیست' );
+                    }
+               ,403: function() {
+                    alert( 'غیرمجاز' );
                     }
                },
                success: function(data, textStatus, xhr){

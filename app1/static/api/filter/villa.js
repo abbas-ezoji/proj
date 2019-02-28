@@ -344,6 +344,19 @@ function doFilter(){
                         cardFrame.appendChild(card);
 
                         //---------------------slider--------------------------------
+                        divRibbon = document.createElement('div')
+                        divRibbon.setAttribute('class','ribbon')
+                        card.appendChild(divRibbon)
+                        spanRibbon = document.createElement('span')
+                        divRibbon.appendChild(spanRibbon)
+                        emRibbon = document.createElement('em')
+                        emRibbon.textContent = 'تخفیف'
+                        spanRibbon.appendChild(emRibbon)
+                        strongRibbon = document.createElement('strong')
+                        strongRibbon.textContent = '10%'
+                        spanRibbon.appendChild(strongRibbon)
+
+                        //---------------------slider--------------------------------
                         divCarousel = document.createElement('div')
                         divCarousel.setAttribute('id','myCarousel'.concat(Villa.id))
                         divCarousel.setAttribute('class','carousel slide')
@@ -370,7 +383,7 @@ function doFilter(){
                         divCarouselItem.appendChild(divCarouselInnerDesc)
 
                         divCarouselInnerDescSpan = document.createElement('span')
-                        divCarouselInnerDesc.textContent = 'نمای راست'
+                        divCarouselInnerDesc.textContent = Villa.address
                         divCarouselInnerDesc.appendChild(divCarouselInnerDescSpan)
                         //----------//
                         divCarouselOL = document.createElement('ol')

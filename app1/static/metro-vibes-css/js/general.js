@@ -219,9 +219,9 @@ jQuery(document).ready(function() {
     });
 
 // Placeholders
-	if($("[placeholder]").size() > 0) {
-		$.Placeholder.init({ color : "#c9c2bc" });
-	}
+//	if($("[placeholder]").size() > 0) {
+//		$.Placeholder.init({ color : "#c9c2bc" });
+//	}
 
 // Rating Stars
     $(".rating span.star").hover(

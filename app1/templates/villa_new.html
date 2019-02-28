@@ -149,19 +149,19 @@
                         <div class="inner clearfix">
                             <div class="col-sm-10">
                                 <div class="range-slider">
-                                    <input id="price_range" type="text" value="120;720">
+                                    <input id="price_range" type="text" value="100000;500000">
                                 </div>
                                 <script type="text/javascript">
                                     jQuery(document).ready(function($) {
                                         $("#price_range").rangeslider({
                                             from: 0,
-                                            to: 1000,
+                                            to: 1000000,
                                             limits: false,
-                                            scale: ['$0', '$1000'],
+                                            scale: ['تومان0', 'تومان1000000'],
                                             heterogeneity: ['50/300'],
-                                            step: 10,
-                                            smooth: true,
-                                            dimension: '$'
+                                            step: 10000,
+                                            smooth: false,
+                                            dimension: 'تومان'
                                         });
                                     });
                                 </script>

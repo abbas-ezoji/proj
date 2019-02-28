@@ -2843,3 +2843,78 @@ input[type="password"]:focus{
     margin-left: 25px;
 }
 .controls .checkbox-large.checkbox-noText .custom-checkbox label.checked {background-position: right -100px;}
+
+.buttonRed {
+    background-color: red; /* Green */
+    margin: auto;
+    border: none;
+    color: white;
+    height: 30px;
+    padding: 0px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 16px 'b nazanin', sans-serif;
+}
+.buttonGreen {
+    background-color: green; /* Green */
+    margin: auto;
+    border: none;
+    color: white;
+    height: 30px;
+    padding: 0px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 16px 'b nazanin', sans-serif;
+}
+.buttonCheckRed {
+    background-color: red; /* Green */
+    margin: auto;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 16px 'b nazanin', sans-serif;
+}
+.buttonCheckGreen {
+    background-color: green; /* Green */
+    margin: auto;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 16px 'b nazanin', sans-serif;
+}
+
+.buttonCheckYellow {
+    background-color: yellow; /* Green */
+    margin: auto;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 16px 'b nazanin', sans-serif;
+}
+
+.buttonCheckBlack {
+    background-color: black; /* Green */
+    margin: auto;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 16px 'b nazanin', sans-serif;
+}

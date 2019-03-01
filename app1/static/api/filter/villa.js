@@ -400,6 +400,7 @@ function doFilter(){
                         divCarouselInnerDescSpan = document.createElement('span')
                         divCarouselInnerDesc.textContent = Villa.address
                         divCarouselInnerDesc.appendChild(divCarouselInnerDescSpan)
+
                         //----------//
                         divCarouselOL = document.createElement('ol')
                         divCarouselOL.setAttribute('class','carousel-indicators')
@@ -410,7 +411,41 @@ function doFilter(){
                         divCarouselOLLi.setAttribute('data-slide-to','0')
                         divCarouselOLLi.setAttribute('class','active first')
                         divCarouselOL.appendChild(divCarouselOLLi)
+
+                        //------------------------------//
+                        var picsUrl = getVillapicsByVilaID(Villa.id)
+                        var liOrder = 1
+                        $.getJSON( picsUrl,function( picsData ) {
+                            picsData.forEach(pic => {
+                                divCarouselItem = document.createElement('div')
+                                divCarouselItem.setAttribute('class','item')
+                                divCarouselInner.appendChild(divCarouselItem)
+
+                                divCarouselImg = document.createElement('img')
+                                divCarouselImg.setAttribute('src',pic.photo)
+                                divCarouselImg.setAttribute('alt','')
+                                divCarouselImg.setAttribute('style','height: 200px; margin-left: -131px;')
+                                divCarouselImg.setAttribute("onclick", "getVillaDetails(".concat(Villa.id).concat(");"))
+                                divCarouselItem.appendChild(divCarouselImg)
+
+                                divCarouselInnerDesc = document.createElement('div')
+                                divCarouselInnerDesc.setAttribute('class','carousel-desc')
+                                divCarouselItem.appendChild(divCarouselInnerDesc)
+
+                                divCarouselInnerDescSpan = document.createElement('span')
+                                divCarouselInnerDesc.textContent = pic.address
+                                divCarouselInnerDesc.appendChild(divCarouselInnerDescSpan)
+                                ///////////////////////////////////////
+                                divCarouselOLLi = document.createElement('li')
+                                divCarouselOLLi.setAttribute('data-target','#myCarousel'.concat(Villa.id))
+                                divCarouselOLLi.setAttribute('data-slide-to',liOrder)
+//                                divCarouselOLLi.setAttribute('class','active first')
+                                divCarouselOL.appendChild(divCarouselOLLi)
+                            })
+                        })
+
                         //----------//
+
                         divCarouselAleft = document.createElement('a')
                         divCarouselAleft.setAttribute('class','carousel-control left')
                         divCarouselAleft.setAttribute('href','#myCarousel'.concat(Villa.id))
@@ -426,6 +461,8 @@ function doFilter(){
                         divCarouselAright.hidefocus = true
                         divCarouselAright.setAttribute('style','outline: none;')
                         divCarousel.appendChild(divCarouselAright)
+                        //--------------list in slider other pictures---------------------
+
 
                         //---------------------villa detail--------------------------------
                         divVilla = document.createElement('div');
@@ -535,16 +572,6 @@ function getVillaData(villaID)
           }
         return url
         }
-async function getPicByID(picID)
-        {
-         url = "/api/pictures/".concat(picID).concat("/?format=json")
-         let response = await fetch(url)
-         let picData = await response.json()
-         return picData
-        }
-function undoFilter(){
-    location.reload()
-}
 
 function getVillaVotesByVillaID(villaId)
         {var url
@@ -571,6 +598,13 @@ function getVillaDateStatus(villaId,date_gt,date_lt)
                .concat("&date__gt=").concat(date_gt).concat("&date__lt=").concat(date_lt)
          return url
         }
+
+function getVillapicsByVilaID(villaId)
+        {var url
+         url = "/api/filter/villagalarypictures/?format=json&villaid=".concat(villaId)
+         return url
+        }
+
 
 function getVillaByFilters(){
         var url
@@ -599,6 +633,14 @@ function getVillaByFilters(){
 
        console.log('getVillaByFilters')
         return url
+}
+function getPicByID(picID)
+        {
+         url = "/api/pictures/".concat(picID).concat("/?format=json")
+         return url
+        }
+function undoFilter(){
+    location.reload()
 }
 
 

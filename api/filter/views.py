@@ -10,6 +10,8 @@ from app1 import models
 from api import serializers
 import datetime
 
+
+
 class villaFilter(filters.FilterSet):
     date__lt = filters.DateFilter(field_name='villadatestatus__date',lookup_expr='lt',distinct=True)
     date__gt = filters.DateFilter(field_name='villadatestatus__date',lookup_expr='gt',distinct=True)
@@ -87,3 +89,15 @@ class ListTodoVillaVotes(generics.ListAPIView):
     serializer_class = serializers.TodoSerializerVillVotes
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = villaVotesFilter
+
+class villaGalaryFilter(filters.FilterSet):
+    villaid = filters.NumberFilter(field_name='villa', distinct=True)
+    class Meta:
+        model =  models.Pictures
+        fields = ('villaid',)
+
+class getPictureGalaryByVillaID(generics.ListAPIView):
+    queryset = models.Pictures.objects.all()
+    serializer_class = serializers.TodoSerializerPictures
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = villaGalaryFilter

@@ -23,15 +23,15 @@ class ListTodoTour(generics.ListCreateAPIView):
 class DetailTodoRestTour(generics.RetrieveAPIView):
     queryset = models.Tour.objects.all()
     serializer_class = serializers.TodoSerializerTour
-
+@permission_classes([AllowAny, ])
 class ListTodoPictures(generics.ListCreateAPIView):
     queryset = models.Pictures.objects.all()
     serializer_class = serializers.TodoSerializerPictures
-
+@permission_classes([AllowAny, ])
 class DetailTodoRestPictures(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Pictures.objects.all()
     serializer_class = serializers.TodoSerializerPictures
-
+@permission_classes([AllowAny, ])
 def getTourPics(request, tour_id):
    # Delegate to the view جنریک and get an HttpResponse.
     response = ListTodoPictures.get_object(
@@ -48,6 +48,8 @@ def getTourPics(request, tour_id):
     models.Pictures.objects.filter(id=tour_id).update(last_accessed=now)
     return response
 
+
+@permission_classes([AllowAny, ])
 class ListTodoVilla(generics.ListCreateAPIView):
     queryset = models.Villa.objects.all()
     serializer_class = serializers.TodoSerializerVilla
@@ -58,27 +60,27 @@ class DetailTodoRestVilla(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Villa.objects.all()
     serializer_class = serializers.TodoSerializerVilla
 
+@permission_classes([AllowAny, ])
 class ListTodoVillaCat(generics.ListCreateAPIView):
     queryset = models.villaCategory.objects.all()
     serializer_class = serializers.TodoSerializerVillaCategories
-
+@permission_classes([AllowAny, ])
 class DetailTodoRestVillaCat(generics.RetrieveAPIView):
     queryset = models.villaCategory.objects.all()
     serializer_class = serializers.TodoSerializerVillaCategories
-
+@permission_classes([AllowAny, ])
 class ListTodoVillaDateStatus(generics.ListCreateAPIView):
     queryset = models.villaDateStatus.objects.all()
     serializer_class = serializers.TodoSerializerVillaDateStatus
-
+@permission_classes([AllowAny, ])
 class DetailTodoRestVillaDateStatus(generics.RetrieveAPIView):
     queryset = models.villaDateStatus.objects.all()
     serializer_class = serializers.TodoSerializerVillaDateStatus
-
+@permission_classes([AllowAny, ])
 class ListTodoVillaVotes(generics.ListCreateAPIView):
     queryset = models.villaVote.objects.all()
     serializer_class = serializers.TodoSerializerVillVotes
-
-
+@permission_classes([AllowAny, ])
 class DetailTodoRestVillaVotes(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.villaVote.objects.all()
     serializer_class = serializers.TodoSerializerVillVotes

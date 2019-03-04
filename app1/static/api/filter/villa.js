@@ -380,6 +380,7 @@ function doFilter(){
 
                         divCarouselInner = document.createElement('div')
                         divCarouselInner.setAttribute('class','carousel-inner id1')
+                        divCarouselInner.setAttribute('id','carousel-inner'+Villa.id)
                         divCarousel.appendChild(divCarouselInner)
 
                         divCarouselItem = document.createElement('div')
@@ -404,6 +405,7 @@ function doFilter(){
                         //----------//
                         divCarouselOL = document.createElement('ol')
                         divCarouselOL.setAttribute('class','carousel-indicators')
+                        divCarouselOL.setAttribute('id','carousel-indicators'+Villa.id)
                         divCarousel.appendChild(divCarouselOL)
 
                         divCarouselOLLi = document.createElement('li')
@@ -411,15 +413,16 @@ function doFilter(){
                         divCarouselOLLi.setAttribute('data-slide-to','0')
                         divCarouselOLLi.setAttribute('class','active first')
                         divCarouselOL.appendChild(divCarouselOLLi)
-
                         //------------------------------//
                         var picsUrl = getVillapicsByVilaID(Villa.id)
                         var liOrder = 1
                         $.getJSON( picsUrl,function( picsData ) {
                             picsData.forEach(pic => {
+                                var _divCarouselInner = document.getElementById('carousel-inner'+Villa.id)
+                                console.log('pic VillaID: ' + Villa.id )
                                 divCarouselItem = document.createElement('div')
                                 divCarouselItem.setAttribute('class','item')
-                                divCarouselInner.appendChild(divCarouselItem)
+                                _divCarouselInner.appendChild(divCarouselItem)
 
                                 divCarouselImg = document.createElement('img')
                                 divCarouselImg.setAttribute('src',pic.photo)
@@ -436,11 +439,12 @@ function doFilter(){
                                 divCarouselInnerDesc.textContent = pic.address
                                 divCarouselInnerDesc.appendChild(divCarouselInnerDescSpan)
                                 ///////////////////////////////////////
+                                var _divCarouselOL = document.getElementById('carousel-indicators'+Villa.id)
                                 divCarouselOLLi = document.createElement('li')
                                 divCarouselOLLi.setAttribute('data-target','#myCarousel'.concat(Villa.id))
                                 divCarouselOLLi.setAttribute('data-slide-to',liOrder)
 //                                divCarouselOLLi.setAttribute('class','active first')
-                                divCarouselOL.appendChild(divCarouselOLLi)
+                                _divCarouselOL.appendChild(divCarouselOLLi)
                             })
                         })
 
@@ -602,6 +606,7 @@ function getVillaDateStatus(villaId,date_gt,date_lt)
 function getVillapicsByVilaID(villaId)
         {var url
          url = "/api/filter/villagalarypictures/?format=json&villaid=".concat(villaId)
+         console.log(url)
          return url
         }
 
@@ -631,7 +636,7 @@ function getVillaByFilters(){
         url = "/api/filter/villa/?format=json&id=0&status=".concat(status).concat("&fromdate='").concat(fromdate).concat("'&todate='").concat(todate)
                .concat("'&villaCategory=").concat(radioCheckedId)
 
-       console.log('getVillaByFilters')
+//       console.log('getVillaByFilters')
         return url
 }
 function getPicByID(picID)

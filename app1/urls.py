@@ -10,7 +10,7 @@ urlpatterns = (
         url(r'^$', views.index, name='index'),
         path('tourdetails.html', TemplateView.as_view(template_name='tourdetails.html')),
         path('PersianCalander.html', TemplateView.as_view(template_name='PersianCalander.html')),
-        path('villa.html', views.villa, name='villa'),
+        path('villa', views.villa, name='villa'),
         path('travel-results.amp', views.travel, name='travel'),
         # url(r'report/', include('model_report.urls')),
         #url(r'^report_builder/', include('report_builder.urls')),

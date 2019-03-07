@@ -620,6 +620,9 @@ function getVillaByFilters(){
         var todateDefault = today.addMonths(12).toISOString().slice(0,10)
         var status = 0
         var id = 0
+        var priceRange = document.getElementById('price_range').value
+        var minPrice = priceRange.split(';')[0]
+        var maxPrice = priceRange.split(';')[1]
 
         if(document.getElementById("statusCheckbox").checked)
             status = 1
@@ -634,7 +637,7 @@ function getVillaByFilters(){
             todate = todateDefault
         var radioCheckedId = getCheckedCatRadio().slice(-1)
         url = "/api/filter/villa/?format=json&id=0&status=".concat(status).concat("&fromdate='").concat(fromdate).concat("'&todate='").concat(todate)
-               .concat("'&villaCategory=").concat(radioCheckedId)
+               .concat("'&villaCategory=").concat(radioCheckedId).concat("&minPrice=").concat(minPrice).concat("&maxPrice=").concat(maxPrice)
 
 //       console.log('getVillaByFilters')
         return url

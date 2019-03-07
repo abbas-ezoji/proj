@@ -127,17 +127,7 @@
   (query_type.length ? '&types[]=' + query_type.join('&types[]=') : '') +
   '&sort=' + query_sort
 ">
-        <template type="amp-mustache">
-            <div class="h3 line-height-2 bold">
-              {{stats.resultCount}} Results
-            </div>
-            <div class="travel-results-navbar-subheading h6 caps line-height-4">
-              {{stats.location}}
-              {{#stats.startDate}}{{#stats.endDate}}
-                 &bull; {{stats.startDate.formatted}} - {{stats.endDate.formatted}}
-              {{/stats.endDate}}{{/stats.startDate}}
-            </div>
-        </template>
+
       </amp-list>
     </div>
     <div class="travel-results-navbar-icon h3 my1 md-my2 md-hide lg-hide" role="button" tabindex="0" on="tap:AMP.setState({ui_filterPane: !ui_filterPane, ui_sortPane: false})">
@@ -185,37 +175,26 @@
       <div class="flex-auto border-bottom travel-border-gray">
         <div class="travel-fade-right pr1 py2">
           <amp-list class="travel-inline-list" layout="flex-item" src="/api/search?maxPrice=800&query=&sort=popularity-desc" [src]="
-  '/api/search?maxPrice=' + (query_maxPrice < 801 ? query_maxPrice : 0) +
-  '&query=' + query_query +
-  (query_city.length ? '&cities[]=' + query_city.join('&cities[]=') : '') +
-  (query_type.length ? '&types[]=' + query_type.join('&types[]=') : '') +
-  '&sort=' + query_sort
-">
-            <template type="amp-mustache">
-              {{#stats.allCities}}<span class="travel-badge">All cities</span>{{/stats.allCities}}
-              {{^stats.allCities}}
-              {{#stats.cities}}{{#isSelected}}<span class="travel-badge green">{{name}}</span>{{/isSelected}}{{/stats.cities}}
-              {{/stats.allCities}}
-            </template>
+              '/api/search?maxPrice=' + (query_maxPrice < 801 ? query_maxPrice : 0) +
+              '&query=' + query_query +
+              (query_city.length ? '&cities[]=' + query_city.join('&cities[]=') : '') +
+              (query_type.length ? '&types[]=' + query_type.join('&types[]=') : '') +
+              '&sort=' + query_sort
+           ">
+
           </amp-list>
         </div>
       </div>
 
       <div class="travel-border-gray px1 md-pr2 py2 nowrap border-bottom flex-none">
         <amp-list class="travel-inline-list" layout="flex-item" src="/api/search?maxPrice=800&query=&sort=popularity-desc" [src]="
-  '/api/search?maxPrice=' + (query_maxPrice < 801 ? query_maxPrice : 0) +
-  '&query=' + query_query +
-  (query_city.length ? '&cities[]=' + query_city.join('&cities[]=') : '') +
-  (query_type.length ? '&types[]=' + query_type.join('&types[]=') : '') +
-  '&sort=' + query_sort
-">
-          <template type="amp-mustache">
-            <span class="travel-filters-results-text">
-              {{stats.resultCount}}
-              <span class="sm-hide xs-hide md-hide">Tours & Activities Found</span>
-              <span class="lg-hide">Results</span>
-            </span>
-          </template>
+          '/api/search?maxPrice=' + (query_maxPrice < 801 ? query_maxPrice : 0) +
+          '&query=' + query_query +
+          (query_city.length ? '&cities[]=' + query_city.join('&cities[]=') : '') +
+          (query_type.length ? '&types[]=' + query_type.join('&types[]=') : '') +
+          '&sort=' + query_sort
+        ">
+
         </amp-list>
       </div>
     </div>
@@ -321,9 +300,7 @@
   (query_type.length ? '&types[]=' + query_type.join('&types[]=') : '') +
   '&sort=' + query_sort
 ">
-        <template type="amp-mustache">
-          Average Price for activites in {{stats.location}} is between ${{stats.price.average.min}} and ${{stats.price.average.max}}.
-        </template>
+
       </amp-list>
     </div>
   </div>
@@ -527,23 +504,7 @@
               fields_city_edited: true
             })
         " [selected]="fields_city">
-      <ul class="list-reset">
-          {{#stats.cities}}
-            <!--
-              "The attribute 'option' may not appear in tag 'div'."
-              see: https://github.com/ampproject/amphtml/pull/9585
-            -->
-            {{#isSelected}}<li option="{{name}}" selected="">{{/isSelected}}
-            {{^isSelected}}</li><li option="{{name}}">{{/isSelected}}
-              <span>
-                <div class="travel-city-selector-img">
-                  <amp-img class="circle" layout="flex-item" src="/img/travel/city/{{img}}.jpg"></amp-img>
-                </div>
-                {{name}}
-              </span>
-            </li>
-          {{/stats.cities}}
-        </ul>
+
       </amp-selector>
   </template>
 </amp-list>

@@ -48,7 +48,9 @@ def villaListView(request):
         fromdate = str(request.GET['fromdate'])
         todate = str(request.GET['todate'])
         villaCategory = request.GET['villaCategory']
-        query = 'SELECT * FROM public.get_villas({},{},{},{},{})'.format(id,status,fromdate,todate,villaCategory)
+        minPrice = request.GET['minPrice']
+        maxPrice = request.GET['maxPrice']
+        query = 'SELECT * FROM public.get_villas({},{},{},{},{},{},{})'.format(id,status,fromdate,todate,villaCategory,minPrice,maxPrice)
         print(query)
         # with connection.cursor() as cursor:
         #     villa = cursor.callproc('public.getfoo', [id])

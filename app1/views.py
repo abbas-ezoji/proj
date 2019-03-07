@@ -15,10 +15,10 @@ def index(request):
                'hotel_list': hotel_list,
                'villa_list': villa_list
                }
-    return render(request, 'travel.amp.html', context)
+    return render(request, 'index.html', context)
 
 def travel(request):
-    return render(request, 'travel.amp.html')
+    return render(request, 'travel-results.amp.html')
 
 # Restframework
 @csrf_exempt

@@ -98,6 +98,7 @@ class villaGalaryFilter(filters.FilterSet):
         model =  models.Pictures
         fields = ('villaid',)
 
+@permission_classes([AllowAny, ])
 class getPictureGalaryByVillaID(generics.ListAPIView):
     queryset = models.Pictures.objects.all()
     serializer_class = serializers.TodoSerializerPictures

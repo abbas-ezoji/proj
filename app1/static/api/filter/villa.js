@@ -15,6 +15,46 @@ function getVillaDetails(villaID){
                     divDetails.setAttribute('class','tabs_framed styled widget-stats')
                     divDetails.setAttribute('id','divDetails'.concat(villaID))
                     villaCard.appendChild(divDetails)
+                        tab_ul = document.createElement('ul')
+                        tab_ul.setAttribute('class','tabs clearfix tab_id1 bookmarks2 active_bookmark1')
+                        divDetails.appendChild(tab_ul)
+                            tab_li = document.createElement('li')
+                            tab_li.setAttribute('class','first active')
+                            tab_ul.appendChild(tab_li)
+                                tab_li_a = document.createElement('a')
+                                tab_li_a.setAttribute('style','outline: none;')
+                                tab_li_a.setAttribute('hidefocus','true')
+                                tab_li_a.setAttribute('data-toggle','tab')
+                                tab_li_a.setAttribute('href','#diagramDivDetails'.concat(villaID))
+                                tab_li_a.textContent = 'اطلاعات ویلا'
+                                tab_li.appendChild(tab_li_a)
+
+                            tab_li2 = document.createElement('li')
+                            tab_li2.setAttribute('class','last')
+                            tab_ul.appendChild(tab_li2)
+                                tab_li_a2 = document.createElement('a')
+                                tab_li_a2.setAttribute('style','outline: none;')
+                                tab_li_a2.setAttribute('hidefocus','true')
+                                tab_li_a2.setAttribute('data-toggle','tab')
+                                tab_li_a2.setAttribute('href','#input'.concat(villaID))
+                                tab_li_a2.textContent = 'رزرو'
+                                tab_li.appendChild(tab_li_a2)
+
+                        tab_content2 = document.createElement('div')
+                        tab_content2.setAttribute('class','tab-content boxed clearfix')
+                        divDetails.appendChild(tab_content2)
+                            tab_pane_diagram2 = document.createElement('div')
+                            tab_pane_diagram2.setAttribute('class','tab-pane fade active in')
+                            tab_pane_diagram2.setAttribute('id','input'.concat(villaID))
+                            tab_content2.appendChild(tab_pane_diagram2)
+                              tab_pane_active2 = document.createElement('div')
+                              tab_pane_active2.setAttribute('class','tab-pane fade')
+                              tab_pane_diagram2.appendChild(tab_pane_active2)
+                                tab_pane_diagram_h6_2 = document.createElement('h6')
+                                tab_pane_diagram_h6_2.textContent = 'رزور'
+                                tab_pane_active2.appendChild(tab_pane_diagram_h6_2)
+
+
                         tab_content = document.createElement('div')
                         tab_content.setAttribute('class','tab-content boxed clearfix')
                         divDetails.appendChild(tab_content)
@@ -22,14 +62,19 @@ function getVillaDetails(villaID){
                             tab_pane_diagram.setAttribute('class','tab-pane fade active in')
                             tab_pane_diagram.setAttribute('id','diagramDivDetails'.concat(villaID))
                             tab_content.appendChild(tab_pane_diagram)
+
+                              tab_pane_active = document.createElement('div')
+                              tab_pane_active.setAttribute('class','tab-pane fade active in')
+                              tab_pane_diagram.appendChild(tab_pane_active)
+
                                 tab_pane_diagram_h6 = document.createElement('h6')
                                 tab_pane_diagram_h6.textContent = 'نمودار'
-                                tab_pane_diagram.appendChild(tab_pane_diagram_h6)
+                                tab_pane_active.appendChild(tab_pane_diagram_h6)
 
                                 tab_pane_diagram_donutchart = document.createElement('div')
                                 tab_pane_diagram_donutchart.setAttribute('class','donutchart')
                                 tab_pane_diagram_donutchart.setAttribute('id','donutchartDivDetails'.concat(villaID))
-                                tab_pane_diagram.appendChild(tab_pane_diagram_donutchart)
+                                tab_pane_active.appendChild(tab_pane_diagram_donutchart)
                                     donutchart_div_style = document.createElement('div')
                                     donutchart_div_style.setAttribute('style','position: relative;')
                                     tab_pane_diagram_donutchart.appendChild(donutchart_div_style)
@@ -93,6 +138,65 @@ function getVillaDetails(villaID){
                                                         donutchart_div_path3.setAttribute('stroke-width',"1")
                                                         donutchart_div_path3.setAttribute('fill',"#4daf7b")
                                                         donutchart_div_g3.appendChild(donutchart_div_path3)
+
+                                                donutchart_div_aria_table = document.createElement('div')
+                                                donutchart_div_aria_table.setAttribute('aria-label',"A tabular representation of the data in the chart.")
+                                                donutchart_div_aria_table.setAttribute('style',"position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;")
+                                                donutchart_div_aria.appendChild(donutchart_div_aria_table)
+                                                    donutchart_table = document.createElement('table')
+                                                    donutchart_div_aria_table.appendChild(donutchart_table)
+                                                        donutchart_table_thead = document.createElement('thead')
+                                                        donutchart_table.appendChild(donutchart_table_thead)
+                                                            donutchart_table_thead_tr = document.createElement('tr')
+                                                            donutchart_table_thead.appendChild(donutchart_table_thead_tr)
+                                                                donutchart_table_thead_tr_th0 = document.createElement('th')
+                                                                donutchart_table_thead_tr_th0.textContent = 'نظرات'
+                                                                donutchart_table_thead_tr.appendChild(donutchart_table_thead_tr_th0)
+
+                                                                donutchart_table_thead_tr_th1 = document.createElement('th')
+                                                                donutchart_table_thead_tr_th1.textContent = 'کیفیت'
+                                                                donutchart_table_thead_tr.appendChild(donutchart_table_thead_tr_th1)
+                                                        donutchart_table_tbody = document.createElement('tbody')
+                                                        donutchart_table.appendChild(donutchart_table_tbody)
+                                                            donutchart_table_tbody_tr_good = document.createElement('tr')
+                                                            donutchart_table_tbody.appendChild(donutchart_table_tbody_tr_good)
+                                                                donutchart_table_tbody_tr_td0_good = document.createElement('td')
+                                                                donutchart_table_tbody_tr_td0_good.textContent = 'خوب'
+                                                                donutchart_table_tbody_tr_good.appendChild(donutchart_table_tbody_tr_td0_good)
+
+                                                                donutchart_table_tbody_tr_td1_good = document.createElement('td')
+                                                                donutchart_table_tbody_tr_td1_good.textContent = '1,100'
+                                                                donutchart_table_tbody_tr_good.appendChild(donutchart_table_tbody_tr_td1_good)
+
+                                                            donutchart_table_tbody_tr_bad = document.createElement('tr')
+                                                            donutchart_table_tbody.appendChild(donutchart_table_tbody_tr_bad)
+                                                                donutchart_table_tbody_tr_td0_bad = document.createElement('td')
+                                                                donutchart_table_tbody_tr_td0_bad.textContent = 'بد'
+                                                                donutchart_table_tbody_tr_bad.appendChild(donutchart_table_tbody_tr_td0_bad)
+
+                                                                donutchart_table_tbody_tr_td1_bad = document.createElement('td')
+                                                                donutchart_table_tbody_tr_td1_bad.textContent = '460'
+                                                                donutchart_table_tbody_tr_bad.appendChild(donutchart_table_tbody_tr_td1_bad)
+
+                                                            donutchart_table_tbody_tr_mid = document.createElement('tr')
+                                                            donutchart_table_tbody.appendChild(donutchart_table_tbody_tr_mid)
+                                                                donutchart_table_tbody_tr_td0_mid = document.createElement('td')
+                                                                donutchart_table_tbody_tr_td0_mid.textContent = 'متوسط'
+                                                                donutchart_table_tbody_tr_bad.appendChild(donutchart_table_tbody_tr_td0_mid)
+
+                                                                donutchart_table_tbody_tr_td1_mid = document.createElement('td')
+                                                                donutchart_table_tbody_tr_td1_mid.textContent = '340'
+                                                                donutchart_table_tbody_tr_bad.appendChild(donutchart_table_tbody_tr_td1_mid)
+
+                                                            donutchart_table_tbody_tr_other = document.createElement('tr')
+                                                            donutchart_table_tbody.appendChild(donutchart_table_tbody_tr_other)
+                                                                donutchart_table_tbody_tr_td0_other = document.createElement('td')
+                                                                donutchart_table_tbody_tr_td0_other.textContent = 'سایر'
+                                                                donutchart_table_tbody_tr_bad.appendChild(donutchart_table_tbody_tr_td0_other)
+
+                                                                donutchart_table_tbody_tr_td1_other = document.createElement('td')
+                                                                donutchart_table_tbody_tr_td1_other.textContent = '100'
+                                                                donutchart_table_tbody_tr_bad.appendChild(donutchart_table_tbody_tr_td1_other)
 
 
                                 stats_links = document.createElement('div')

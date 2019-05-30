@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app1',
     'api',
     'djmoney',
+    'corsheaders',
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken', # new!
@@ -56,6 +57,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'proj.urls'
@@ -192,3 +197,11 @@ STATIC_ROOT = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/villa.html'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+#CORS_ORIGIN_ALLOW_ALL = False
+
+#CORS_ORIGIN_WHITELIST = (
+#    'http//:localhost:8000',
+#)

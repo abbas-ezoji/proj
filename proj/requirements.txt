@@ -9,7 +9,7 @@ django-filter==2.1.0
 django-jalali-date==0.2.9
 django-money==0.14.4
 django-rest-auth==0.9.3
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 et-xmlfile==1.0.1
 ez-setup==0.9
